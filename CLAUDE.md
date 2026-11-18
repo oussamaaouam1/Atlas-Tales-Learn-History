@@ -26,11 +26,21 @@ If the two files disagree, stop and ask; do not guess.
 - **Placeholders** (design tokens, map art, fixture stories) live in files named `placeholder-*` so they are easy to replace.
 - Ask before adding a dependency that is not listed in section 2 of `BUILD_GUIDE.md`.
 
-## Commands (fill in during Phase 0)
-- `pnpm start`: Expo dev server
-- `pnpm typecheck`: TypeScript check
-- `pnpm test`: unit tests
+## Commands
+- `pnpm start`: Expo dev server (for the dev client build)
+- `pnpm android` / `pnpm ios`: local native build and run (iOS needs macOS; use EAS on Windows)
+- `pnpm typecheck`: TypeScript check (app + `convex/`)
+- `pnpm test`: all unit tests (`test:app` = Jest/jest-expo for `src/` and `__tests__/`; `test:server` = Vitest for `convex/` (convex-test, edge runtime) and `scripts/`)
 - `pnpm convex:dev`: Convex dev
-- `pnpm story:fixture <slug>`: generate a fixture story
-- `pnpm story:validate <folder>`: validate a story folder
-- `pnpm story:upload <folder> [--release YYYY-MM-DD]`: upload a story
+- `pnpm story:fixture <slug>`: generate a fixture story (Phase 2)
+- `pnpm story:validate <folder>`: validate a story folder (Phase 2)
+- `pnpm story:upload <folder> [--release YYYY-MM-DD]`: upload a story (Phase 2)
+- EAS: `npx eas-cli@latest build --profile development --platform android`
+
+## Tooling notes
+- Expo SDK 58 (React Native 0.88, React 19.3, TypeScript 6). Add Expo/RN packages with `npx expo install`, never plain `pnpm add`, so versions match the SDK.
+- pnpm 12 with `nodeLinker: hoisted` in `pnpm-workspace.yaml` (pnpm 12 ignores `.npmrc` for this). Approve package build scripts with `pnpm approve-builds <pkg>`.
+- TypeScript 6 does not auto-load `@types/*`: add test-runner types via `compilerOptions.types`.
+- Run `pnpm typecheck` and `pnpm test` after every change, not only at the end of a phase.
+- RevenueCat and AdMob are integrated last (owner decision), after all other features.
+- Config lives in `app.config.ts`; `ios/` and `android/` are generated (Continuous Native Generation) and gitignored.
