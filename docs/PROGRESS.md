@@ -24,3 +24,14 @@
 - Added `CONVEX_ADMIN_KEY` to the env list (admin upsert for the upload script).
 - Development runs in **Expo Go** (owner choice, 2026-11-18): `pnpm start` = `expo start --go`. Phase 0 "runs on device" is checked in Expo Go; the custom dev build (EAS `development` profile, already configured) is only needed when RevenueCat/AdMob are added at the end. Background playback and lock-screen controls can only be fully tested in a dev build.
 - EAS project `@motkan/atlas-tales` linked (ID in `app.config.ts`).
+
+**Phase 0 acceptance (2026-11-18)**
+| Criterion | Result | How verified |
+|---|---|---|
+| App runs on Android | PASS | Expo Go on owner's Android phone shows "Convex: connected (atlas-tales)" |
+| App runs on iOS | PENDING | Waiting for Apple Developer approval |
+| Convex connected | PASS | Cloud dev deployment answers `health:ping` from the phone and from the CLI |
+| `pnpm typecheck` | PASS | app + convex |
+| `pnpm test` | PASS | Jest 1/1, Vitest 1/1 |
+
+Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) because the home router's DNS fails to resolve `*.convex.cloud`.
