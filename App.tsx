@@ -1,42 +1,62 @@
-import { ConvexProvider, useQuery } from 'convex/react';
+import { ConvexProvider } from 'convex/react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { api } from './convex/_generated/api';
+import { bootstrap, type BootState } from './src/bootstrap';
+import { RootNavigator } from './src/navigation/RootNavigator';
+import { LanguageProvider } from './src/providers/LanguageProvider';
+import { SessionProvider } from './src/providers/SessionProvider';
 import { convexClient } from './src/services/convex';
-
-// Phase 0 shell: proves the app runs and reaches Convex. Replaced by navigation in Phase 1.
-
-export function ConvexStatus() {
-  const ping = useQuery(api.health.ping);
-  if (ping === undefined) return <Text style={styles.status}>Convex: connecting…</Text>;
-  return <Text style={styles.status}>Convex: connected ({ping.service})</Text>;
-}
+import { useAppFonts } from './src/theme/fonts';
+import { tokens } from './src/theme/tokens';
 
 export default function App() {
+  const fontsReady = useAppFonts();
+  const [boot, setBoot] = useState<BootState | null>(null);
+
+  useEffect(() => {
+    void bootstrap().then((state) => {
+      if (state) setBoot(state);
+    });
+  }, []);
+
+  if (!convexClient) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.error}>Atlas Tales: EXPO_PUBLIC_CONVEX_URL is not set.</Text>
+      </View>
+    );
+  }
+
+  if (!fontsReady || !boot) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color={tokens.color.primary} />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Atlas Tales</Text>
-      {convexClient ? (
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
         <ConvexProvider client={convexClient}>
-          <ConvexStatus />
+          <LanguageProvider initialLanguage={boot.language}>
+            <SessionProvider initialAgeBand={boot.ageBand}>
+              <RootNavigator onboardingComplete={boot.onboardingComplete} />
+              <StatusBar style="dark" />
+            </SessionProvider>
+          </LanguageProvider>
         </ConvexProvider>
-      ) : (
-        <Text style={styles.status}>Convex: EXPO_PUBLIC_CONVEX_URL is not set</Text>
-      )}
-      <StatusBar style="auto" />
-    </View>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-  },
-  title: { fontSize: 28, fontWeight: '700', marginBottom: 12 },
-  status: { fontSize: 16, textAlign: 'center' },
+  root: { flex: 1 },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: tokens.color.background },
+  error: { color: tokens.color.danger, textAlign: 'center', paddingHorizontal: tokens.spacing.lg },
 });

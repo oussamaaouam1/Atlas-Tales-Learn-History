@@ -9,6 +9,8 @@
  */
 
 import type * as health from "../health.js";
+import type * as installs from "../installs.js";
+import type * as lib_installAuth from "../lib/installAuth.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +20,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   health: typeof health;
+  installs: typeof installs;
+  "lib/installAuth": typeof lib_installAuth;
 }>;
 
 /**

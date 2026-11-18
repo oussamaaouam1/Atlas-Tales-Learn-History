@@ -1,4 +1,5 @@
 import type { ExpoConfig } from 'expo/config';
+import { version } from './package.json';
 
 // EAS project ID: paste the ID printed by `eas init` here (it is not a secret).
 const EAS_PROJECT_ID: string = 'feb6768c-fb2b-43ad-bb15-d43bf4a45f7e';
@@ -10,7 +11,7 @@ const config: ExpoConfig = {
   owner: 'motkan',
   slug: 'atlas-tales',
   scheme: 'atlastales',
-  version: '0.1.0',
+  version,
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',

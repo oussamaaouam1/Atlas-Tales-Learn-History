@@ -1,0 +1,56 @@
+{
+  "common": {
+    "appName": "Atlas Tales",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "loading": "Cargando…",
+    "placeholder": "Esta pantalla es provisional. Se construirá en una fase posterior."
+  },
+  "splash": {
+    "tagline": "Historias reales en un mapa mágico"
+  },
+  "age": {
+    "title": "¿En qué año naciste?",
+    "subtitle": "Elige tu año de nacimiento.",
+    "skip": "Prefiero no decirlo"
+  },
+  "language": {
+    "title": "Elige tu idioma",
+    "subtitle": "Podrás cambiarlo más tarde en los ajustes."
+  },
+  "languageSwitch": {
+    "title": "¿Reiniciar la aplicación?",
+    "message": "Para cambiar la dirección de lectura, la aplicación debe reiniciarse.",
+    "confirm": "Reiniciar"
+  },
+  "screens": {
+    "map": "Mapa del mundo",
+    "continent": "Continente",
+    "storyCard": "Historia",
+    "reader": "Lector",
+    "chapterBreak": "Fin del capítulo",
+    "end": "Fin",
+    "passport": "Pasaporte",
+    "settings": "Ajustes",
+    "paywall": "Atlas Tales Pro"
+  },
+  "map": {
+    "openContinent": "Abrir África",
+    "openStory": "Abrir una historia",
+    "openPassport": "Pasaporte",
+    "openSettings": "Ajustes"
+  },
+  "story": {
+    "start": "Empezar la historia",
+    "nextChapter": "Siguiente capítulo",
+    "finish": "Terminar",
+    "backToMap": "Volver al mapa",
+    "goPro": "Ver Pro"
+  },
+  "settings": {
+    "language": "Idioma",
+    "installId": "ID de instalación"
+  }
+}

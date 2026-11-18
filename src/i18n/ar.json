@@ -1,0 +1,56 @@
+{
+  "common": {
+    "appName": "Atlas Tales",
+    "continue": "متابعة",
+    "back": "رجوع",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل…",
+    "placeholder": "هذه الشاشة مؤقتة، وسيتم بناؤها في مرحلة لاحقة."
+  },
+  "splash": {
+    "tagline": "قصص حقيقية على خريطة سحرية"
+  },
+  "age": {
+    "title": "ما سنة ميلادك؟",
+    "subtitle": "اختر سنة ميلادك.",
+    "skip": "أفضّل عدم الإجابة"
+  },
+  "language": {
+    "title": "اختر لغتك",
+    "subtitle": "يمكنك تغييرها لاحقًا من الإعدادات."
+  },
+  "languageSwitch": {
+    "title": "إعادة تشغيل التطبيق؟",
+    "message": "لتغيير اتجاه القراءة، يجب إعادة تشغيل التطبيق.",
+    "confirm": "إعادة التشغيل"
+  },
+  "screens": {
+    "map": "خريطة العالم",
+    "continent": "القارة",
+    "storyCard": "القصة",
+    "reader": "القارئ",
+    "chapterBreak": "نهاية الفصل",
+    "end": "النهاية",
+    "passport": "جواز السفر",
+    "settings": "الإعدادات",
+    "paywall": "Atlas Tales Pro"
+  },
+  "map": {
+    "openContinent": "افتح أفريقيا",
+    "openStory": "افتح قصة",
+    "openPassport": "جواز السفر",
+    "openSettings": "الإعدادات"
+  },
+  "story": {
+    "start": "ابدأ القصة",
+    "nextChapter": "الفصل التالي",
+    "finish": "إنهاء",
+    "backToMap": "العودة إلى الخريطة",
+    "goPro": "اكتشف Pro"
+  },
+  "settings": {
+    "language": "اللغة",
+    "installId": "معرّف التثبيت"
+  }
+}

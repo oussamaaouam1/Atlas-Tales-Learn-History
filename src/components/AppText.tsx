@@ -1,0 +1,46 @@
+import { StyleSheet, Text, type TextProps, type TextStyle } from 'react-native';
+
+import { useLanguage } from '../providers/LanguageProvider';
+import { tokens } from '../theme/tokens';
+
+export type TextVariant = 'caption' | 'body' | 'bodyLarge' | 'title' | 'display';
+
+export interface AppTextProps extends TextProps {
+  variant?: TextVariant;
+  bold?: boolean;
+  color?: keyof typeof tokens.color;
+  /** 'auto' follows the layout direction (start-aligned). Never left/right. */
+  align?: 'auto' | 'center';
+}
+
+/** All text in the app goes through AppText so the right font is used for each script. */
+export function AppText({
+  variant = 'body',
+  bold = false,
+  color = 'text',
+  align = 'auto',
+  style,
+  ...rest
+}: AppTextProps) {
+  const { language } = useLanguage();
+  const family =
+    language === 'ar'
+      ? bold
+        ? tokens.fontFamily.arabicBold
+        : tokens.fontFamily.arabicRegular
+      : bold
+        ? tokens.fontFamily.latinBold
+        : tokens.fontFamily.latinRegular;
+
+  const textStyle: TextStyle = {
+    fontSize: tokens.fontSize[variant],
+    lineHeight: tokens.lineHeight[variant],
+    color: tokens.color[color],
+    textAlign: align,
+    writingDirection: language === 'ar' ? 'rtl' : 'ltr',
+    // Custom fonts carry their own weight; only set fontWeight on the system font.
+    ...(family ? { fontFamily: family } : { fontWeight: bold ? tokens.fontWeight.bold : tokens.fontWeight.regular }),
+  };
+
+  return <Text {...rest} style={StyleSheet.compose(textStyle, style)} />;
+}
