@@ -1,12 +1,13 @@
 import type { ExpoConfig } from 'expo/config';
 
 // EAS project ID: paste the ID printed by `eas init` here (it is not a secret).
-const EAS_PROJECT_ID: string = '';
+const EAS_PROJECT_ID: string = 'feb6768c-fb2b-43ad-bb15-d43bf4a45f7e';
 
 const BUNDLE_ID = 'com.motkan.atlastales';
 
 const config: ExpoConfig = {
   name: 'Atlas Tales',
+  owner: 'motkan',
   slug: 'atlas-tales',
   scheme: 'atlastales',
   version: '0.1.0',
