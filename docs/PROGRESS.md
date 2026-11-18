@@ -13,7 +13,7 @@
 - `.env.example`, `.gitignore` (env files, generated native folders, story media), folder structure from §3.
 
 **Open**
-- Link Convex to the owner's cloud account (`npx convex login`, then `pnpm convex:dev`) — needed for the app on a real phone.
+- ~~Link Convex~~ Done: project `atlas-tales-learn-history` (team ossama-aouam), cloud dev deployment `effervescent-oriole-223`; `health:ping` verified on cloud.
 - `eas init` (owner's Expo account), then paste the project ID into `app.config.ts` and run the first Android dev build.
 - iOS dev build: pending Apple Developer approval.
 - R2 bucket: needed in Phase 2. RevenueCat/AdMob/Resend: later.

@@ -44,3 +44,17 @@ If the two files disagree, stop and ask; do not guess.
 - Run `pnpm typecheck` and `pnpm test` after every change, not only at the end of a phase.
 - RevenueCat and AdMob are integrated last (owner decision), after all other features.
 - Config lives in `app.config.ts`; `ios/` and `android/` are generated (Continuous Native Generation) and gitignored.
+
+<!-- convex-ai-start -->
+
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read
+`convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
+
+Convex agent skills for common tasks can be installed by running
+`npx convex ai-files install`.
+
+<!-- convex-ai-end -->
