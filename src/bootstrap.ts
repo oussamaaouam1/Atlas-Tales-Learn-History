@@ -24,8 +24,9 @@ export async function bootstrap(): Promise<BootState | null> {
   if (isRTL(language) !== I18nManager.isRTL) {
     // Try once per target direction; never loop if the platform refuses (e.g. a host app overriding RTL).
     const target = isRTL(language) ? 'rtl' : 'ltr';
-    if ((await loadRtlSyncAttempt()) !== target) {
-      await saveRtlSyncAttempt(target);
+    // Versioned (":v2") so that a config fix such as extra.supportsRTL gets one fresh attempt.
+    if ((await loadRtlSyncAttempt()) !== `${target}:v2`) {
+      await saveRtlSyncAttempt(`${target}:v2`);
       applyLayoutDirection(language);
       await reloadApp();
       return null;

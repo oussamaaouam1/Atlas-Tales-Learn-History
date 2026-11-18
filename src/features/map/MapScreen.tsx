@@ -15,7 +15,7 @@ export function MapScreen({ navigation }: RootScreenProps<'Map'>) {
   const forward = <DirectionalIcon direction="forward" color={tokens.color.primary} />;
 
   return (
-    <Screen scroll>
+    <Screen scroll narrow>
       <View style={styles.header}>
         <AppText variant="display" bold>
           {t('common.appName')}

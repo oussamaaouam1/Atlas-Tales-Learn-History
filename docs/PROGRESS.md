@@ -35,3 +35,19 @@
 | `pnpm test` | PASS | Jest 1/1, Vitest 1/1 |
 
 Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) because the home router's DNS fails to resolve `*.convex.cloud`.
+
+## 2026-11-18 · Phase 1 (Foundations) — in progress
+
+**Decision: whole app in landscape** (owner, with reference screenshots of a library and a player).
+- `app.config.ts` orientation `landscape`; BUILD_GUIDE §1, §7.2 (reader layout), §19.3 (16:9 screen art) and STORY_SPEC §9 (16:9 images, calm lower third) updated.
+- Reader target layout (Phase 4): full-screen image, text card over the bottom, round corner buttons, play/pause top centre, prev/next arrows on the sides.
+- Screens protect all four safe-area edges (the notch is on a side in landscape).
+
+**Fixes**
+- Expo Go ignores the native RTL plugin; added `extra.supportsRTL` so `forceRTL` works in Expo Go.
+- R2: bucket name had a trailing space (fixed in `.env.local`); Node on this PC needs IPv4 first for `r2.dev` (`--dns-result-order=ipv4first`), to apply in the Phase 2 upload script.
+- Schema deviation: `installs.installTokenHash` (SHA-256) instead of the raw `installToken` from BUILD_GUIDE §5.
+
+**Open**
+- Owner to verify on phone: Arabic RTL flip, install row in Convex (phone Private DNS must be `dns.google`).
+- Settings has no parent gate yet (Phase 7).

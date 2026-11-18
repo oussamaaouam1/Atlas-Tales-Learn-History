@@ -34,8 +34,10 @@ export function LanguagePicker({ selected, onSelect }: LanguagePickerProps) {
 }
 
 const styles = StyleSheet.create({
-  list: { gap: tokens.spacing.sm },
+  list: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.sm },
   option: {
+    flexBasis: '48%',
+    flexGrow: 1,
     paddingVertical: tokens.spacing.md,
     borderRadius: tokens.radius.md,
     backgroundColor: tokens.color.surface,

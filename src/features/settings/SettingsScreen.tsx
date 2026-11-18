@@ -11,7 +11,7 @@ export function SettingsScreen() {
   const { ownerKey, status } = useSession();
 
   return (
-    <Screen scroll edges={['bottom']}>
+    <Screen scroll narrow edges={['bottom', 'left', 'right']}>
       <AppText variant="title" bold>
         {t('settings.language')}
       </AppText>

@@ -18,7 +18,7 @@ export function LanguageScreen({ navigation }: RootScreenProps<'Language'>) {
   };
 
   return (
-    <Screen centered scroll>
+    <Screen centered scroll narrow>
       <AppText variant="title" bold align="center">
         {t('language.title')}
       </AppText>

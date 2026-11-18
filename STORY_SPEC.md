@@ -196,6 +196,8 @@ Field notes:
 | `detail` | Close-up of an object: coin, letter, sword, map, tool |
 | `map` | Route or region map (no modern borders) |
 
+**Format:** every `scene`, `plate` and `map` image is **landscape 16:9** (the app is landscape and shows images full screen). Keep the main subject in the centre and the **bottom third calm**: the follow-along text card covers it. Phones crop the sides slightly (about 19.5:9) and iPad crops top and bottom (about 4:3).
+
 **Shot types:** vary across consecutive images: `wide` → `medium` → `close` → `detail`.
 
 **Prompt slots (fixed order):**
@@ -208,7 +210,7 @@ Field notes:
 + [ACTION / POSE]
 + [EMOTION]          ← follows the page beat
 + [SHOT]             ← wide / medium / close / detail
-+ [CONSTRAINTS]      ← no text, no letters, no modern flags or borders, no gore; transparent background for cutouts
++ [CONSTRAINTS]      ← landscape 16:9, calm lower third, subject centred; no text, no letters, no modern flags or borders, no gore; transparent background for cutouts
 ```
 
 **Consistency:** never paraphrase a character's appearance; restate the setting each time; never depict a figure with `depict: false`.

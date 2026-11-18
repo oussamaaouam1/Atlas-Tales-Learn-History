@@ -15,7 +15,7 @@ A family app (all ages) where a **colourful illustrated world map** is the home 
 | Item | Value |
 |---|---|
 | Platforms | iOS (iPhone, iPad) and Android |
-| Orientation | Portrait (iPad may allow landscape later) |
+| Orientation | **Landscape** on phones and iPad (owner decision, 18 Nov 2026: full-screen story images; the equirectangular world map is 2:1 and fills a landscape screen) |
 | Languages | Arabic (right-to-left), French, Spanish, English: UI, text and narration |
 | Story format | 32–40 pages, 3 chapters, 40–60 images, per-page audio per language, 12–20 minutes |
 | Monetization | All stories free with gentle ads; **Pro** ($2.99/month, $19.99/year) = no ads + early access + offline downloads + background playback + sleep timer |
@@ -260,6 +260,7 @@ Splash ──► AgeScreen (first launch only) ──► LanguageScreen (first l
 
 ### 7.2 Reader
 
+- **Layout (landscape):** the story image fills the screen edge to edge; the follow-along text sits in a rounded, semi-transparent card over the bottom of the image; round buttons in the corners (home, page counter, text size, music/audio, chapters grid); narration play/pause at the top centre; previous/next arrows on the side edges (mirrored in Arabic). All controls are code components over the image (section 19).
 - Pages come from `storyPages`; images from `storyImages` ordered by `page` then `order`.
 - **Audio:** one file per page per language. When a page's audio ends, go to the next page automatically (autoplay mode) or wait (manual mode).
 - **Image sequencer:** within a page, show each image for its `durationSec`, crossfade between them, apply a slow pan-and-zoom (Ken Burns) with Reanimated; `plate + cutout` compositions animate with light parallax.
@@ -508,6 +509,7 @@ Why: code components handle 4 languages, right-to-left, pressed/disabled/loading
 | Consistency | Same palette and style bible for every asset; keep the prompt with the asset |
 | Edges | Check halos on light and dark backgrounds before export |
 | Map art | Equirectangular, same projection and pixel size as the placeholder it replaces |
+| Screen art | Landscape. Story images and full-screen backgrounds are 16:9; keep the bottom ~30% calm (the text card covers it) and important subjects inside the centre safe zone (phones crop to ~19.5:9, iPad to ~4:3) |
 | Naming | kebab-case, `<group>-<name>[-<variant>]@<scale>.webp`, e.g. `guide-happy@3x.webp`, `frame-card-parchment@2x.webp` |
 
 ### 19.4 Folders and manifest

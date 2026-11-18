@@ -26,7 +26,7 @@ export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
   };
 
   return (
-    <SafeAreaView style={styles.root}>
+    <SafeAreaView style={styles.root} edges={['top', 'bottom', 'left', 'right']}>
       <View style={styles.header}>
         <AppText variant="title" bold align="center">
           {t('age.title')}
@@ -38,7 +38,7 @@ export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
       <FlatList
         data={years}
         keyExtractor={(year) => String(year)}
-        numColumns={3}
+        numColumns={6}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
@@ -63,17 +63,17 @@ export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: tokens.color.background },
-  header: { paddingHorizontal: tokens.spacing.lg, paddingTop: tokens.spacing.xl, gap: tokens.spacing.sm },
-  list: { padding: tokens.spacing.lg, gap: tokens.spacing.sm },
+  header: { paddingHorizontal: tokens.spacing.lg, paddingTop: tokens.spacing.md, gap: tokens.spacing.xs },
+  list: { paddingHorizontal: tokens.spacing.lg, paddingVertical: tokens.spacing.md, gap: tokens.spacing.sm },
   row: { gap: tokens.spacing.sm },
   year: {
     flex: 1,
-    paddingVertical: tokens.spacing.md,
+    paddingVertical: tokens.spacing.sm,
     borderRadius: tokens.radius.md,
     backgroundColor: tokens.color.surface,
     borderWidth: 1,
     borderColor: tokens.color.border,
   },
   yearPressed: { backgroundColor: tokens.color.surfaceMuted },
-  footer: { paddingHorizontal: tokens.spacing.lg, paddingBottom: tokens.spacing.md },
+  footer: { paddingHorizontal: tokens.spacing.lg, paddingBottom: tokens.spacing.xs, alignItems: 'center' },
 });

@@ -9,7 +9,7 @@ import { Screen } from './Screen';
 export function PlaceholderScreen({ title, children }: { title: string; children?: ReactNode }) {
   const { t } = useLanguage();
   return (
-    <Screen scroll edges={['bottom']}>
+    <Screen scroll narrow edges={['bottom', 'left', 'right']}>
       <AppText variant="title" bold>
         {title}
       </AppText>

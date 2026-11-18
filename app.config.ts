@@ -12,7 +12,7 @@ const config: ExpoConfig = {
   slug: 'atlas-tales',
   scheme: 'atlastales',
   version,
-  orientation: 'portrait',
+  orientation: 'landscape', // owner decision 2026-11-18: whole app landscape (full-screen story images)
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
   ios: {
@@ -51,6 +51,8 @@ const config: ExpoConfig = {
   updates: EAS_PROJECT_ID ? { url: `https://u.expo.dev/${EAS_PROJECT_ID}` } : undefined,
   runtimeVersion: { policy: 'appVersion' },
   extra: {
+    // Expo Go reads RTL support from the manifest, not from the expo-localization plugin.
+    supportsRTL: true,
     eas: EAS_PROJECT_ID ? { projectId: EAS_PROJECT_ID } : undefined,
   },
 };
