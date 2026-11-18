@@ -27,7 +27,8 @@ If the two files disagree, stop and ask; do not guess.
 - Ask before adding a dependency that is not listed in section 2 of `BUILD_GUIDE.md`.
 
 ## Commands
-- `pnpm start`: Expo dev server (for the dev client build)
+- `pnpm start`: Expo dev server for **Expo Go** (owner choice: develop in Expo Go until RevenueCat/AdMob, which need a dev build)
+- `pnpm start:dev`: Expo dev server for the custom dev client build
 - `pnpm android` / `pnpm ios`: local native build and run (iOS needs macOS; use EAS on Windows)
 - `pnpm typecheck`: TypeScript check (app + `convex/`)
 - `pnpm test`: all unit tests (`test:app` = Jest/jest-expo for `src/` and `__tests__/`; `test:server` = Vitest for `convex/` (convex-test, edge runtime) and `scripts/`)

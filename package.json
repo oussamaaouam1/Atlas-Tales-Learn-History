@@ -4,7 +4,7 @@
   "main": "index.ts",
   "private": true,
   "scripts": {
-    "start": "expo start --dev-client",
+    "start": "expo start --go",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "typecheck": "tsc --noEmit && tsc --noEmit -p convex",
@@ -14,7 +14,8 @@
     "convex:dev": "convex dev",
     "story:fixture": "node -e \"console.error('story:fixture is implemented in Phase 2'); process.exit(1)\"",
     "story:validate": "node -e \"console.error('story:validate is implemented in Phase 2'); process.exit(1)\"",
-    "story:upload": "node -e \"console.error('story:upload is implemented in Phase 2'); process.exit(1)\""
+    "story:upload": "node -e \"console.error('story:upload is implemented in Phase 2'); process.exit(1)\"",
+    "start:dev": "expo start --dev-client"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",

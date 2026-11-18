@@ -22,3 +22,5 @@
 - Repo stays in the OneDrive folder (owner choice). If Metro or pnpm misbehave, pause OneDrive sync for this folder first.
 - Phase order follows §12 strictly: 0 → 1 → 2.
 - Added `CONVEX_ADMIN_KEY` to the env list (admin upsert for the upload script).
+- Development runs in **Expo Go** (owner choice, 2026-11-18): `pnpm start` = `expo start --go`. Phase 0 "runs on device" is checked in Expo Go; the custom dev build (EAS `development` profile, already configured) is only needed when RevenueCat/AdMob are added at the end. Background playback and lock-screen controls can only be fully tested in a dev build.
+- EAS project `@motkan/atlas-tales` linked (ID in `app.config.ts`).
