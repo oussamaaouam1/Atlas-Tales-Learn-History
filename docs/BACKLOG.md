@@ -26,3 +26,5 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 18 | 2026-11-19 | Map scrolls horizontally on Android and vertically on iPad — looks bad | done | World adapts to the screen shape (no crop, no scroll); drag only in the zoomed continent view. |
 | 19 | 2026-11-19 | Map: add a little bouncing effect to the continents | done | Staggered gentle hop + soft bounce landing per continent; still with reduce motion. |
 | 20 | 2026-11-19 | Map: story count should be location pins — multiple pins, a different colour per continent | done | Teardrop pin per story (star when new), colour per continent, same-place stories fan out; pins bounce in. Continent-view pins unchanged. |
+| 21 | 2026-11-19 | Age screen guide: waving looks bad; must not have an Arabic face; make it bigger | done | Renaissance explorer-cartographer (near-realistic), smooth 3-frame back-and-forth wave, ~88% of screen height. |
+| 22 | 2026-11-19 | Map: the continent bouncing is a little much — reduce it and make it smooth | done | Half the height (2.5 px) and a slow sine float instead of a bounce. |

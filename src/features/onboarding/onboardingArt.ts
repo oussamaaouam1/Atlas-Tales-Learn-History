@@ -10,11 +10,12 @@ export const splashIcons = [
 ] as const;
 export const SPLASH_ICON_COUNT = splashIcons.length;
 
-/** Andalusian map-maker scholar: waving (Age screen). */
-export const guideMapmaker = {
+/** Renaissance explorer-cartographer: 3-frame wave (Age screen; owner, BACKLOG #21). */
+export const guideExplorer = {
   wave: [
-    require('../../../assets/characters/placeholder-guide-mapmaker-wave-a.webp'),
-    require('../../../assets/characters/placeholder-guide-mapmaker-wave-b.webp'),
+    require('../../../assets/characters/placeholder-guide-explorer-wave-a.webp'),
+    require('../../../assets/characters/placeholder-guide-explorer-wave-b.webp'),
+    require('../../../assets/characters/placeholder-guide-explorer-wave-c.webp'),
   ],
 } as const;
 

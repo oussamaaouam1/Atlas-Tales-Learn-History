@@ -124,8 +124,8 @@ function Compass({ at, size }: { at: Point; size: number }) {
 }
 
 /**
- * A continent that gently hops and lands with a soft bounce, staggered per continent so the map
- * feels alive without everything moving at once (owner, BACKLOG #19). Still with reduce motion.
+ * A continent that gently floats up and settles, staggered per continent so the map feels alive
+ * without everything moving at once (owner, BACKLOG #19, softened in #22). Still with reduce motion.
  */
 function BouncyTile({ index, rect, children }: { index: number; rect: { x: number; y: number; width: number; height: number }; children: ReactNode }) {
   const still = useReducedMotion();
@@ -136,16 +136,16 @@ function BouncyTile({ index, rect, children }: { index: number; rect: { x: numbe
       index * 420,
       withRepeat(
         withSequence(
-          withTiming(1, { duration: 650, easing: Easing.out(Easing.quad) }),
-          withTiming(0, { duration: 950, easing: Easing.bounce }),
-          withTiming(0, { duration: 2600 }),
+          withTiming(1, { duration: 1600, easing: Easing.inOut(Easing.sin) }),
+          withTiming(0, { duration: 1600, easing: Easing.inOut(Easing.sin) }),
+          withTiming(0, { duration: 1400 }),
         ),
         -1,
         false,
       ),
     );
   }, [lift, index, still]);
-  const style = useAnimatedStyle(() => ({ transform: [{ translateY: -lift.value * 5 }] }));
+  const style = useAnimatedStyle(() => ({ transform: [{ translateY: -lift.value * 2.5 }] }));
   return (
     <Animated.View style={[styles.abs, { start: rect.x, top: rect.y, width: rect.width, height: rect.height }, style]}>
       {children}

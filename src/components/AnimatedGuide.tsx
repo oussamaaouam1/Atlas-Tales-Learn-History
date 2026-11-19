@@ -10,13 +10,13 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-const FRAME_MS = 380; // one half of a wave / point
-const GESTURE_SWAPS = 4; // a short burst: a-b-a-b-a
+import { frameDuration, gestureSequence } from './gesture';
+
 const REST_MS = 2600; // calm pause between bursts
 
 interface AnimatedGuideProps {
-  /** Two matching frames of the same pose (e.g. wave-a / wave-b). */
-  frames: readonly [ImageSource, ImageSource];
+  /** Two or more matching frames of the same pose (e.g. wave-a / wave-b / wave-c). */
+  frames: readonly ImageSource[];
   width: number;
   height: number;
   /** Mirror in right-to-left layouts so the character faces the content (default true). */
@@ -31,7 +31,7 @@ interface AnimatedGuideProps {
  */
 export function AnimatedGuide({ frames, width, height, mirrorInRTL = true, accessibilityLabel, style }: AnimatedGuideProps) {
   const still = useReducedMotion();
-  const frame = useGestureFrames(still);
+  const frame = useGestureFrames(frames.length, still);
 
   const breath = useSharedValue(0);
   useEffect(() => {
@@ -56,38 +56,40 @@ export function AnimatedGuide({ frames, width, height, mirrorInRTL = true, acces
       accessibilityLabel={accessibilityLabel}
     >
       <Animated.View style={[StyleSheet.absoluteFill, styles.origin, idle]}>
-        {/* Both frames stay mounted so swapping never flickers while an image decodes. */}
-        <Image source={frames[0]} style={[StyleSheet.absoluteFill, frame === 1 && styles.hidden]} contentFit="contain" accessibilityIgnoresInvertColors />
-        <Image source={frames[1]} style={[StyleSheet.absoluteFill, frame === 0 && styles.hidden]} contentFit="contain" accessibilityIgnoresInvertColors />
+        {/* All frames stay mounted so swapping never flickers while an image decodes. */}
+        {frames.map((source, i) => (
+          <Image key={i} source={source} style={[StyleSheet.absoluteFill, frame !== i && styles.hidden]} contentFit="contain" accessibilityIgnoresInvertColors />
+        ))}
       </Animated.View>
     </View>
   );
 }
 
-/** 0/1 frame index: a burst of swaps, then rest. */
-export function useGestureFrames(still: boolean): 0 | 1 {
-  const [frame, setFrame] = useState<0 | 1>(0);
+/** Current frame index: a gesture burst through the frames, then a calm rest. */
+export function useGestureFrames(count: number, still: boolean): number {
+  const [frame, setFrame] = useState(0);
   useEffect(() => {
-    if (still) {
+    if (still || count < 2) {
       setFrame(0);
       return;
     }
-    let swaps = 0;
+    const sequence = gestureSequence(count);
+    const step = frameDuration(count);
+    let index = 0;
     let timer: ReturnType<typeof setTimeout>;
     const tick = () => {
-      if (swaps < GESTURE_SWAPS) {
-        swaps += 1;
-        setFrame((f) => (f === 0 ? 1 : 0));
-        timer = setTimeout(tick, FRAME_MS);
+      if (index < sequence.length) {
+        setFrame(sequence[index]!);
+        index += 1;
+        timer = setTimeout(tick, step);
       } else {
-        swaps = 0;
-        setFrame(0);
+        index = 0;
         timer = setTimeout(tick, REST_MS);
       }
     };
     timer = setTimeout(tick, 600);
     return () => clearTimeout(timer);
-  }, [still]);
+  }, [count, still]);
   return frame;
 }
 

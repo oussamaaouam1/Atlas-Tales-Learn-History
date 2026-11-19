@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedGuide } from '../../components/AnimatedGuide';
@@ -11,7 +11,7 @@ import { useLanguage } from '../../providers/LanguageProvider';
 import { useSession } from '../../providers/SessionProvider';
 import { tokens } from '../../theme/tokens';
 import { ageBandFromBirthYear, birthYearsAscending, INITIAL_WHEEL_OFFSET } from './ageBand';
-import { guideMapmaker } from './onboardingArt';
+import { guideExplorer } from './onboardingArt';
 import { YearWheel } from './YearWheel';
 
 /**
@@ -25,6 +25,10 @@ export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
   const years = useMemo(() => birthYearsAscending(currentYear), [currentYear]);
   const [year, setYear] = useState(currentYear - INITIAL_WHEEL_OFFSET);
   const [saving, setSaving] = useState(false);
+  // Large guide (owner, BACKLOG #21): most of the screen height, art aspect 1024 × 1180.
+  const { height: screenHeight } = useWindowDimensions();
+  const guideHeight = Math.min(screenHeight * 0.88, 460);
+  const guideWidth = (guideHeight * 1024) / 1180;
 
   const confirm = async () => {
     setSaving(true);
@@ -35,7 +39,7 @@ export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom', 'left', 'right']}>
       <View style={styles.row}>
-        <AnimatedGuide frames={guideMapmaker.wave} width={210} height={242} />
+        <AnimatedGuide frames={guideExplorer.wave} width={guideWidth} height={guideHeight} />
         <View style={styles.content}>
           <AppText variant="title">{t('age.title')}</AppText>
           <AppText color="textMuted">{t('age.subtitle')}</AppText>
@@ -61,8 +65,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: tokens.spacing.xl,
-    paddingHorizontal: tokens.spacing.xxl,
+    gap: tokens.spacing.lg,
+    paddingHorizontal: tokens.spacing.xl,
   },
   content: { flexShrink: 1, maxWidth: 440, gap: tokens.spacing.sm },
   pickerRow: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg, marginTop: tokens.spacing.xs },
