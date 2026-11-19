@@ -13,7 +13,7 @@ export const placements: Record<Continent, Box> = {
   northAmerica: { x: 35, y: 18, width: 305, height: 230 },
   southAmerica: { x: 220, y: 218, width: 192, height: 225 },
   europe: { x: 420, y: 33, width: 214, height: 145 },
-  africa: { x: 412, y: 144, width: 225, height: 221 },
+  africa: { x: 412, y: 166, width: 225, height: 221 }, // lowered so the Mediterranean shows (owner, 2026-11-19)
   asia: { x: 598, y: 19, width: 359, height: 243 },
   oceania: { x: 735, y: 254, width: 225, height: 177 },
   antarctica: { x: 280, y: 428, width: 420, height: 70 },

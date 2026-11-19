@@ -71,7 +71,7 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
         <Path d="M103 362 L109 382 L103 402 L97 382 Z M83 382 L123 382" fill="#316887" stroke="#316887" strokeWidth="2" />
       </Svg>
 
-      <LivingLayer scale={scale} width={width} />
+      <OceanLife scale={scale} />
 
       {continents.map((key) => {
         const box = placements[key];
@@ -92,17 +92,12 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
               <AppText variant="caption" bold>
                 {t(`map.${key}`)}
               </AppText>
-              {counts[key] > 0 && (
-                <View style={styles.count}>
-                  <AppText variant="caption" bold color="textOnPrimary">
-                    {new Intl.NumberFormat(language).format(counts[key])}
-                  </AppText>
-                </View>
-              )}
             </View>
           </Pressable>
         );
       })}
+
+      <CloudLayer scale={scale} width={width} />
 
       {groups.map((group) => {
         const first = group.items[0]!;
@@ -163,7 +158,8 @@ const WAVES: Point[] = [
 ];
 const BOAT_ROUTE: [Point, Point] = [{ x: 338, y: 122 }, { x: 392, y: 196 }];
 
-function LivingLayer({ scale, width }: { scale: number; width: number }) {
+/** Waves and the boat sail on the ocean, under the continents. */
+function OceanLife({ scale }: { scale: number }) {
   const still = useReducedMotion();
   const at = (p: Point): Point => ({ x: p.x * scale, y: p.y * scale });
   return (
@@ -172,6 +168,15 @@ function LivingLayer({ scale, width }: { scale: number; width: number }) {
         <Wave key={`${p.x},${p.y}`} {...at(p)} delay={i * 450} still={still} />
       ))}
       <Boat from={at(BOAT_ROUTE[0])} to={at(BOAT_ROUTE[1])} still={still} />
+    </View>
+  );
+}
+
+/** Clouds drift over the whole map: above the continents, below the story pins. Taps pass through. */
+function CloudLayer({ scale, width }: { scale: number; width: number }) {
+  const still = useReducedMotion();
+  return (
+    <View pointerEvents="none" style={StyleSheet.absoluteFill}>
       {CLOUDS.map((cloud) => (
         <Cloud key={cloud.y} y={cloud.y * scale} size={cloud.width * scale} span={width} duration={cloud.duration} offset={cloud.offset} still={still} />
       ))}
@@ -257,15 +262,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     minHeight: 30,
     ...tokens.shadow.card,
-  },
-  count: {
-    minWidth: 20,
-    height: 20,
-    borderRadius: 10,
-    paddingHorizontal: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: tokens.color.primary,
   },
   pin: {
     position: 'absolute',
