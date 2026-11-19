@@ -9,16 +9,16 @@
     "placeholder": "This screen is a placeholder. It will be built in a later phase."
   },
   "splash": {
-    "tagline": "True stories on a magic map"
+    "title": "Atlas Tales",
+    "subtitle": "Learn History"
   },
   "age": {
-    "title": "When were you born?",
-    "subtitle": "Choose your year of birth.",
-    "skip": "Prefer not to say"
+    "title": "What year were you born?",
+    "subtitle": "We use this to set up the app. Scroll to choose a year."
   },
   "language": {
     "title": "Choose your language",
-    "subtitle": "You can change it later in the settings."
+    "footnote": "You can change it later in Settings, and each story can be heard in any of the four languages."
   },
   "languageSwitch": {
     "title": "Restart the app?",

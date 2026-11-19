@@ -1,4 +1,4 @@
-import { ageBandFromBirthYear, selectableBirthYears } from './ageBand';
+import { ageBandFromBirthYear, birthYearsAscending, INITIAL_WHEEL_OFFSET } from './ageBand';
 
 const YEAR = 2026;
 
@@ -23,10 +23,14 @@ describe('ageBandFromBirthYear (child under 13, teen 13-17, adult 18+, conservat
     expect(ageBandFromBirthYear(2000.5, YEAR)).toBe('unknown');
   });
 
-  test('selectable years run from this year back 100 years, newest first', () => {
-    const years = selectableBirthYears(YEAR);
-    expect(years[0]).toBe(2026);
-    expect(years.at(-1)).toBe(1926);
+  test('wheel years run from 100 years ago to this year, oldest first', () => {
+    const years = birthYearsAscending(YEAR);
+    expect(years[0]).toBe(1926);
+    expect(years.at(-1)).toBe(2026);
     expect(years).toHaveLength(101);
+  });
+
+  test('the wheel starts on a year that maps to the most protective band', () => {
+    expect(ageBandFromBirthYear(YEAR - INITIAL_WHEEL_OFFSET, YEAR)).toBe('child');
   });
 });

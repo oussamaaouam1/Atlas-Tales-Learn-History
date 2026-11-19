@@ -1,4 +1,4 @@
-import { LANGUAGES, isRTL, pickDeviceLanguage } from './languages';
+import { GREETINGS, LANGUAGES, isRTL, pickDeviceLanguage, supportedDeviceLanguage } from './languages';
 import { dictionaries, translate, type TranslationKey } from './translate';
 
 function leafPaths(node: unknown, prefix = ''): string[] {
@@ -52,5 +52,16 @@ describe('languages', () => {
   test('falls back to English', () => {
     expect(pickDeviceLanguage(['de', null, undefined])).toBe('en');
     expect(pickDeviceLanguage([])).toBe('en');
+  });
+});
+
+describe('language screen helpers', () => {
+  test('preselects the device language only when it is one of the four', () => {
+    expect(supportedDeviceLanguage(['fr-MA', 'en'])).toBe('fr');
+    expect(supportedDeviceLanguage(['de', 'it'])).toBeNull();
+  });
+
+  test('every language has a greeting', () => {
+    for (const language of LANGUAGES) expect(GREETINGS[language].length).toBeGreaterThan(0);
   });
 });

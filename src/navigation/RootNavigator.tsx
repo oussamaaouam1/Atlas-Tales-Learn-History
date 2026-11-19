@@ -43,7 +43,7 @@ export function RootNavigator({ onboardingComplete }: { onboardingComplete: bool
           contentStyle: { backgroundColor: tokens.color.background },
         }}
       >
-        <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Group screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 300 }}>
           <Stack.Screen
             name="Splash"
             component={SplashScreen}

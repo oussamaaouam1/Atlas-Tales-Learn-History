@@ -108,3 +108,12 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - Validation: typecheck passed; 74 tests passed (52 app, 22 server); Android export bundles.
 - Open: device check on Android phone and iPad (owner); Expo Go logged "Layout direction could not be switched to rtl" once - recheck Arabic after a full Expo Go restart.
 - Owner revised: back to the illustrated world map (flat SVG map removed; it stays in git history at d055407), made larger: toolbar floats over the map, world view fills the screen (cover, crop capped at ~15%, drag to see edges), continent view drawn larger with a round back button instead of the system header. Clouds, boat, waves and story pins/counts kept on the illustrated map. Tests: 66 passed (44 app, 22 server).
+
+## 2026-11-19 - Onboarding to the design (owner request)
+- Splash: faded painted map backdrop, app icon, localized title/subtitle (حكايات الأطلس / تعلّم التاريخ), travelling dots, compass; 1.5 s then 300 ms fade.
+- Age: neutral year wheel (oldest→newest, starts 8 years back = most protective band), Continue with direction-aware chevron, waving guide.
+- Language: 2×2 cards (native name, greeting, radio), device language preselected only if supported, footnote; pointing guide. Settings reuses the cards.
+- Guide characters (owner: "old history characters", idle + wave): Andalusian map-maker scholar (wave) and Silk Road traveller (point), 2 frames each via GPT image generation; AnimatedGuide adds breathing/bob and gesture bursts, mirrors in RTL, still with reduce motion. Masters in assets/_masters, WebP in assets/characters, prompts in assets/_prompts.
+- Placeholder app icon (owl) generated; to be regenerated with the chosen guide (BACKLOG #8).
+- Owner instruction sheet started: docs/BACKLOG.md.
+- Validation: typecheck passed; 70 tests passed (48 app, 22 server); Android export bundles.

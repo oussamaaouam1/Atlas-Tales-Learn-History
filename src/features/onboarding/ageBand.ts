@@ -18,7 +18,13 @@ export function ageBandFromBirthYear(birthYear: number | null, currentYear: numb
   return 'adult';
 }
 
-/** Years offered on the age screen, most recent first. Neutral: no default, no hint. */
-export function selectableBirthYears(currentYear: number): number[] {
-  return Array.from({ length: OLDEST_SELECTABLE_AGE + 1 }, (_, i) => currentYear - i);
+/** Years offered on the age wheel, oldest first (design: the wheel reads downward in time). */
+export function birthYearsAscending(currentYear: number): number[] {
+  return Array.from({ length: OLDEST_SELECTABLE_AGE + 1 }, (_, i) => currentYear - OLDEST_SELECTABLE_AGE + i);
 }
+
+/**
+ * Where the wheel starts, in years before now (design shows 2018 in 2026). Neutral: no answer is
+ * suggested as right, and someone who just taps Continue lands in the most protective band (child).
+ */
+export const INITIAL_WHEEL_OFFSET = 8;

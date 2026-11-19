@@ -11,6 +11,23 @@ export const NATIVE_NAMES: Record<Language, string> = {
   en: 'English',
 };
 
+/** A greeting in each language, shown under its name on the language cards (design). */
+export const GREETINGS: Record<Language, string> = {
+  ar: 'مرحبًا',
+  fr: 'Bonjour',
+  es: '¡Hola!',
+  en: 'Hello',
+};
+
+/** The device's language if it is one of the four, else null (design: preselect only a supported one). */
+export function supportedDeviceLanguage(languageCodes: readonly (string | null | undefined)[]): Language | null {
+  for (const code of languageCodes) {
+    const base = code?.toLowerCase().split(/[-_]/)[0];
+    if (isLanguage(base)) return base;
+  }
+  return null;
+}
+
 export function isLanguage(value: unknown): value is Language {
   return typeof value === 'string' && (LANGUAGES as readonly string[]).includes(value);
 }
@@ -24,9 +41,5 @@ export function isRTL(language: Language): boolean {
  * (e.g. ["fr", "en"] from expo-localization), falling back to English.
  */
 export function pickDeviceLanguage(languageCodes: readonly (string | null | undefined)[]): Language {
-  for (const code of languageCodes) {
-    const base = code?.toLowerCase().split(/[-_]/)[0];
-    if (isLanguage(base)) return base;
-  }
-  return DEFAULT_LANGUAGE;
+  return supportedDeviceLanguage(languageCodes) ?? DEFAULT_LANGUAGE;
 }

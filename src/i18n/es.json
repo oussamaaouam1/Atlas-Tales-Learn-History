@@ -9,16 +9,16 @@
     "placeholder": "Esta pantalla es provisional. Se construirá en una fase posterior."
   },
   "splash": {
-    "tagline": "Historias reales en un mapa mágico"
+    "title": "Atlas Tales",
+    "subtitle": "Aprende historia"
   },
   "age": {
     "title": "¿En qué año naciste?",
-    "subtitle": "Elige tu año de nacimiento.",
-    "skip": "Prefiero no decirlo"
+    "subtitle": "Lo usamos para preparar la aplicación. Desliza para elegir un año."
   },
   "language": {
     "title": "Elige tu idioma",
-    "subtitle": "Podrás cambiarlo más tarde en los ajustes."
+    "footnote": "Podrás cambiarlo más tarde en los ajustes, y cada historia se puede escuchar en los cuatro idiomas."
   },
   "languageSwitch": {
     "title": "¿Reiniciar la aplicación?",

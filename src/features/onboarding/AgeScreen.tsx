@@ -1,61 +1,54 @@
-import { useMemo } from 'react';
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AnimatedGuide } from '../../components/AnimatedGuide';
 import { AppText } from '../../components/AppText';
 import { Button } from '../../components/Button';
+import { DirectionalIcon } from '../../components/DirectionalIcon';
 import type { RootScreenProps } from '../../navigation/types';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { useSession } from '../../providers/SessionProvider';
 import { tokens } from '../../theme/tokens';
-import { ageBandFromBirthYear, selectableBirthYears, type AgeBand } from './ageBand';
+import { ageBandFromBirthYear, birthYearsAscending, INITIAL_WHEEL_OFFSET } from './ageBand';
+import { guideMapmaker } from './onboardingArt';
+import { YearWheel } from './YearWheel';
 
 /**
- * Neutral age screen (§6, Google Families): a plain year list, no default selection,
- * no hint about a "right" answer. Only the resulting age band is stored.
+ * Neutral age screen (design: Onboarding · Age; Google Families): a plain year wheel,
+ * no hint of a right answer. Only the resulting age band is stored.
  */
 export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
   const { t } = useLanguage();
   const { setAgeBand } = useSession();
   const currentYear = new Date().getFullYear();
-  const years = useMemo(() => selectableBirthYears(currentYear), [currentYear]);
+  const years = useMemo(() => birthYearsAscending(currentYear), [currentYear]);
+  const [year, setYear] = useState(currentYear - INITIAL_WHEEL_OFFSET);
+  const [saving, setSaving] = useState(false);
 
-  const choose = async (band: AgeBand) => {
-    await setAgeBand(band);
+  const confirm = async () => {
+    setSaving(true);
+    await setAgeBand(ageBandFromBirthYear(year, currentYear));
     navigation.replace('Language', { onboarding: true });
   };
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom', 'left', 'right']}>
-      <View style={styles.header}>
-        <AppText variant="title" bold align="center">
-          {t('age.title')}
-        </AppText>
-        <AppText color="textMuted" align="center">
-          {t('age.subtitle')}
-        </AppText>
-      </View>
-      <FlatList
-        data={years}
-        keyExtractor={(year) => String(year)}
-        numColumns={6}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <Pressable
-            accessibilityRole="button"
-            onPress={() => void choose(ageBandFromBirthYear(item, currentYear))}
-            style={({ pressed }) => [styles.year, pressed && styles.yearPressed]}
-          >
-            {/* Years stay in Western digits (§8). */}
-            <AppText variant="bodyLarge" align="center">
-              {String(item)}
-            </AppText>
-          </Pressable>
-        )}
-      />
-      <View style={styles.footer}>
-        <Button variant="ghost" label={t('age.skip')} onPress={() => void choose('unknown')} />
+      <View style={styles.row}>
+        <AnimatedGuide frames={guideMapmaker.wave} width={210} height={242} />
+        <View style={styles.content}>
+          <AppText variant="title">{t('age.title')}</AppText>
+          <AppText color="textMuted">{t('age.subtitle')}</AppText>
+          <View style={styles.pickerRow}>
+            <YearWheel years={years} value={year} onChange={setYear} accessibilityLabel={t('age.title')} />
+            <Button
+              label={t('common.continue')}
+              loading={saving}
+              onPress={() => void confirm()}
+              endIcon={<DirectionalIcon direction="forward" size={18} color={tokens.color.textOnPrimary} />}
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -63,17 +56,14 @@ export function AgeScreen({ navigation }: RootScreenProps<'Age'>) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: tokens.color.background },
-  header: { paddingHorizontal: tokens.spacing.lg, paddingTop: tokens.spacing.md, gap: tokens.spacing.xs },
-  list: { paddingHorizontal: tokens.spacing.lg, paddingVertical: tokens.spacing.md, gap: tokens.spacing.sm },
-  row: { gap: tokens.spacing.sm },
-  year: {
+  row: {
     flex: 1,
-    paddingVertical: tokens.spacing.sm,
-    borderRadius: tokens.radius.md,
-    backgroundColor: tokens.color.surface,
-    borderWidth: 1,
-    borderColor: tokens.color.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: tokens.spacing.xl,
+    paddingHorizontal: tokens.spacing.xxl,
   },
-  yearPressed: { backgroundColor: tokens.color.surfaceMuted },
-  footer: { paddingHorizontal: tokens.spacing.lg, paddingBottom: tokens.spacing.xs, alignItems: 'center' },
+  content: { flexShrink: 1, maxWidth: 440, gap: tokens.spacing.sm },
+  pickerRow: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg, marginTop: tokens.spacing.xs },
 });

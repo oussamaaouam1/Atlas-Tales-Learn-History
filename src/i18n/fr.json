@@ -9,16 +9,16 @@
     "placeholder": "Cet écran est provisoire. Il sera construit dans une prochaine étape."
   },
   "splash": {
-    "tagline": "De vraies histoires sur une carte magique"
+    "title": "Atlas Tales",
+    "subtitle": "L'histoire en récits"
   },
   "age": {
     "title": "Quelle est ton année de naissance ?",
-    "subtitle": "Choisis ton année de naissance.",
-    "skip": "Je préfère ne pas répondre"
+    "subtitle": "Cela nous sert à préparer l'application. Fais défiler pour choisir une année."
   },
   "language": {
     "title": "Choisis ta langue",
-    "subtitle": "Tu pourras la changer plus tard dans les réglages."
+    "footnote": "Tu pourras la changer plus tard dans les réglages, et chaque histoire peut être écoutée dans les quatre langues."
   },
   "languageSwitch": {
     "title": "Redémarrer l'application ?",
