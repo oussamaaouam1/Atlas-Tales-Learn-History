@@ -53,11 +53,11 @@ export function RootNavigator({ onboardingComplete }: { onboardingComplete: bool
           <Stack.Screen name="Language" component={LanguageScreen} initialParams={{ onboarding: true }} />
           <Stack.Screen name="Map" component={MapScreen} />
         </Stack.Group>
-        <Stack.Screen name="Continent" component={ContinentScreen} options={{ title: t('screens.continent') }} />
+        <Stack.Screen name="Continent" component={ContinentScreen} options={{ title: t('screens.continent'), animation: 'fade' }} />
         <Stack.Screen
           name="StoryCard"
           component={StoryCardSheet}
-          options={{ title: t('screens.storyCard'), presentation: 'formSheet', sheetAllowedDetents: [0.6, 1] }}
+          options={{ headerShown: false, presentation: 'transparentModal', animation: 'slide_from_bottom', contentStyle: { backgroundColor: 'transparent' } }}
         />
         <Stack.Screen name="Reader" component={ReaderScreen} options={{ title: t('screens.reader') }} />
         <Stack.Screen name="ChapterBreak" component={ChapterBreakScreen} options={{ title: t('screens.chapterBreak') }} />

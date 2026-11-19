@@ -1,11 +1,13 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import type { Continent } from '../features/map/geography';
+
 export type RootStackParamList = {
   Splash: { next: 'Age' | 'Map' };
   Age: undefined;
   Language: { onboarding: boolean };
   Map: undefined;
-  Continent: { continent: string };
+  Continent: { continent: Continent };
   StoryCard: { slug: string };
   Reader: { slug: string };
   ChapterBreak: { slug: string; chapter: number };

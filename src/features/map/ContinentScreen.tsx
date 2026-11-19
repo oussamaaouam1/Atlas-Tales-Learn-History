@@ -1,14 +1,11 @@
-import { Button } from '../../components/Button';
-import { PlaceholderScreen } from '../../components/PlaceholderScreen';
-import type { RootScreenProps } from '../../navigation/types';
-import { useLanguage } from '../../providers/LanguageProvider';
+﻿import type { RootScreenProps } from '../../navigation/types';
+import { AtlasMap } from './AtlasMap';
 
-/** PLACEHOLDER: zoomed continent with pins (Phase 3). */
-export function ContinentScreen({ navigation }: RootScreenProps<'Continent'>) {
-  const { t } = useLanguage();
-  return (
-    <PlaceholderScreen title={t('screens.continent')}>
-      <Button label={t('map.openStory')} onPress={() => navigation.navigate('StoryCard', { slug: 'fixture-story' })} />
-    </PlaceholderScreen>
-  );
+export function ContinentScreen({ navigation, route }: RootScreenProps<'Continent'>) {
+  return <AtlasMap
+    continent={route.params.continent}
+    openContinent={continent => navigation.setParams({ continent })}
+    openStory={slug => navigation.navigate('StoryCard', { slug })}
+    openPassport={() => navigation.navigate('Passport')}
+  />;
 }

@@ -91,3 +91,10 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - Typecheck and all 55 tests passed; diff whitespace check passed. Negative validator and authorization cases are covered.
 - Phase 2 complete. Phase 3 (illustrated interactive map) has not started.
 - Owner reiterated authorization to use GPT image generation for artwork; documented in CONTENT_PIPELINE.md.
+
+## Phase 3 - Illustrated map
+- Used the supplied Round 3 map design for floating labels, passport/settings actions, star pins and the preview sheet.
+- Generated seven independent transparent continent illustrations with built-in GPT ImageGen. WebP layers live in assets/map, with prompts in assets/_prompts.
+- The world layout is stylized. Continent lookup uses Natural Earth 1:110m coordinates (https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson). Pin positions are approximate within the illustrated artwork.
+- Continent view zooms in, supports pan and pinch, and lifts slightly when a story pin opens. Nearby stories share a pin chooser. Live Convex previews show cover, chapters and reader navigation.
+- Completion and Pro markers depend on the later progress and entitlement features. Physical-device rendering, gestures, RTL review and performance still need verification.

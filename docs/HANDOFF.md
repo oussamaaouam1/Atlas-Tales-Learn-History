@@ -1,0 +1,18 @@
+# Atlas Tales development handoff
+
+Start here after returning to the main Claude chat. The checkout is on `main` in the [Atlas Tales Learn History repository](https://github.com/oussamaaouam1/Atlas-Tales-Learn-History). Read [CLAUDE.md](../CLAUDE.md), [BUILD_GUIDE.md](../BUILD_GUIDE.md), and [PROGRESS.md](PROGRESS.md) before continuing. Commit and push each verified checkpoint, as requested by the owner.
+
+## What was done
+
+1. **Phase 0 and 1.** Set up Expo Go, landscape orientation, navigation, locale switching, anonymous installs and the Convex development backend. Applied the Bright Explorer design tokens and separate Arabic text sizing. The owner verified landscape, navigation, Arabic RTL and install registration on a phone. Exact Baloo fonts remain a design follow-up.
+2. **Phase 2.** Built Zod validation, fixture generation, versioned R2 uploads and authenticated Convex upserts. Added indexed content tables, paginated map results and release scheduling. Uploaded `placeholder-one` and `placeholder-two` to development. Each returned 32 pages, 40 images and 128 audio references. Sample cover, image and audio files loaded from R2. The repo includes a two-second silent M4A, so future fixture generation works without FFmpeg. The setup and commands are in [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md). This checkpoint was pushed as `c3ffc5a`.
+3. **Phase 3 map checkpoint.** Used the Round 3 map frame from the supplied design ZIP for floating labels, compass and route details, pin styling, and the story sheet. Generated seven independent transparent continent layers with built-in GPT ImageGen. Africa has dunes, savanna, a lion, and an elephant. The other six have their own terrain and details. The optimized WebP files are in [assets/map](../assets/map), with prompts in [assets/_prompts](../assets/_prompts).
+4. **Map interaction.** Tapping a continent opens an animated zoom view with pan and pinch. A story pin lifts the continent slightly and opens a preview with live cover, localized title and hook, chapter list and reader navigation. The two existing fixtures share their Timbuktu coordinates. Tap the pin with a count of two to choose either story. The map stays geographically oriented in Arabic. Continent membership uses Natural Earth coordinates, and pin placement within the stylized art is approximate.
+5. **Verification.** TypeScript checks, all 63 tests, and an offline Android Expo export passed. The export bundled all seven continent images. The user asked to stop the Expo Go development server and defer phone verification. The BB terminal was closed.
+
+## Resume here
+
+1. Pull the latest `main` and check `git status` before editing. The active development deployment is `effervescent-oriole-223`. Keep `.env.local` and the R2 and Convex upload credentials out of Git. Read `convex/_generated/ai/guidelines.md` before editing Convex code.
+2. When phone testing resumes, launch `pnpm start` in a BB terminal and scan the Expo Go QR code. In English and Arabic, verify all seven continent taps and the back action, pinch and pan, the two-story Timbuktu pin, opening and dismissing each story sheet, and navigation to the reader placeholder. Check the map on a small landscape screen and assess animation smoothness on Android.
+3. Phase 3 device acceptance is pending. Default, new, grouped and selected markers work with the current data. Completed and Pro early-access markers need the later progress and entitlement features. The reader is Phase 4. RevenueCat and AdMob are deferred until the end as the owner requested.
+4. Keep using GPT ImageGen where useful for artwork. Follow the design ZIP and save prompts with the bitmap assets. Keep labels, pins and other interactive controls in code.
