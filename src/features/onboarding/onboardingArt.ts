@@ -5,8 +5,8 @@
 
 /** App icon variants, one per guide; the splash alternates them each launch (owner, BACKLOG #15). */
 export const splashIcons = [
-  require('../../../assets/brand/placeholder-app-icon-mapmaker.webp'),
-  require('../../../assets/brand/placeholder-app-icon-traveller.webp'),
+  require('../../../assets/brand/placeholder-app-icon-explorer.webp'),
+  require('../../../assets/brand/placeholder-app-icon-navigator.webp'),
 ] as const;
 export const SPLASH_ICON_COUNT = splashIcons.length;
 
