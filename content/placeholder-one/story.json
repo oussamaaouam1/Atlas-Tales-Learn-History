@@ -1,0 +1,1163 @@
+{
+  "id": "placeholder-one",
+  "version": 2,
+  "title": {
+    "ar": "قصة تجريبية",
+    "fr": "Histoire de test",
+    "es": "Historia de prueba",
+    "en": "Placeholder test story: placeholder-one"
+  },
+  "hook": {
+    "ar": "قصة تجريبية",
+    "fr": "Histoire de test",
+    "es": "Historia de prueba",
+    "en": "Placeholder test story"
+  },
+  "keyTakeaway": {
+    "ar": "قصة تجريبية",
+    "fr": "Histoire de test",
+    "es": "Historia de prueba",
+    "en": "Placeholder test story"
+  },
+  "era": {
+    "period": "Medieval",
+    "yearStart": 1324,
+    "yearEnd": 1325,
+    "region": "West Africa"
+  },
+  "location": {
+    "name": "Timbuktu",
+    "lat": 16.7666,
+    "lng": -3.0026
+  },
+  "masterLanguage": "en",
+  "accuracyMode": "dramatized",
+  "names": [],
+  "characters": {
+    "guide": {
+      "role": "guide",
+      "appearance": "Placeholder",
+      "personality": "Curious"
+    }
+  },
+  "settings": [
+    {
+      "id": "placeholder-place",
+      "name": "Placeholder",
+      "description": "Synthetic fixture setting"
+    }
+  ],
+  "chapters": [
+    {
+      "number": 1,
+      "firstPage": 1,
+      "title": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      }
+    },
+    {
+      "number": 2,
+      "firstPage": 12,
+      "title": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      }
+    },
+    {
+      "number": 3,
+      "firstPage": 23,
+      "title": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "chapter": 1,
+      "beat": "cold-open",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-1",
+        "placeholder-detail-1"
+      ]
+    },
+    {
+      "page": 2,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-2",
+        "placeholder-detail-2"
+      ]
+    },
+    {
+      "page": 3,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-3",
+        "placeholder-detail-3"
+      ]
+    },
+    {
+      "page": 4,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-4",
+        "placeholder-detail-4"
+      ]
+    },
+    {
+      "page": 5,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-5",
+        "placeholder-detail-5"
+      ]
+    },
+    {
+      "page": 6,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-6",
+        "placeholder-detail-6"
+      ]
+    },
+    {
+      "page": 7,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-7",
+        "placeholder-detail-7"
+      ]
+    },
+    {
+      "page": 8,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-8",
+        "placeholder-detail-8"
+      ]
+    },
+    {
+      "page": 9,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-9"
+      ]
+    },
+    {
+      "page": 10,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-10"
+      ]
+    },
+    {
+      "page": 11,
+      "chapter": 1,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-11"
+      ]
+    },
+    {
+      "page": 12,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-12"
+      ]
+    },
+    {
+      "page": 13,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-13"
+      ]
+    },
+    {
+      "page": 14,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-14"
+      ]
+    },
+    {
+      "page": 15,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-15"
+      ]
+    },
+    {
+      "page": 16,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-16"
+      ]
+    },
+    {
+      "page": 17,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-17"
+      ]
+    },
+    {
+      "page": 18,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-18"
+      ]
+    },
+    {
+      "page": 19,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-19"
+      ]
+    },
+    {
+      "page": 20,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-20"
+      ]
+    },
+    {
+      "page": 21,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-21"
+      ]
+    },
+    {
+      "page": 22,
+      "chapter": 2,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-22"
+      ]
+    },
+    {
+      "page": 23,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-23"
+      ]
+    },
+    {
+      "page": 24,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-24"
+      ]
+    },
+    {
+      "page": 25,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-25"
+      ]
+    },
+    {
+      "page": 26,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-26"
+      ]
+    },
+    {
+      "page": 27,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-27"
+      ]
+    },
+    {
+      "page": 28,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-28"
+      ]
+    },
+    {
+      "page": 29,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-29"
+      ]
+    },
+    {
+      "page": 30,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-30"
+      ]
+    },
+    {
+      "page": 31,
+      "chapter": 3,
+      "beat": "world",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-31"
+      ]
+    },
+    {
+      "page": 32,
+      "chapter": 3,
+      "beat": "closing-echo",
+      "year": "1324",
+      "settingId": "placeholder-place",
+      "tag": "imagined",
+      "speaker": "narrator",
+      "text": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "historicalNote": "Synthetic fixture, not historical content.",
+      "images": [
+        "placeholder-img-32"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "id": "placeholder-img-1",
+      "page": 1,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-2",
+      "page": 2,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-3",
+      "page": 3,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-4",
+      "page": 4,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-5",
+      "page": 5,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-6",
+      "page": 6,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-7",
+      "page": 7,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-8",
+      "page": 8,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-9",
+      "page": 9,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-10",
+      "page": 10,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-11",
+      "page": 11,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-12",
+      "page": 12,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-13",
+      "page": 13,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-14",
+      "page": 14,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-15",
+      "page": 15,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-16",
+      "page": 16,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-17",
+      "page": 17,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-18",
+      "page": 18,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-19",
+      "page": 19,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-20",
+      "page": 20,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-21",
+      "page": 21,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-22",
+      "page": 22,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-23",
+      "page": 23,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-24",
+      "page": 24,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-25",
+      "page": 25,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-26",
+      "page": 26,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-27",
+      "page": 27,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-28",
+      "page": 28,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-29",
+      "page": 29,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-30",
+      "page": 30,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-31",
+      "page": 31,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-img-32",
+      "page": 32,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 2,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-1",
+      "page": 1,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-2",
+      "page": 2,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-3",
+      "page": 3,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-4",
+      "page": 4,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-5",
+      "page": 5,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-6",
+      "page": 6,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-7",
+      "page": 7,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    },
+    {
+      "id": "placeholder-detail-8",
+      "page": 8,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 1,
+      "prompt": "Solid-colour placeholder, no text."
+    }
+  ],
+  "didYouKnow": {
+    "ar": "قصة تجريبية",
+    "fr": "Histoire de test",
+    "es": "Historia de prueba",
+    "en": "Placeholder test story"
+  },
+  "quiz": [
+    {
+      "question": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "options": [
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        },
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        },
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        }
+      ],
+      "answerIndex": 0
+    },
+    {
+      "question": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "options": [
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        },
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        },
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        }
+      ],
+      "answerIndex": 0
+    },
+    {
+      "question": {
+        "ar": "قصة تجريبية",
+        "fr": "Histoire de test",
+        "es": "Historia de prueba",
+        "en": "Placeholder test story"
+      },
+      "options": [
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        },
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        },
+        {
+          "ar": "قصة تجريبية",
+          "fr": "Histoire de test",
+          "es": "Historia de prueba",
+          "en": "Placeholder test story"
+        }
+      ],
+      "answerIndex": 0
+    }
+  ],
+  "sources": [
+    {
+      "title": "Synthetic test fixture - not a factual story",
+      "url": "https://example.com/placeholder"
+    }
+  ]
+}

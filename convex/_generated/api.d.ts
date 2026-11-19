@@ -8,9 +8,12 @@
  * @module
  */
 
+import type * as admin from "../admin.js";
+import type * as contentValidators from "../contentValidators.js";
 import type * as health from "../health.js";
 import type * as installs from "../installs.js";
 import type * as lib_installAuth from "../lib/installAuth.js";
+import type * as stories from "../stories.js";
 
 import type {
   ApiFromModules,
@@ -19,9 +22,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  admin: typeof admin;
+  contentValidators: typeof contentValidators;
   health: typeof health;
   installs: typeof installs;
   "lib/installAuth": typeof lib_installAuth;
+  stories: typeof stories;
 }>;
 
 /**

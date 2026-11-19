@@ -5,7 +5,7 @@
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
     "types": [
-      "jest"
+      "jest", "node"
     ]
   },
   "include": [

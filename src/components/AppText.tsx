@@ -33,8 +33,8 @@ export function AppText({
         : tokens.fontFamily.latinRegular;
 
   const textStyle: TextStyle = {
-    fontSize: tokens.fontSize[variant],
-    lineHeight: tokens.lineHeight[variant],
+    fontSize: (language === 'ar' ? tokens.arabicFontSize : tokens.fontSize)[variant],
+    lineHeight: (language === 'ar' ? tokens.arabicLineHeight : tokens.lineHeight)[variant],
     color: tokens.color[color],
     textAlign: align,
     writingDirection: language === 'ar' ? 'rtl' : 'ltr',

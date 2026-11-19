@@ -51,3 +51,43 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 **Open**
 - Owner to verify on phone: Arabic RTL flip, install row in Convex (phone Private DNS must be `dns.google`).
 - Settings has no parent gate yet (Phase 7).
+
+## 2026-11-19 - Phase 1 design handoff
+- Recovered the supplied 14-frame Claude Design PNG export from the previous thread.
+- Applied Bright Explorer palette, radii, text sizes and card shadows to the shared tokens; retained existing token names.
+- AppText uses the reference's separate Arabic sizes and line heights.
+- Typography remains Cairo/system until Baloo 2 and Baloo Bhaijaan 2 are bundled. Map colours remain provisional. This is the theme integration, not a completed implementation of all reference screens.
+- Phone acceptance remains open: landscape, Arabic RTL restart, and install registration.
+- Validation: pnpm typecheck passed; pnpm test passed (33 app tests and 7 server tests). Device visual review remains pending.
+
+## 2026-11-19 - Phase 1 accepted
+- Owner confirmed landscape, navigation and map placeholder work in Expo Go.
+- Owner confirmed the remaining Arabic RTL and Convex install-row checks are complete.
+- Phase 1 closed. Latest code validation: typecheck and all 40 tests passed.
+- Earlier phone-verification pending notes are resolved. Exact design fonts and later-phase screens remain follow-up design work.
+
+### Phase 2 proposed plan
+- Extend convex/schema.ts and add map/story queries plus an authenticated admin upload mutation.
+- Implement scripts/validateStory.ts, scripts/uploadStory.ts and scripts/makeFixtureStory.ts; wire package.json commands.
+- Generate two placeholder stories with multilingual text, images and silent audio; upload media to this project's R2 and story records to its development Convex deployment.
+- Test malformed content, access restrictions and repeat uploads; run typecheck and the full test suite, then verify both stories and their page/image counts.
+- Await phase-start approval per CLAUDE.md before implementation; confirm any additional dependencies in the concrete implementation plan.
+
+## 2026-11-19 - Phase 2 in progress
+- Approved tooling installed: tsx, AWS S3 SDK, sharp, music-metadata; Zod from the build guide.
+- Added story schema validation, file checks, fixture data/generator and an R2 upload pipeline with content-addressed media and actual narration durations.
+- Added indexed content tables, paginated map query, complete story query, authenticated atomic upserts and server-scheduled public release state.
+- Configured a random admin upload key locally and on the existing dev deployment without exposing it.
+- Deployed successfully to dev:effervescent-oriole-223; live map query responds successfully (currently empty).
+- Validation: typecheck passed; all 54 tests passed (33 app, 21 server/scripts).
+- Pending: owner approval for portable FFmpeg to generate the bundled silent M4A, then generate/upload two fixtures and verify their live counts. Phase 2 is NOT complete.
+- Pro early-access remains locked until verified entitlements are implemented in Phase 7.
+
+## 2026-11-19 - Phase 2 accepted
+- Owner approved portable FFmpeg; generated and bundled a 2-second mono AAC/M4A silence file (1,527 bytes). Encoder remains in thread storage, outside the repo.
+- Generated and validated placeholder-one and placeholder-two; each contains 32 pages, 3 chapters, 40 images and 128 audio files across four languages.
+- Uploaded both fixtures to the project R2 bucket and dev:effervescent-oriole-223. Corrected a PowerShell-added newline in the admin key using dotenv-file input.
+- Live verification passed: both stories appear once in the map query, each has 32 pages/40 images/128 audio references, and sample cover/image/audio CDN GETs return 200 with content.
+- Typecheck and all 55 tests passed; diff whitespace check passed. Negative validator and authorization cases are covered.
+- Phase 2 complete. Phase 3 (illustrated interactive map) has not started.
+- Owner reiterated authorization to use GPT image generation for artwork; documented in CONTENT_PIPELINE.md.
