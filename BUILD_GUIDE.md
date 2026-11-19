@@ -56,6 +56,7 @@ Use the latest stable **Expo SDK** at project start (Pillow Tales runs SDK 54; d
 | Email OTP | Resend (new sender domain) | Optional parent login |
 | Validation | `zod` | Story JSON schema in the upload script |
 | Updates | EAS Update (over-the-air) | JS-only fixes without store review |
+| Video | `expo-video` (owner-approved 2026-11-19) | Splash intro video |
 
 ---
 

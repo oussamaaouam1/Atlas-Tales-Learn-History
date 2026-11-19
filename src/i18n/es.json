@@ -6,7 +6,8 @@
     "cancel": "Cancelar",
     "close": "Cerrar",
     "loading": "Cargando…",
-    "placeholder": "Esta pantalla es provisional. Se construirá en una fase posterior."
+    "placeholder": "Esta pantalla es provisional. Se construirá en una fase posterior.",
+    "skip": "Saltar"
   },
   "splash": {
     "title": "Atlas Tales",

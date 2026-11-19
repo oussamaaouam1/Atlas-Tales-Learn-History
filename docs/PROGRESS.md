@@ -118,3 +118,8 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - Owner instruction sheet started: docs/BACKLOG.md.
 - Validation: typecheck passed; 70 tests passed (48 app, 22 server); Android export bundles.
 - 2026-11-19: Owner device feedback round (BACKLOG #10–18): Africa lowered and shifted west with the Americas; one story count (pin); clouds above the land; status bar hidden; splash alternates map-maker/traveller icon variants; guides redrawn near-realistic (v2); world map now adapts to the screen shape with no cropping or scrolling (src/features/map/worldLayout.ts, tested for phone/iPad/odd sizes). 77 tests pass (55 app, 22 server).
+
+## 2026-11-19 - Phase 3 accepted
+- Owner confirmed on Android (and iPad): continent zoom/pan/back, story pins at the right places, story sheet with correct data, smooth on a mid-range Android, in English and Arabic.
+- Phase 3 closed. Follow-ups on the owner sheet: #7 (map buttons/pins to the design) parked.
+- 2026-11-19 Splash video (BACKLOG #28, owner-approved expo-video): owner's paper-boat video re-encoded silent 720p (full 6.0 s / 0.95 MB on first launch, last 2.0 s / 0.42 MB afterwards), tap to skip, localized title fades in over the end, safety timeout; reduce motion keeps the static splash. Original in assets/_masters. Borders in the video accepted by the owner for the splash only. 87 tests pass.

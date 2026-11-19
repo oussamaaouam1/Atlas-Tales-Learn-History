@@ -27,3 +27,9 @@ export const guideNavigator = {
     require('../../../assets/characters/placeholder-guide-navigator-point-c.webp'),
   ],
 } as const;
+
+/** Owner's splash video (BACKLOG #28): silent 720p re-encodes; original in assets/_masters/splashScreen.mp4. */
+export const splashVideo = {
+  full: require('../../../assets/video/splash-full.mp4'),
+  short: require('../../../assets/video/splash-short.mp4'),
+} as const;
