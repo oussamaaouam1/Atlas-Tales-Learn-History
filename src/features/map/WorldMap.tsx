@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, type ReactNode } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
@@ -8,7 +8,9 @@ import Animated, {
   useSharedValue,
   withDelay,
   withRepeat,
+  withSequence,
   withTiming,
+  ZoomIn,
   type SharedValue,
 } from 'react-native-reanimated';
 import Svg, { Circle, Path } from 'react-native-svg';
@@ -19,7 +21,7 @@ import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
 import { continentArt } from './continentArt';
 import { continentAt, continents, groupNearby, worldHeight, worldWidth, type Continent } from './geography';
-import { worldLayout, type WorldLayout } from './worldLayout';
+import { continentPinColor, fanOffsets, worldLayout, type WorldLayout } from './worldLayout';
 
 type Story = Doc<'stories'>;
 type Point = { x: number; y: number };
@@ -64,59 +66,49 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
 
       <OceanLife layout={layout} />
 
-      {continents.map((key) => {
+      {continents.map((key, index) => {
         const rect = layout.tile(key);
         return (
-          <Pressable
-            key={key}
-            accessibilityRole="button"
-            accessibilityLabel={counts[key] ? `${t(`map.${key}`)}, ${t('map.storyCount', { count: counts[key] })}` : t(`map.${key}`)}
-            onPress={() => onContinent(key)}
-            style={({ pressed }) => [
-              styles.tile,
-              { start: rect.x, top: rect.y, width: rect.width, height: rect.height },
-              pressed && styles.raised,
-            ]}
-          >
-            <Image source={continentArt[key]} style={StyleSheet.absoluteFill} contentFit="fill" accessibilityIgnoresInvertColors />
-            <View style={styles.label}>
-              <AppText variant="caption" bold>
-                {t(`map.${key}`)}
-              </AppText>
-            </View>
-          </Pressable>
+          <BouncyTile key={key} index={index} rect={rect}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={counts[key] ? `${t(`map.${key}`)}, ${t('map.storyCount', { count: counts[key] })}` : t(`map.${key}`)}
+              onPress={() => onContinent(key)}
+              style={({ pressed }) => [styles.tile, pressed && styles.raised]}
+            >
+              <Image source={continentArt[key]} style={StyleSheet.absoluteFill} contentFit="fill" accessibilityIgnoresInvertColors />
+              <View style={styles.label}>
+                <AppText variant="caption" bold>
+                  {t(`map.${key}`)}
+                </AppText>
+              </View>
+            </Pressable>
+          </BouncyTile>
         );
       })}
 
       <CloudLayer layout={layout} width={width} />
 
-      {groups.map((group) => {
-        const first = group.items[0]!;
-        const isNew = group.items.some((s) => now >= s.releaseAt && now - s.releaseAt < NEW_FOR_MS);
-        const many = group.items.length > 1;
-        return (
-          <Pressable
-            key={first.slug}
-            accessibilityRole="button"
-            accessibilityLabel={many ? t('map.storyCount', { count: group.items.length }) : first.title[language]}
-            onPress={() => onStories(group.items)}
-            hitSlop={10}
-            style={({ pressed }) => [
-              styles.pin,
-              { start: group.x - 15, top: group.y - 15 },
-              isNew ? styles.pinNew : styles.pinDefault,
-              pressed && styles.pressed,
-            ]}
-          >
-            {many ? (
-              <AppText variant="caption" bold color={isNew ? 'textOnPrimary' : 'text'} style={styles.pinText}>
-                {new Intl.NumberFormat(language).format(group.items.length)}
-              </AppText>
-            ) : (
-              <PinGlyph isNew={isNew} />
-            )}
-          </Pressable>
-        );
+      {/* One location pin per story, coloured by continent; stories at one place fan out. */}
+      {groups.flatMap((group) => {
+        const offsets = fanOffsets(group.items.length);
+        return group.items.map((story, i) => {
+          const color = continentPinColor[continentAt(story.location.lat, story.location.lng)];
+          const isNew = now >= story.releaseAt && now - story.releaseAt < NEW_FOR_MS;
+          const offset = offsets[i]!;
+          return (
+            <LocationPin
+              key={story.slug}
+              x={group.x + offset.x}
+              y={group.y + offset.y}
+              color={color}
+              isNew={isNew}
+              delay={i * 90}
+              label={story.title[language]}
+              onPress={() => onStories([story])}
+            />
+          );
+        });
       })}
     </View>
   );
@@ -131,15 +123,71 @@ function Compass({ at, size }: { at: Point; size: number }) {
   );
 }
 
-function PinGlyph({ isNew }: { isNew: boolean }) {
+/**
+ * A continent that gently hops and lands with a soft bounce, staggered per continent so the map
+ * feels alive without everything moving at once (owner, BACKLOG #19). Still with reduce motion.
+ */
+function BouncyTile({ index, rect, children }: { index: number; rect: { x: number; y: number; width: number; height: number }; children: ReactNode }) {
+  const still = useReducedMotion();
+  const lift = useSharedValue(0);
+  useEffect(() => {
+    if (still) return;
+    lift.value = withDelay(
+      index * 420,
+      withRepeat(
+        withSequence(
+          withTiming(1, { duration: 650, easing: Easing.out(Easing.quad) }),
+          withTiming(0, { duration: 950, easing: Easing.bounce }),
+          withTiming(0, { duration: 2600 }),
+        ),
+        -1,
+        false,
+      ),
+    );
+  }, [lift, index, still]);
+  const style = useAnimatedStyle(() => ({ transform: [{ translateY: -lift.value * 5 }] }));
   return (
-    <Svg width={15} height={15} viewBox="0 0 24 24">
-      {isNew ? (
-        <Path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="#FFFFFF" />
-      ) : (
-        <Path d="M12 7a5 5 0 1 0 0 10a5 5 0 1 0 0-10z" fill={NAVY} />
-      )}
-    </Svg>
+    <Animated.View style={[styles.abs, { start: rect.x, top: rect.y, width: rect.width, height: rect.height }, style]}>
+      {children}
+    </Animated.View>
+  );
+}
+
+const PIN_W = 26;
+const PIN_H = 34;
+
+/** Classic map pin (teardrop) anchored at its tip, in the continent's colour; new stories show a star. */
+function LocationPin(props: { x: number; y: number; color: string; isNew: boolean; delay: number; label: string; onPress: () => void }) {
+  const { x, y, color, isNew, delay, label, onPress } = props;
+  const still = useReducedMotion();
+  return (
+    <Animated.View
+      entering={still ? undefined : ZoomIn.delay(400 + delay).springify().damping(9)}
+      style={[styles.abs, { start: x - PIN_W / 2, top: y - PIN_H, width: PIN_W, height: PIN_H }]}
+    >
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={label}
+        onPress={onPress}
+        hitSlop={8}
+        style={({ pressed }) => [styles.pinShadow, pressed && styles.pressed]}
+      >
+        <Svg width={PIN_W} height={PIN_H} viewBox="0 0 26 34">
+          <Path
+            d="M13 1C6.4 1 1.2 6.1 1.2 12.6C1.2 21.4 13 33 13 33S24.8 21.4 24.8 12.6C24.8 6.1 19.6 1 13 1Z"
+            fill={color}
+            stroke="#FFFFFF"
+            strokeWidth={2}
+            strokeLinejoin="round"
+          />
+          {isNew ? (
+            <Path d="M13 6.2l1.9 3.9 4.3.6-3.1 3 .7 4.2-3.8-2-3.8 2 .7-4.2-3.1-3 4.3-.6z" fill="#FFFFFF" />
+          ) : (
+            <Circle cx={13} cy={12.6} r={4.4} fill="#FFFFFF" />
+          )}
+        </Svg>
+      </Pressable>
+    </Animated.View>
   );
 }
 
@@ -251,7 +299,7 @@ function Cloud(props: { y: number; size: number; span: number; duration: number;
 }
 
 const styles = StyleSheet.create({
-  tile: { position: 'absolute', justifyContent: 'center', alignItems: 'center' },
+  tile: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   raised: { transform: [{ translateY: -5 }, { scale: 1.04 }] },
   label: {
     flexDirection: 'row',
@@ -263,20 +311,8 @@ const styles = StyleSheet.create({
     minHeight: 30,
     ...tokens.shadow.card,
   },
-  pin: {
-    position: 'absolute',
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    borderWidth: 2.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...tokens.shadow.card,
-  },
-  pinDefault: { backgroundColor: '#FFFFFF', borderColor: NAVY },
-  pinNew: { backgroundColor: tokens.color.secondary, borderColor: '#FFFFFF' },
-  pinText: { lineHeight: 16 },
-  pressed: { transform: [{ scale: 0.96 }] },
+  pressed: { transform: [{ scale: 0.92 }] },
+  pinShadow: { shadowColor: '#14213D', shadowOpacity: 0.3, shadowRadius: 3, shadowOffset: { width: 0, height: 2 }, elevation: 4 },
   abs: { position: 'absolute' },
   origin: { start: 0, top: 0 },
 });

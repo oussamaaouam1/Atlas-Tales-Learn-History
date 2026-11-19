@@ -30,3 +30,25 @@ export function worldLayout(width: number, height: number) {
   return { sx, sy, s, tile, ocean, story };
 }
 export type WorldLayout = ReturnType<typeof worldLayout>;
+
+/** Story pin colour per continent (Bright Explorer palette; owner, BACKLOG #20). */
+export const continentPinColor: Record<Continent, string> = {
+  northAmerica: '#1C5BD9', // voyage blue
+  southAmerica: '#17845A', // palm green
+  europe: '#7A4DD8', // purple
+  africa: '#FF7A3D', // tangerine
+  asia: '#C62F2F', // red
+  oceania: '#E0A100', // deep sunny yellow (readable white centre)
+  antarctica: '#2A9DB8', // glacier teal
+};
+
+/**
+ * Offsets that fan several pins at one place into a small arc, so each story stays visible and
+ * tappable (instead of one pin with a number). Centred on the place; outer pins sit slightly lower.
+ */
+export function fanOffsets(count: number, spacing = 18): Point[] {
+  return Array.from({ length: count }, (_, i) => {
+    const d = i - (count - 1) / 2;
+    return { x: d * spacing, y: Math.abs(d) * 4 };
+  });
+}

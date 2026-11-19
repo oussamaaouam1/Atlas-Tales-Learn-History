@@ -30,3 +30,23 @@ describe('worldLayout fits any screen without cropping', () => {
     expect(timbuktu.y).toBeLessThan(africa.y + africa.height);
   });
 });
+
+import { continentPinColor, fanOffsets } from './worldLayout';
+
+describe('story pins', () => {
+  test('every continent has its own pin colour', () => {
+    const colours = continents.map((c) => continentPinColor[c]);
+    expect(new Set(colours).size).toBe(continents.length);
+  });
+
+  test('a single story sits exactly on its place', () => {
+    expect(fanOffsets(1)).toEqual([{ x: 0, y: 0 }]);
+  });
+
+  test('several stories fan out symmetrically around the place', () => {
+    const offsets = fanOffsets(3, 18);
+    expect(offsets.map((o) => o.x)).toEqual([-18, 0, 18]);
+    expect(offsets[0]!.y).toBe(offsets[2]!.y);
+    expect(offsets[1]!.y).toBe(0);
+  });
+});
