@@ -19,10 +19,11 @@ export const guideExplorer = {
   ],
 } as const;
 
-/** Silk Road traveller: pointing (Language screen). */
-export const guideTraveller = {
+/** Navigator-interpreter: 3-frame point (Language screen + Settings; owner, BACKLOG #23–24). */
+export const guideNavigator = {
   point: [
-    require('../../../assets/characters/placeholder-guide-traveller-point-a.webp'),
-    require('../../../assets/characters/placeholder-guide-traveller-point-b.webp'),
+    require('../../../assets/characters/placeholder-guide-navigator-point-a.webp'),
+    require('../../../assets/characters/placeholder-guide-navigator-point-b.webp'),
+    require('../../../assets/characters/placeholder-guide-navigator-point-c.webp'),
   ],
 } as const;

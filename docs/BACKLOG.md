@@ -28,3 +28,5 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 20 | 2026-11-19 | Map: story count should be location pins — multiple pins, a different colour per continent | done | Teardrop pin per story (star when new), colour per continent, same-place stories fan out; pins bounce in. Continent-view pins unchanged. |
 | 21 | 2026-11-19 | Age screen guide: waving looks bad; must not have an Arabic face; make it bigger | done | Renaissance explorer-cartographer (near-realistic), smooth 3-frame back-and-forth wave, ~88% of screen height. |
 | 22 | 2026-11-19 | Map: the continent bouncing is a little much — reduce it and make it smooth | done | Half the height (2.5 px) and a slow sine float instead of a bounce. |
+| 23 | 2026-11-19 | Settings → Language shows no character | done | Navigator guide now on Settings, pointing at the language cards. |
+| 24 | 2026-11-19 | Language-screen guide: new character (not an Arabic face), bigger, smoother gesture | done | Young woman navigator-interpreter (~1500), near-realistic, smooth 3-frame point, ~86% of screen height. Traveller retired. |

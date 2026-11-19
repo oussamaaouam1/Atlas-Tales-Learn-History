@@ -1,6 +1,6 @@
 import { getLocales } from 'expo-localization';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedGuide } from '../../components/AnimatedGuide';
@@ -11,12 +11,16 @@ import { useLanguage } from '../../providers/LanguageProvider';
 import { saveOnboardingComplete } from '../../services/preferences';
 import { tokens } from '../../theme/tokens';
 import { LanguagePicker } from '../settings/LanguagePicker';
-import { guideTraveller } from './onboardingArt';
+import { guideNavigator } from './onboardingArt';
 
 const CONFIRM_DELAY_MS = 250; // let the radio fill before moving on
 
 export function LanguageScreen({ navigation }: RootScreenProps<'Language'>) {
   const { t, setLanguage } = useLanguage();
+  // Large guide (owner, BACKLOG #24): most of the screen height, art aspect 1024 × 1180.
+  const { height: screenHeight } = useWindowDimensions();
+  const guideHeight = Math.min(screenHeight * 0.86, 440);
+  const guideWidth = (guideHeight * 1024) / 1180;
   // Design: preselect the device language only if it is one of the four.
   const [selected, setSelected] = useState<Language | null>(() =>
     supportedDeviceLanguage(getLocales().map((locale) => locale.languageCode)),
@@ -35,7 +39,7 @@ export function LanguageScreen({ navigation }: RootScreenProps<'Language'>) {
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom', 'left', 'right']}>
       <View style={styles.row}>
-        <AnimatedGuide frames={guideTraveller.point} width={176} height={203} />
+        <AnimatedGuide frames={guideNavigator.point} width={guideWidth} height={guideHeight} />
         <View style={styles.content}>
           <AppText variant="title">{t('language.title')}</AppText>
           <LanguagePicker selected={selected} onSelect={(next) => void choose(next)} />
@@ -55,8 +59,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: tokens.spacing.xl,
-    paddingHorizontal: tokens.spacing.xxl,
+    gap: tokens.spacing.lg,
+    paddingHorizontal: tokens.spacing.xl,
   },
   content: { flexShrink: 1, maxWidth: 560, gap: tokens.spacing.medium },
 });
