@@ -156,7 +156,7 @@ const WAVES: Point[] = [
   { x: 90, y: 300 }, { x: 150, y: 385 }, { x: 60, y: 440 }, { x: 680, y: 300 },
   { x: 700, y: 385 }, { x: 205, y: 470 }, { x: 770, y: 470 }, { x: 905, y: 475 },
 ];
-const BOAT_ROUTE: [Point, Point] = [{ x: 338, y: 122 }, { x: 392, y: 196 }];
+const BOAT_ROUTE: [Point, Point] = [{ x: 318, y: 118 }, { x: 366, y: 184 }];
 
 /** Waves and the boat sail on the ocean, under the continents. */
 function OceanLife({ scale }: { scale: number }) {

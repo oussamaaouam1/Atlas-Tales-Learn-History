@@ -18,3 +18,5 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 10 | 2026-11-19 | Map: Africa is badly positioned, move it down a little | done | Lowered 22 units; Mediterranean now visible. Needs device check. |
 | 11 | 2026-11-19 | Map: two story-number indicators (chip badge + pin) — keep one | done | Kept the pin number; chip badge removed (count still read by screen readers). |
 | 12 | 2026-11-19 | Map: clouds must float on top of the map, not under it | done | Clouds above continents, below pins; waves and boat stay on the ocean. |
+| 13 | 2026-11-19 | Hide the top Android status bar (battery, notifications) | done | Hidden at runtime (expo-status-bar) and in app config (Android + iOS). |
+| 14 | 2026-11-19 | Map: move Africa, North America and South America a little to the left | done | Shifted 20 units west; boat route moved to stay in the Atlantic. |

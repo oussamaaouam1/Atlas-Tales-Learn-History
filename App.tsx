@@ -46,7 +46,8 @@ export default function App() {
           <LanguageProvider initialLanguage={boot.language}>
             <SessionProvider initialAgeBand={boot.ageBand}>
               <RootNavigator onboardingComplete={boot.onboardingComplete} />
-              <StatusBar style="dark" />
+              {/* Immersive landscape app: no status bar (battery, notifications). */}
+              <StatusBar hidden />
             </SessionProvider>
           </LanguageProvider>
         </ConvexProvider>

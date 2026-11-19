@@ -15,11 +15,14 @@ const config: ExpoConfig = {
   orientation: 'landscape', // owner decision 2026-11-18: whole app landscape (full-screen story images)
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
+  // Status bar hidden from launch (the app also hides it at runtime).
+  androidStatusBar: { hidden: true, translucent: true },
   ios: {
     bundleIdentifier: BUNDLE_ID,
     supportsTablet: true,
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false,
+      UIStatusBarHidden: true,
     },
   },
   android: {
