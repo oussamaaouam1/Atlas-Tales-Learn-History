@@ -4,14 +4,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import Svg, { Circle, Path } from 'react-native-svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { api } from '../../../convex/_generated/api';
 import type { Doc } from '../../../convex/_generated/dataModel';
 import { AppText } from '../../components/AppText';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
-import { continentAt, continents, groupNearby, placements, storyPoint, worldHeight, worldWidth, type Continent } from './geography';
+import { continentAt, groupNearby, storyPoint, worldHeight, worldWidth, type Continent } from './geography';
+import { WorldMap } from './WorldMap';
+import { OCEAN, VIEW_HEIGHT, VIEW_WIDTH } from './worldShapes';
 import { continentArt, continentAspect } from './continentArt';
 
 type Story = Doc<'stories'>;
@@ -28,10 +29,12 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [choices, setChoices] = useState<Story[]>([]);
   const [selected, setSelected] = useState<string>();
-  const { results, status, loadMore } = usePaginatedQuery(api.stories.listForMap, continent ? {} : 'skip', { initialNumItems: 100 });
+  const { results, status, loadMore } = usePaginatedQuery(api.stories.listForMap, {}, { initialNumItems: 100 });
   const stories = useMemo(() => continent ? results.filter(s => continentAt(s.location.lat, s.location.lng) === continent) : [], [results, continent]);
   const showMore = status === 'CanLoadMore';
-  const frame = continent ? { width: worldHeight * continentAspect[continent], height: worldHeight } : { width: worldWidth, height: worldHeight };
+  const frame = continent
+    ? { width: worldHeight * continentAspect[continent], height: worldHeight }
+    : { width: worldWidth, height: (worldWidth * VIEW_HEIGHT) / VIEW_WIDTH };
   const zoom = Math.min(size.width / frame.width, size.height / frame.height) * (continent ? 0.84 : 1);
   const canvasWidth = frame.width * zoom;
   const canvasHeight = frame.height * zoom;
@@ -91,14 +94,6 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
       <View style={styles.stage} onLayout={event => setSize(event.nativeEvent.layout)}>
         <GestureDetector gesture={Gesture.Simultaneous(pan, pinch)}>
           <Animated.View style={[styles.canvas, { width: canvasWidth, height: canvasHeight }, animated]}>
-                        {zoom > 0 && !continent && (
-              <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width={canvasWidth} height={canvasHeight} viewBox="0 0 1000 510">
-                <Path d="M235 145 Q356 112 444 184 M334 306 Q414 406 533 342 M613 261 Q698 302 798 320" fill="none" stroke="#EAF9FF" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 8" />
-                <Circle cx="103" cy="382" r="24" fill="#C9EFFF" stroke="#316887" strokeWidth="1.5" />
-                <Path d="M103 362 L109 382 L103 402 L97 382 Z M83 382 L123 382" fill="#316887" stroke="#316887" strokeWidth="2" />
-                <Path d="M57 275 q8 -6 16 0 t16 0 M674 353 q8 -6 16 0 t16 0 M890 472 q8 -6 16 0 t16 0 M346 76 q8 -6 16 0 t16 0" fill="none" stroke="#DFF5FF" strokeWidth="2.5" strokeLinecap="round" />
-              </Svg>
-            )}
             {zoom > 0 && (continent ? (
               <>
                 <Image source={continentArt[continent]} style={StyleSheet.absoluteFill} contentFit="fill" accessibilityIgnoresInvertColors />
@@ -117,16 +112,15 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
                   </Pressable>;
                 })}
               </>
-            ) : continents.map(key => {
-              const box = placements[key];
-              return (
-                <Pressable key={key} accessibilityRole="button" accessibilityLabel={t(`map.${key}`)} onPress={() => openContinent(key)}
-                  style={({ pressed }) => [styles.tile, { start: box.x * zoom, top: box.y * zoom, width: box.width * zoom, height: box.height * zoom }, pressed && styles.raised]}>
-                  <Image source={continentArt[key]} style={StyleSheet.absoluteFill} contentFit="fill" accessibilityIgnoresInvertColors />
-                  <View style={styles.label}><AppText variant="caption" bold align="center">{t(`map.${key}`)}</AppText></View>
-                </Pressable>
-              );
-            }))}
+            ) : (
+              <WorldMap
+                width={canvasWidth}
+                height={canvasHeight}
+                stories={results}
+                onContinent={openContinent}
+                onStories={(group) => (group.length > 1 ? setChoices(group) : selectStory(group[0]!))}
+              />
+            ))}
           </Animated.View>
         </GestureDetector>
       </View>
@@ -153,7 +147,7 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
 }
 
 const styles = StyleSheet.create({
-  ocean: { flex: 1, backgroundColor: '#79C9E8' },
+  ocean: { flex: 1, backgroundColor: OCEAN },
   toolbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingTop: 6, gap: 8 },
   actions: { flexDirection: 'row', gap: 8 },
   chip: { backgroundColor: '#FFF', borderRadius: 24, paddingHorizontal: 14, minHeight: 44, justifyContent: 'center' },
@@ -161,8 +155,6 @@ const styles = StyleSheet.create({
   settings: { backgroundColor: tokens.color.primary },
   stage: { flex: 1, justifyContent: 'center', alignItems: 'center', overflow: 'hidden', direction: 'ltr' },
   canvas: { position: 'relative', direction: 'ltr' },
-  tile: { position: 'absolute', justifyContent: 'center', alignItems: 'center' },
-  raised: { transform: [{ translateY: -5 }, { scale: 1.04 }] },
   label: { backgroundColor: '#FFF', borderRadius: 22, paddingHorizontal: 8, paddingVertical: 3, ...tokens.shadow.card },
   footer: { alignItems: 'center', paddingBottom: 6 },
   pin: { position: 'absolute', width: 44, height: 44, borderRadius: 22, borderWidth: 3, borderColor: tokens.color.text, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center', ...tokens.shadow.card },

@@ -98,3 +98,12 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - The world layout is stylized. Continent lookup uses Natural Earth 1:110m coordinates (https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson). Pin positions are approximate within the illustrated artwork.
 - Continent view zooms in, supports pan and pinch, and lifts slightly when a story pin opens. Nearby stories share a pin chooser. Live Convex previews show cover, chapters and reader navigation.
 - Completion and Pro markers depend on the later progress and entitlement features. Physical-device rendering, gestures, RTL review and performance still need verification.
+
+## 2026-11-19 - Phase 3 map improvements (owner choices: "Mix" style, story pins on world, living map)
+- Design fonts: Baloo 2 + Baloo Bhaijaan 2 with per-style weights from the Round 2 token sheet; Cairo removed.
+- World view is now a flat Bright Explorer SVG map drawn from the Natural Earth outlines on an exact equirectangular projection (src/features/map/worldShapes.ts): navy coastline, no political borders, Russia split at the Urals (east = Asia), French Guiana with South America, date-line safe. Pins land exactly on lat/lng. Painted continent art stays for the zoomed continent view.
+- Story pins on the world map (grouped when close) plus a story count on each continent chip; tapping a pin opens the story sheet or the chooser.
+- Living map: drifting clouds, a sailing boat, shimmering waves; static when the OS reduce-motion setting is on.
+- continentAt follows the same Urals/overseas rules.
+- Validation: typecheck passed; 74 tests passed (52 app, 22 server); Android export bundles.
+- Open: device check on Android phone and iPad (owner); Expo Go logged "Layout direction could not be switched to rtl" once - recheck Arabic after a full Expo Go restart.

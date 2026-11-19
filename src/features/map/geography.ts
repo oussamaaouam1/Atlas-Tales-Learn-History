@@ -2,18 +2,10 @@
 
 export const continents = ['northAmerica', 'southAmerica', 'europe', 'africa', 'asia', 'oceania', 'antarctica'] as const;
 export type Continent = typeof continents[number];
-type Box = { x: number; y: number; width: number; height: number };
+
+// Base canvas size: the continent view is worldHeight tall; the world view is worldWidth wide.
 export const worldWidth = 1000;
 export const worldHeight = 510;
-export const placements: Record<Continent, Box> = {
-  northAmerica: { x: 35, y: 18, width: 305, height: 230 },
-  southAmerica: { x: 220, y: 218, width: 192, height: 225 },
-  europe: { x: 420, y: 33, width: 214, height: 145 },
-  africa: { x: 412, y: 144, width: 225, height: 221 },
-  asia: { x: 598, y: 19, width: 359, height: 243 },
-  oceania: { x: 735, y: 254, width: 225, height: 177 },
-  antarctica: { x: 280, y: 428, width: 420, height: 70 },
-};
 
 const extents: Record<Continent, [west: number, east: number, south: number, north: number]> = {
   africa: [-18, 52, -35, 38], europe: [-25, 65, 34, 72], asia: [25, 190, -11, 79],
@@ -21,7 +13,18 @@ const extents: Record<Continent, [west: number, east: number, south: number, nor
   oceania: [110, 184, -49, 0], antarctica: [-180, 180, -90, -60],
 };
 
+/**
+ * Continent of a place, as drawn on the map. Natural Earth files all of Russia and French Guiana
+ * under Europe; the map shows Russia east of the Urals (60°E) as Asia and anything west of 30°W as non-European.
+ */
 export function continentAt(lat: number, lng: number): Continent {
+  const continent = naturalEarthContinentAt(lat, lng);
+  if (continent === 'europe' && lng > 60) return 'asia';
+  if (continent === 'europe' && lng < -30) return 'southAmerica';
+  return continent;
+}
+
+function naturalEarthContinentAt(lat: number, lng: number): Continent {
   const x = lng * 100;
   const y = lat * 100;
   let best: Continent = 'africa';
