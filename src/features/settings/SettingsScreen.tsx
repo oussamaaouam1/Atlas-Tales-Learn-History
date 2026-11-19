@@ -3,7 +3,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedGuide } from '../../components/AnimatedGuide';
 import { AppText } from '../../components/AppText';
-import { Card } from '../../components/Card';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { useSession } from '../../providers/SessionProvider';
 import { tokens } from '../../theme/tokens';
@@ -31,15 +30,10 @@ export function SettingsScreen() {
             {t('settings.language')}
           </AppText>
           <LanguagePicker selected={language} onSelect={(next) => void setLanguage(next)} />
-          <Card>
-            <AppText variant="caption" color="textMuted">
-              {t('settings.installId')}
-            </AppText>
-            {/* Technical ID: always shown left-to-right. */}
-            <AppText variant="caption" selectable style={{ writingDirection: 'ltr' }}>
-              {ownerKey ?? '…'} · {status}
-            </AppText>
-          </Card>
+          {/* Technical install ID on one small line (always left-to-right). */}
+          <AppText variant="caption" color="textMuted" selectable numberOfLines={1} style={{ writingDirection: 'ltr' }}>
+            {t('settings.installId')}: {ownerKey ?? '…'} · {status}
+          </AppText>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -50,5 +44,5 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: tokens.color.background },
   row: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md, paddingHorizontal: tokens.spacing.lg },
   scroll: { flex: 1, alignSelf: 'stretch' },
-  content: { gap: tokens.spacing.md, paddingVertical: tokens.spacing.md, maxWidth: 600, width: '100%', alignSelf: 'center' },
+  content: { gap: tokens.spacing.sm, paddingVertical: tokens.spacing.sm, maxWidth: 560, width: '100%', alignSelf: 'center', flexGrow: 1, justifyContent: 'center' },
 });

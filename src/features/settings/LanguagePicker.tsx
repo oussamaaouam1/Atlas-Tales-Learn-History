@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { GREETINGS, LANGUAGES, NATIVE_NAMES, type Language } from '../../i18n/languages';
+import { GREETINGS, NATIVE_NAMES, PICKER_ORDER, type Language } from '../../i18n/languages';
 import { tokens } from '../../theme/tokens';
 
 interface LanguagePickerProps {
@@ -15,7 +15,7 @@ interface LanguagePickerProps {
 export function LanguagePicker({ selected, onSelect }: LanguagePickerProps) {
   return (
     <View style={styles.grid} accessibilityRole="radiogroup">
-      {LANGUAGES.map((language) => {
+      {PICKER_ORDER.map((language) => {
         const isSelected = language === selected;
         const arabic = language === 'ar';
         return (
@@ -42,15 +42,15 @@ export function LanguagePicker({ selected, onSelect }: LanguagePickerProps) {
 }
 
 const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.medium },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.sm },
   card: {
     flexBasis: '47%',
     flexGrow: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: tokens.spacing.medium,
-    paddingVertical: tokens.spacing.medium,
-    paddingHorizontal: tokens.spacing.md,
+    gap: tokens.spacing.sm,
+    paddingVertical: tokens.spacing.xs + 2,
+    paddingHorizontal: tokens.spacing.medium,
     borderRadius: tokens.radius.md,
     backgroundColor: tokens.color.surface,
     borderWidth: 2,
@@ -61,21 +61,21 @@ const styles = StyleSheet.create({
   pressed: { transform: [{ scale: 0.96 }] },
   texts: { flex: 1 },
   textsArabic: { alignItems: 'flex-end' },
-  name: { color: tokens.color.text, fontSize: 22 },
-  nameLatin: { fontFamily: tokens.fontFace.latin[800], lineHeight: 28, writingDirection: 'ltr' },
-  nameArabic: { fontFamily: tokens.fontFace.arabic[800], lineHeight: 34, writingDirection: 'rtl' },
-  greeting: { color: tokens.color.textMuted, fontSize: 14 },
-  greetingLatin: { fontFamily: tokens.fontFace.latin[500], lineHeight: 18, writingDirection: 'ltr' },
-  greetingArabic: { fontFamily: tokens.fontFace.arabic[500], lineHeight: 22, writingDirection: 'rtl' },
+  name: { color: tokens.color.text, fontSize: 18 },
+  nameLatin: { fontFamily: tokens.fontFace.latin[800], lineHeight: 23, writingDirection: 'ltr' },
+  nameArabic: { fontFamily: tokens.fontFace.arabic[800], lineHeight: 27, writingDirection: 'rtl' },
+  greeting: { color: tokens.color.textMuted, fontSize: 12 },
+  greetingLatin: { fontFamily: tokens.fontFace.latin[500], lineHeight: 15, writingDirection: 'ltr' },
+  greetingArabic: { fontFamily: tokens.fontFace.arabic[500], lineHeight: 18, writingDirection: 'rtl' },
   radio: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     borderWidth: 2,
     borderColor: '#B9CBE6',
     alignItems: 'center',
     justifyContent: 'center',
   },
   radioOn: { borderColor: tokens.color.primary },
-  radioDot: { width: 13, height: 13, borderRadius: 7, backgroundColor: tokens.color.primary },
+  radioDot: { width: 11, height: 11, borderRadius: 6, backgroundColor: tokens.color.primary },
 });

@@ -3,6 +3,9 @@ export type Language = (typeof LANGUAGES)[number];
 
 export const DEFAULT_LANGUAGE: Language = 'en';
 
+/** Order of the language cards (owner, BACKLOG #26). */
+export const PICKER_ORDER: readonly Language[] = ['en', 'es', 'fr', 'ar'];
+
 /** Each language's name in its own script (BUILD_GUIDE §6: languages, not flags). */
 export const NATIVE_NAMES: Record<Language, string> = {
   ar: 'العربية',

@@ -62,5 +62,5 @@ const styles = StyleSheet.create({
     gap: tokens.spacing.lg,
     paddingHorizontal: tokens.spacing.xl,
   },
-  content: { flexShrink: 1, maxWidth: 560, gap: tokens.spacing.medium },
+  content: { flexShrink: 1, maxWidth: 520, gap: tokens.spacing.sm },
 });

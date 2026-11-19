@@ -30,3 +30,5 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 22 | 2026-11-19 | Map: the continent bouncing is a little much — reduce it and make it smooth | done | Half the height (2.5 px) and a slow sine float instead of a bounce. |
 | 23 | 2026-11-19 | Settings → Language shows no character | done | Navigator guide now on Settings, pointing at the language cards. |
 | 24 | 2026-11-19 | Language-screen guide: new character (not an Arabic face), bigger, smoother gesture | done | Young woman navigator-interpreter (~1500), near-realistic, smooth 3-frame point, ~86% of screen height. Traveller retired. |
+| 25 | 2026-11-19 | iPad: "Cannot find native module 'ExpoAsset'" / "main has not been registered" | doing | Project deps verified (expo install --check, expo-doctor 20/20). Expo Go iOS state after many reloads; Metro restarted with --clear; owner to force-quit Expo Go on iPad and reopen (update Expo Go if it persists). |
+| 26 | 2026-11-19 | Android: make the language section smaller (no scrolling); order English, Spanish, French, Arabic | done | Compact cards (smaller text, padding, radio); Settings install ID on one line; order en, es, fr, ar. |

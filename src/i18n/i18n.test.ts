@@ -1,4 +1,4 @@
-import { GREETINGS, LANGUAGES, isRTL, pickDeviceLanguage, supportedDeviceLanguage } from './languages';
+import { GREETINGS, LANGUAGES, PICKER_ORDER, isRTL, pickDeviceLanguage, supportedDeviceLanguage } from './languages';
 import { dictionaries, translate, type TranslationKey } from './translate';
 
 function leafPaths(node: unknown, prefix = ''): string[] {
@@ -64,4 +64,9 @@ describe('language screen helpers', () => {
   test('every language has a greeting', () => {
     for (const language of LANGUAGES) expect(GREETINGS[language].length).toBeGreaterThan(0);
   });
+});
+
+test('language cards show English, Spanish, French, Arabic, each once', () => {
+  expect(PICKER_ORDER).toEqual(['en', 'es', 'fr', 'ar']);
+  expect([...PICKER_ORDER].sort()).toEqual([...LANGUAGES].sort());
 });
