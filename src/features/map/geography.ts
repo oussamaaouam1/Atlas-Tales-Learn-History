@@ -7,6 +7,18 @@ export type Continent = typeof continents[number];
 export const worldWidth = 1000;
 export const worldHeight = 510;
 
+type Box = { x: number; y: number; width: number; height: number };
+/** Where each painted continent sits on the illustrated world (1000 × 510 units). */
+export const placements: Record<Continent, Box> = {
+  northAmerica: { x: 35, y: 18, width: 305, height: 230 },
+  southAmerica: { x: 220, y: 218, width: 192, height: 225 },
+  europe: { x: 420, y: 33, width: 214, height: 145 },
+  africa: { x: 412, y: 144, width: 225, height: 221 },
+  asia: { x: 598, y: 19, width: 359, height: 243 },
+  oceania: { x: 735, y: 254, width: 225, height: 177 },
+  antarctica: { x: 280, y: 428, width: 420, height: 70 },
+};
+
 const extents: Record<Continent, [west: number, east: number, south: number, north: number]> = {
   africa: [-18, 52, -35, 38], europe: [-25, 65, 34, 72], asia: [25, 190, -11, 79],
   northAmerica: [-171, -52, 7, 80], southAmerica: [-82, -34, -56, 13],

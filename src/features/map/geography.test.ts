@@ -1,4 +1,4 @@
-﻿import { continentAt, groupNearby, storyPoint } from './geography';
+import { continentAt, groupNearby, storyPoint } from './geography';
 
 test.each([
   [16.7666, -3.0026, 'africa'],
@@ -25,4 +25,14 @@ test('keeps both fixture stories reachable from one shared location pin', () => 
   expect(groupNearby(points, 44).map(group => group.items)).toEqual([
     ['placeholder-one', 'placeholder-two'], ['other'],
   ]);
+});
+
+describe('continentAt follows the map', () => {
+  test.each([
+    [55.75, 37.62, 'europe'], // Moscow
+    [55.03, 82.92, 'asia'], // Novosibirsk: Russia east of the Urals
+    [4.92, -52.31, 'southAmerica'], // Cayenne, French Guiana
+  ] as const)('%s, %s is %s', (lat, lng, continent) => {
+    expect(continentAt(lat, lng)).toBe(continent);
+  });
 });

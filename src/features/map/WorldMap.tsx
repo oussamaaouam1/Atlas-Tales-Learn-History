@@ -1,4 +1,5 @@
-import { memo, useEffect, useMemo } from 'react';
+import { Image } from 'expo-image';
+import { useEffect, useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
@@ -7,55 +8,35 @@ import Animated, {
   useSharedValue,
   withDelay,
   withRepeat,
-  withSequence,
   withTiming,
   type SharedValue,
 } from 'react-native-reanimated';
-import Svg, { G, Path, Rect } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 
 import type { Doc } from '../../../convex/_generated/dataModel';
 import { AppText } from '../../components/AppText';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
-import { continentAt, continents, groupNearby, type Continent } from './geography';
-import { buildContinentPaths, continentFill, labelAnchors, OCEAN, project, VIEW_HEIGHT, VIEW_WIDTH } from './worldShapes';
+import { continentArt } from './continentArt';
+import { continentAt, continents, groupNearby, placements, storyPoint, worldHeight, worldWidth, type Continent } from './geography';
 
 type Story = Doc<'stories'>;
+type Point = { x: number; y: number };
 
+export const OCEAN = '#79C9E8';
 const NAVY = tokens.color.text;
 const NEW_FOR_MS = 7 * 24 * 60 * 60 * 1000;
 
-// Built once: simplified Natural Earth outlines (≈5k points for the whole world).
-const continentPaths = buildContinentPaths();
-// Light graticule every 30°, a calm "map" texture under the land.
-const graticule = [
-  ...[30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((x) => `M${x} 0V${VIEW_HEIGHT}`),
-  ...[24, 54, 84, 114, 144].map((y) => `M0 ${y}H${VIEW_WIDTH}`),
-].join('');
-
-/** Static land layers. Memoized: they never change after the first render. */
-const Land = memo(function Land({ onContinent }: { onContinent: (continent: Continent) => void }) {
-  return (
-    <>
-      <Rect width={VIEW_WIDTH} height={VIEW_HEIGHT} fill={OCEAN} />
-      <Path d={graticule} stroke="#A6DBF3" strokeWidth={0.25} strokeDasharray="1.2 1.6" />
-      {/* Drop shadow, then a navy rim (coastline only: fills cover inner edges, so no borders show). */}
-      {continents.map((c) => (
-        <Path key={`s-${c}`} d={continentPaths[c]} translateY={1.4} fill="rgba(20,33,61,0.2)" stroke="rgba(20,33,61,0.2)" strokeWidth={1} />
-      ))}
-      {continents.map((c) => (
-        <Path key={`o-${c}`} d={continentPaths[c]} fill={NAVY} stroke={NAVY} strokeWidth={1} strokeLinejoin="round" />
-      ))}
-      {continents.map((c) => (
-        <G key={`f-${c}`} onPress={() => onContinent(c)}>
-          <Path d={continentPaths[c]} fill={continentFill[c]} stroke={continentFill[c]} strokeWidth={0.35} strokeLinejoin="round" />
-        </G>
-      ))}
-    </>
-  );
-});
+/** Where a story sits on the illustrated world: inside its continent's artwork box (approximate). */
+export function worldPoint(lat: number, lng: number): Point {
+  const continent = continentAt(lat, lng);
+  const box = placements[continent];
+  const p = storyPoint(continent, lat, lng);
+  return { x: box.x + p.x * box.width, y: box.y + p.y * box.height };
+}
 
 interface WorldMapProps {
+  /** Canvas size in px; the world is drawn in 1000 × 510 units scaled to it. */
   width: number;
   height: number;
   stories: readonly Story[];
@@ -63,15 +44,11 @@ interface WorldMapProps {
   onStories: (stories: Story[]) => void;
 }
 
-/** Flat Bright Explorer world (§7.1): exact equirectangular pins, never mirrored in Arabic. */
+/** Illustrated world (owner choice): painted continents, living ocean, story pins. Never mirrored. */
 export function WorldMap({ width, height, stories, onContinent, onStories }: WorldMapProps) {
   const { t, language } = useLanguage();
-  const sx = width / VIEW_WIDTH;
-  const sy = height / VIEW_HEIGHT;
-  const toScreen = (lat: number, lng: number) => {
-    const p = project(lat, lng);
-    return { x: p.x * sx, y: p.y * sy };
-  };
+  const scale = width / worldWidth;
+  const toScreen = (p: Point): Point => ({ x: p.x * scale, y: p.y * scale });
 
   const counts = useMemo(() => {
     const result = Object.fromEntries(continents.map((c) => [c, 0])) as Record<Continent, number>;
@@ -80,39 +57,45 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
   }, [stories]);
 
   const groups = groupNearby(
-    stories.map((story) => ({ ...toScreen(story.location.lat, story.location.lng), item: story })),
-    26,
+    stories.map((story) => ({ ...toScreen(worldPoint(story.location.lat, story.location.lng)), item: story })),
+    30,
   );
   const now = Date.now();
 
   return (
     <View style={{ width, height }}>
-      <Svg width={width} height={height} viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}>
-        <Land onContinent={onContinent} />
+      {/* Ocean decoration under the land: routes and compass. */}
+      <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width={width} height={height} viewBox={`0 0 ${worldWidth} ${worldHeight}`}>
+        <Path d="M235 145 Q356 112 444 184 M334 306 Q414 406 533 342 M613 261 Q698 302 798 320" fill="none" stroke="#EAF9FF" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 8" />
+        <Circle cx="103" cy="382" r="24" fill="#C9EFFF" stroke="#316887" strokeWidth="1.5" />
+        <Path d="M103 362 L109 382 L103 402 L97 382 Z M83 382 L123 382" fill="#316887" stroke="#316887" strokeWidth="2" />
       </Svg>
 
-      <LivingLayer width={width} toScreen={toScreen} />
+      <LivingLayer scale={scale} width={width} />
 
-      {continents.map((c) => {
-        const [lat, lng] = labelAnchors[c];
-        const p = toScreen(lat, lng);
+      {continents.map((key) => {
+        const box = placements[key];
         return (
           <Pressable
-            key={c}
+            key={key}
             accessibilityRole="button"
-            accessibilityLabel={counts[c] ? `${t(`map.${c}`)}, ${t('map.storyCount', { count: counts[c] })}` : t(`map.${c}`)}
-            onPress={() => onContinent(c)}
-            hitSlop={6}
-            style={({ pressed }) => [styles.labelSlot, { start: p.x - 70, top: p.y - 16 }, pressed && styles.pressed]}
+            accessibilityLabel={counts[key] ? `${t(`map.${key}`)}, ${t('map.storyCount', { count: counts[key] })}` : t(`map.${key}`)}
+            onPress={() => onContinent(key)}
+            style={({ pressed }) => [
+              styles.tile,
+              { start: box.x * scale, top: box.y * scale, width: box.width * scale, height: box.height * scale },
+              pressed && styles.raised,
+            ]}
           >
+            <Image source={continentArt[key]} style={StyleSheet.absoluteFill} contentFit="fill" accessibilityIgnoresInvertColors />
             <View style={styles.label}>
               <AppText variant="caption" bold>
-                {t(`map.${c}`)}
+                {t(`map.${key}`)}
               </AppText>
-              {counts[c] > 0 && (
+              {counts[key] > 0 && (
                 <View style={styles.count}>
                   <AppText variant="caption" bold color="textOnPrimary">
-                    {new Intl.NumberFormat(language).format(counts[c])}
+                    {new Intl.NumberFormat(language).format(counts[key])}
                   </AppText>
                 </View>
               )}
@@ -123,7 +106,7 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
 
       {groups.map((group) => {
         const first = group.items[0]!;
-        const isNew = group.items.some((s) => now - s.releaseAt < NEW_FOR_MS && now >= s.releaseAt);
+        const isNew = group.items.some((s) => now >= s.releaseAt && now - s.releaseAt < NEW_FOR_MS);
         const many = group.items.length > 1;
         return (
           <Pressable
@@ -134,14 +117,14 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
             hitSlop={10}
             style={({ pressed }) => [
               styles.pin,
-              { start: group.x - 13, top: group.y - 13 },
+              { start: group.x - 15, top: group.y - 15 },
               isNew ? styles.pinNew : styles.pinDefault,
               pressed && styles.pressed,
             ]}
           >
             {many ? (
               <AppText variant="caption" bold color={isNew ? 'textOnPrimary' : 'text'} style={styles.pinText}>
-                {group.items.length}
+                {new Intl.NumberFormat(language).format(group.items.length)}
               </AppText>
             ) : (
               <PinGlyph isNew={isNew} />
@@ -155,7 +138,7 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
 
 function PinGlyph({ isNew }: { isNew: boolean }) {
   return (
-    <Svg width={14} height={14} viewBox="0 0 24 24">
+    <Svg width={15} height={15} viewBox="0 0 24 24">
       {isNew ? (
         <Path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="#FFFFFF" />
       ) : (
@@ -166,29 +149,31 @@ function PinGlyph({ isNew }: { isNew: boolean }) {
 }
 
 // ---------------------------------------------------------------------------------------------
-// Living map: calm ambient motion (tokens: "calm, no flashing"). Disabled with reduced motion.
-
-type ToScreen = (lat: number, lng: number) => { x: number; y: number };
+// Living map: calm ambient motion over the open ocean (tokens: "calm, no flashing").
+// Positions are in world units (1000 × 510), placed in the gaps between the painted continents.
 
 const CLOUDS = [
-  { lat: 62, width: 74, duration: 70_000, offset: 0.1 },
-  { lat: 18, width: 58, duration: 90_000, offset: 0.55 },
-  { lat: -38, width: 66, duration: 80_000, offset: 0.8 },
+  { y: 70, width: 92, duration: 70_000, offset: 0.1 },
+  { y: 235, width: 70, duration: 90_000, offset: 0.55 },
+  { y: 410, width: 82, duration: 80_000, offset: 0.8 },
 ];
-const WAVES: [lat: number, lng: number][] = [
-  [30, -45], [-25, -20], [-35, 75], [10, -140], [-15, -110], [40, -165], [-50, 150], [5, 70],
+const WAVES: Point[] = [
+  { x: 90, y: 300 }, { x: 150, y: 385 }, { x: 60, y: 440 }, { x: 680, y: 300 },
+  { x: 700, y: 385 }, { x: 205, y: 470 }, { x: 770, y: 470 }, { x: 905, y: 475 },
 ];
+const BOAT_ROUTE: [Point, Point] = [{ x: 338, y: 122 }, { x: 392, y: 196 }];
 
-function LivingLayer({ width, toScreen }: { width: number; toScreen: ToScreen }) {
-  const reduceMotion = useReducedMotion();
+function LivingLayer({ scale, width }: { scale: number; width: number }) {
+  const still = useReducedMotion();
+  const at = (p: Point): Point => ({ x: p.x * scale, y: p.y * scale });
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-      {WAVES.map(([lat, lng], i) => (
-        <Wave key={`${lat},${lng}`} {...toScreen(lat, lng)} delay={i * 450} still={reduceMotion} />
+      {WAVES.map((p, i) => (
+        <Wave key={`${p.x},${p.y}`} {...at(p)} delay={i * 450} still={still} />
       ))}
-      <Boat from={toScreen(28, -48)} to={toScreen(12, -28)} still={reduceMotion} />
+      <Boat from={at(BOAT_ROUTE[0])} to={at(BOAT_ROUTE[1])} still={still} />
       {CLOUDS.map((cloud) => (
-        <Cloud key={cloud.lat} y={toScreen(cloud.lat, 0).y} span={width} {...cloud} still={reduceMotion} />
+        <Cloud key={cloud.y} y={cloud.y * scale} size={cloud.width * scale} span={width} duration={cloud.duration} offset={cloud.offset} still={still} />
       ))}
     </View>
   );
@@ -196,44 +181,45 @@ function LivingLayer({ width, toScreen }: { width: number; toScreen: ToScreen })
 
 function useLoop(duration: number, still: boolean, options: { reverse?: boolean; delay?: number } = {}): SharedValue<number> {
   const progress = useSharedValue(0);
+  const { reverse = false, delay = 0 } = options;
   useEffect(() => {
     if (still) return;
     progress.value = withDelay(
-      options.delay ?? 0,
-      withRepeat(withTiming(1, { duration, easing: options.reverse ? Easing.inOut(Easing.sin) : Easing.linear }), -1, options.reverse ?? false),
+      delay,
+      withRepeat(withTiming(1, { duration, easing: reverse ? Easing.inOut(Easing.sin) : Easing.linear }), -1, reverse),
     );
-  }, [progress, duration, still, options.reverse, options.delay]);
+  }, [progress, duration, still, reverse, delay]);
   return progress;
 }
 
-function Wave({ x, y, delay, still }: { x: number; y: number; delay: number; still: boolean }) {
+function Wave({ x, y, delay, still }: Point & { delay: number; still: boolean }) {
   const progress = useLoop(2600, still, { reverse: true, delay });
   const style = useAnimatedStyle(() => ({
     opacity: still ? 0.7 : 0.35 + progress.value * 0.55,
     transform: [{ translateX: progress.value * 3 }],
   }));
   return (
-    <Animated.View style={[styles.wave, { start: x - 9, top: y - 4 }, style]}>
-      <Svg width={18} height={8} viewBox="0 0 18 8">
+    <Animated.View style={[styles.abs, { start: x - 11, top: y - 5 }, style]}>
+      <Svg width={22} height={10} viewBox="0 0 18 8">
         <Path d="M1 5q2-3 4 0t4 0t4 0t4 0" stroke="#E8F8FF" strokeWidth={1.6} fill="none" strokeLinecap="round" />
       </Svg>
     </Animated.View>
   );
 }
 
-function Boat({ from, to, still }: { from: { x: number; y: number }; to: { x: number; y: number }; still: boolean }) {
+function Boat({ from, to, still }: { from: Point; to: Point; still: boolean }) {
   const travel = useLoop(16_000, still, { reverse: true });
   const bob = useLoop(1800, still, { reverse: true });
   const style = useAnimatedStyle(() => ({
     transform: [
-      { translateX: from.x + (to.x - from.x) * travel.value - 12 },
-      { translateY: from.y + (to.y - from.y) * travel.value - 12 + bob.value * 2 },
+      { translateX: from.x + (to.x - from.x) * travel.value - 14 },
+      { translateY: from.y + (to.y - from.y) * travel.value - 14 + bob.value * 2 },
       { rotate: `${(bob.value - 0.5) * 6}deg` },
     ],
   }));
   return (
-    <Animated.View style={[styles.boat, style]}>
-      <Svg width={24} height={24} viewBox="0 0 24 24">
+    <Animated.View style={[styles.abs, styles.origin, style]}>
+      <Svg width={28} height={28} viewBox="0 0 24 24">
         <Path d="M12 3v12" stroke={NAVY} strokeWidth={1.4} />
         <Path d="M12.8 4l6 9h-6z" fill="#FFFFFF" stroke={NAVY} strokeWidth={1.2} strokeLinejoin="round" />
         <Path d="M11.2 6l-4.5 7h4.5z" fill={tokens.color.accent} stroke={NAVY} strokeWidth={1.2} strokeLinejoin="round" />
@@ -243,15 +229,16 @@ function Boat({ from, to, still }: { from: { x: number; y: number }; to: { x: nu
   );
 }
 
-function Cloud({ y, span, width, duration, offset, still }: { y: number; span: number; width: number; duration: number; offset: number; still: boolean }) {
+function Cloud(props: { y: number; size: number; span: number; duration: number; offset: number; still: boolean }) {
+  const { y, size, span, duration, offset, still } = props;
   const progress = useLoop(duration, still);
   const style = useAnimatedStyle(() => {
     const t = (progress.value + offset) % 1;
-    return { transform: [{ translateX: -width + t * (span + width) }] };
+    return { transform: [{ translateX: -size + t * (span + size) }] };
   });
   return (
-    <Animated.View style={[styles.cloud, { top: y - width * 0.2, width, height: width * 0.42 }, style]}>
-      <Svg width={width} height={width * 0.42} viewBox="0 0 50 21">
+    <Animated.View style={[styles.abs, styles.origin, { top: y - size * 0.2, width: size, height: size * 0.42 }, style]}>
+      <Svg width={size} height={size * 0.42} viewBox="0 0 50 21">
         <Path d="M10 20h31a8 8 0 0 0 0-16a10 10 0 0 0-18-2a8 8 0 0 0-13 7a6 6 0 0 0 0 11z" fill="#FFFFFF" opacity={0.85} />
       </Svg>
     </Animated.View>
@@ -259,7 +246,8 @@ function Cloud({ y, span, width, duration, offset, still }: { y: number; span: n
 }
 
 const styles = StyleSheet.create({
-  labelSlot: { position: 'absolute', width: 140, alignItems: 'center' },
+  tile: { position: 'absolute', justifyContent: 'center', alignItems: 'center' },
+  raised: { transform: [{ translateY: -5 }, { scale: 1.04 }] },
   label: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -281,9 +269,9 @@ const styles = StyleSheet.create({
   },
   pin: {
     position: 'absolute',
-    width: 26,
-    height: 26,
-    borderRadius: 13,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     borderWidth: 2.5,
     alignItems: 'center',
     justifyContent: 'center',
@@ -293,7 +281,6 @@ const styles = StyleSheet.create({
   pinNew: { backgroundColor: tokens.color.secondary, borderColor: '#FFFFFF' },
   pinText: { lineHeight: 16 },
   pressed: { transform: [{ scale: 0.96 }] },
-  wave: { position: 'absolute' },
-  boat: { position: 'absolute', start: 0, top: 0 },
-  cloud: { position: 'absolute', start: 0 },
+  abs: { position: 'absolute' },
+  origin: { start: 0, top: 0 },
 });

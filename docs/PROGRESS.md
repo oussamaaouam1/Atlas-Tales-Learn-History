@@ -107,3 +107,4 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - continentAt follows the same Urals/overseas rules.
 - Validation: typecheck passed; 74 tests passed (52 app, 22 server); Android export bundles.
 - Open: device check on Android phone and iPad (owner); Expo Go logged "Layout direction could not be switched to rtl" once - recheck Arabic after a full Expo Go restart.
+- Owner revised: back to the illustrated world map (flat SVG map removed; it stays in git history at d055407), made larger: toolbar floats over the map, world view fills the screen (cover, crop capped at ~15%, drag to see edges), continent view drawn larger with a round back button instead of the system header. Clouds, boat, waves and story pins/counts kept on the illustrated map. Tests: 66 passed (44 app, 22 server).

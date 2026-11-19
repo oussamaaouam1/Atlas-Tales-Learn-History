@@ -7,5 +7,6 @@ export function ContinentScreen({ navigation, route }: RootScreenProps<'Continen
     openContinent={continent => navigation.setParams({ continent })}
     openStory={slug => navigation.navigate('StoryCard', { slug })}
     openPassport={() => navigation.navigate('Passport')}
+    onBack={() => navigation.goBack()}
   />;
 }

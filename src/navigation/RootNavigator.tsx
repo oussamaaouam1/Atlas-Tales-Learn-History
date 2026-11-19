@@ -53,7 +53,7 @@ export function RootNavigator({ onboardingComplete }: { onboardingComplete: bool
           <Stack.Screen name="Language" component={LanguageScreen} initialParams={{ onboarding: true }} />
           <Stack.Screen name="Map" component={MapScreen} />
         </Stack.Group>
-        <Stack.Screen name="Continent" component={ContinentScreen} options={{ title: t('screens.continent'), animation: 'fade' }} />
+        <Stack.Screen name="Continent" component={ContinentScreen} options={{ title: t('screens.continent'), animation: 'fade', headerShown: false }} />
         <Stack.Screen
           name="StoryCard"
           component={StoryCardSheet}

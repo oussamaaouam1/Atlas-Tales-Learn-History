@@ -8,11 +8,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { api } from '../../../convex/_generated/api';
 import type { Doc } from '../../../convex/_generated/dataModel';
 import { AppText } from '../../components/AppText';
+import { DirectionalIcon } from '../../components/DirectionalIcon';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
 import { continentAt, groupNearby, storyPoint, worldHeight, worldWidth, type Continent } from './geography';
-import { WorldMap } from './WorldMap';
-import { OCEAN, VIEW_HEIGHT, VIEW_WIDTH } from './worldShapes';
+import { OCEAN, WorldMap } from './WorldMap';
 import { continentArt, continentAspect } from './continentArt';
 
 type Story = Doc<'stories'>;
@@ -22,9 +22,10 @@ type Props = {
   openStory: (slug: string) => void;
   openPassport: () => void;
   openSettings?: () => void;
+  onBack?: () => void;
 };
 
-export function AtlasMap({ continent, openContinent, openStory, openPassport, openSettings }: Props) {
+export function AtlasMap({ continent, openContinent, openStory, openPassport, openSettings, onBack }: Props) {
   const { language, t } = useLanguage();
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [choices, setChoices] = useState<Story[]>([]);
@@ -34,8 +35,12 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
   const showMore = status === 'CanLoadMore';
   const frame = continent
     ? { width: worldHeight * continentAspect[continent], height: worldHeight }
-    : { width: worldWidth, height: (worldWidth * VIEW_HEIGHT) / VIEW_WIDTH };
-  const zoom = Math.min(size.width / frame.width, size.height / frame.height) * (continent ? 0.84 : 1);
+    : { width: worldWidth, height: worldHeight };
+  const contain = Math.min(size.width / frame.width, size.height / frame.height);
+  const cover = Math.max(size.width / frame.width, size.height / frame.height);
+  // World: fill the screen (cover), but never crop more than ~15%; drag to see the edges.
+  // Continent: as large as fits, with a little room for the floating buttons.
+  const zoom = continent ? contain * 0.92 : Math.min(cover, contain * 1.15);
   const canvasWidth = frame.width * zoom;
   const canvasHeight = frame.height * zoom;
   const groups = groupNearby(stories.map(story => {
@@ -53,12 +58,15 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
   useEffect(() => {
     entrance.value = withTiming(1, { duration: 420 });
   }, [entrance]);
-  const pan = Gesture.Pan().enabled(!!continent).minDistance(8).onStart(() => {
+  // Pan is clamped to the stage, so the map can never be dragged off screen.
+  const stageWidth = size.width;
+  const stageHeight = size.height;
+  const pan = Gesture.Pan().minDistance(8).onStart(() => {
     startX.value = panX.value;
     startY.value = panY.value;
   }).onUpdate(event => {
-    const maxX = Math.max(0, (canvasWidth * scale.value - canvasWidth) / 2);
-    const maxY = Math.max(0, (canvasHeight * scale.value - canvasHeight) / 2);
+    const maxX = Math.max(0, (canvasWidth * scale.value - stageWidth) / 2);
+    const maxY = Math.max(0, (canvasHeight * scale.value - stageHeight) / 2);
     panX.value = Math.max(-maxX, Math.min(maxX, startX.value + event.translationX));
     panY.value = Math.max(-maxY, Math.min(maxY, startY.value + event.translationY));
   });
@@ -66,8 +74,8 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
     startScale.value = scale.value;
   }).onUpdate(event => {
     scale.value = Math.max(1, Math.min(2.6, startScale.value * event.scale));
-    const maxX = canvasWidth * (scale.value - 1) / 2;
-    const maxY = canvasHeight * (scale.value - 1) / 2;
+    const maxX = Math.max(0, (canvasWidth * scale.value - stageWidth) / 2);
+    const maxY = Math.max(0, (canvasHeight * scale.value - stageHeight) / 2);
     panX.value = Math.max(-maxX, Math.min(maxX, panX.value));
     panY.value = Math.max(-maxY, Math.min(maxY, panY.value));
   });
@@ -83,14 +91,7 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
   }
 
   return (
-    <SafeAreaView style={styles.ocean} edges={continent ? ['bottom', 'left', 'right'] : ['top', 'bottom', 'left', 'right']}>
-      <View style={styles.toolbar}>
-        <View style={styles.chip}><AppText variant="title" bold>{continent ? t(`map.${continent}`) : t('map.explore')}</AppText></View>
-        <View style={styles.actions}>
-          <Pressable style={[styles.chip, styles.passport]} accessibilityRole="button" onPress={openPassport}><AppText bold>{t('map.openPassport')}</AppText></Pressable>
-          {openSettings && <Pressable style={[styles.chip, styles.settings]} accessibilityRole="button" onPress={openSettings}><AppText bold color="textOnPrimary">{t('map.openSettings')}</AppText></Pressable>}
-        </View>
-      </View>
+    <SafeAreaView style={styles.ocean} edges={['top', 'bottom', 'left', 'right']}>
       <View style={styles.stage} onLayout={event => setSize(event.nativeEvent.layout)}>
         <GestureDetector gesture={Gesture.Simultaneous(pan, pinch)}>
           <Animated.View style={[styles.canvas, { width: canvasWidth, height: canvasHeight }, animated]}>
@@ -124,6 +125,21 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
           </Animated.View>
         </GestureDetector>
       </View>
+      {/* Floating toolbar over the map (design: chips and round buttons float over the art). */}
+      <View style={styles.toolbar} pointerEvents="box-none">
+        <View style={styles.titleRow}>
+          {continent && onBack && (
+            <Pressable style={[styles.round, styles.back]} accessibilityRole="button" accessibilityLabel={t('common.back')} onPress={onBack} hitSlop={6}>
+              <DirectionalIcon direction="back" size={22} color={tokens.color.primary} />
+            </Pressable>
+          )}
+          <View style={styles.chip}><AppText variant="title" bold>{continent ? t(`map.${continent}`) : t('map.explore')}</AppText></View>
+        </View>
+        <View style={styles.actions}>
+          <Pressable style={[styles.chip, styles.passport]} accessibilityRole="button" onPress={openPassport}><AppText bold>{t('map.openPassport')}</AppText></Pressable>
+          {openSettings && <Pressable style={[styles.chip, styles.settings]} accessibilityRole="button" onPress={openSettings}><AppText bold color="textOnPrimary">{t('map.openSettings')}</AppText></Pressable>}
+        </View>
+      </View>
       {continent && (
         <View style={styles.footer}>
           {status === 'LoadingFirstPage' && <ActivityIndicator color={tokens.color.primary} accessibilityLabel={t('common.loading')} />}
@@ -148,7 +164,10 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
 
 const styles = StyleSheet.create({
   ocean: { flex: 1, backgroundColor: OCEAN },
-  toolbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingTop: 6, gap: 8 },
+  toolbar: { position: 'absolute', top: 0, start: 0, end: 0, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingTop: 8, gap: 8 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  round: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center', ...tokens.shadow.card },
+  back: { backgroundColor: tokens.color.surface },
   actions: { flexDirection: 'row', gap: 8 },
   chip: { backgroundColor: '#FFF', borderRadius: 24, paddingHorizontal: 14, minHeight: 44, justifyContent: 'center' },
   passport: { backgroundColor: tokens.color.accent },
@@ -156,7 +175,7 @@ const styles = StyleSheet.create({
   stage: { flex: 1, justifyContent: 'center', alignItems: 'center', overflow: 'hidden', direction: 'ltr' },
   canvas: { position: 'relative', direction: 'ltr' },
   label: { backgroundColor: '#FFF', borderRadius: 22, paddingHorizontal: 8, paddingVertical: 3, ...tokens.shadow.card },
-  footer: { alignItems: 'center', paddingBottom: 6 },
+  footer: { position: 'absolute', bottom: 6, start: 0, end: 0, alignItems: 'center' },
   pin: { position: 'absolute', width: 44, height: 44, borderRadius: 22, borderWidth: 3, borderColor: tokens.color.text, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center', ...tokens.shadow.card },
   pinPoint: { position: 'absolute', bottom: -6, height: 8, width: 8, borderRadius: 2, backgroundColor: tokens.color.text, transform: [{ rotate: '45deg' }] },
   newPin: { backgroundColor: tokens.color.secondary, borderColor: '#FFF' },
