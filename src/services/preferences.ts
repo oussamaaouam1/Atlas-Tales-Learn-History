@@ -8,6 +8,7 @@ const KEYS = {
   onboardingComplete: 'atlas.onboardingComplete',
   ageBand: 'atlas.ageBand',
   rtlSyncAttempt: 'atlas.rtlSyncAttempt',
+  splashIcon: 'atlas.splashIcon',
 } as const;
 
 const AGE_BANDS: readonly AgeBand[] = ['child', 'teen', 'adult', 'unknown'];
@@ -37,3 +38,16 @@ export const saveAgeBand = (ageBand: AgeBand) => AsyncStorage.setItem(KEYS.ageBa
 /** Guards against reload loops: remembers which direction we last tried to force at startup. */
 export const loadRtlSyncAttempt = () => AsyncStorage.getItem(KEYS.rtlSyncAttempt);
 export const saveRtlSyncAttempt = (value: string) => AsyncStorage.setItem(KEYS.rtlSyncAttempt, value);
+
+/** Next index in a rotation of count items (0 when nothing valid is stored). */
+export function nextRotation(stored: string | null, count: number): number {
+  const previous = Number.parseInt(stored ?? '', 10);
+  return Number.isInteger(previous) && previous >= 0 ? (previous + 1) % count : 0;
+}
+
+/** Picks this launch's splash icon and remembers it, so each launch shows the next one. */
+export async function takeSplashIconIndex(count: number): Promise<number> {
+  const index = nextRotation(await AsyncStorage.getItem(KEYS.splashIcon), count);
+  await AsyncStorage.setItem(KEYS.splashIcon, String(index));
+  return index;
+}

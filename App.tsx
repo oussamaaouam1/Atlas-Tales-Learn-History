@@ -45,7 +45,7 @@ export default function App() {
         <ConvexProvider client={convexClient}>
           <LanguageProvider initialLanguage={boot.language}>
             <SessionProvider initialAgeBand={boot.ageBand}>
-              <RootNavigator onboardingComplete={boot.onboardingComplete} />
+              <RootNavigator onboardingComplete={boot.onboardingComplete} splashIcon={boot.splashIcon} />
               {/* Immersive landscape app: no status bar (battery, notifications). */}
               <StatusBar hidden />
             </SessionProvider>

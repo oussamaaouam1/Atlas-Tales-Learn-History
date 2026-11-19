@@ -8,14 +8,14 @@ import { AppText } from '../../components/AppText';
 import type { RootScreenProps } from '../../navigation/types';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
-import { appIcon } from './onboardingArt';
+import { splashIcons } from './onboardingArt';
 import { MapBackdrop } from './MapBackdrop';
 
 const SPLASH_MS = 1500; // design: about 1.5 s, then a 300 ms fade (screen animation 'fade')
 
 export function SplashScreen({ navigation, route }: RootScreenProps<'Splash'>) {
   const { t } = useLanguage();
-  const { next } = route.params;
+  const { next, icon } = route.params;
 
   useEffect(() => {
     const timer = setTimeout(() => navigation.replace(next), SPLASH_MS);
@@ -28,7 +28,7 @@ export function SplashScreen({ navigation, route }: RootScreenProps<'Splash'>) {
       <SafeAreaView style={styles.center}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.brand}>
           <View style={styles.icon}>
-            <Image source={appIcon} style={StyleSheet.absoluteFill} contentFit="cover" accessibilityIgnoresInvertColors />
+            <Image source={splashIcons[icon % splashIcons.length]} style={StyleSheet.absoluteFill} contentFit="cover" accessibilityIgnoresInvertColors />
           </View>
           <AppText variant="display" align="center">
             {t('splash.title')}

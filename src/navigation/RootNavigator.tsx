@@ -29,7 +29,7 @@ const navigationTheme: Theme = {
   },
 };
 
-export function RootNavigator({ onboardingComplete }: { onboardingComplete: boolean }) {
+export function RootNavigator({ onboardingComplete, splashIcon }: { onboardingComplete: boolean; splashIcon: number }) {
   const { t, isRTL, language } = useLanguage();
   const headerFont = language === 'ar' ? tokens.fontFamily.arabicBold : undefined;
 
@@ -47,7 +47,7 @@ export function RootNavigator({ onboardingComplete }: { onboardingComplete: bool
           <Stack.Screen
             name="Splash"
             component={SplashScreen}
-            initialParams={{ next: onboardingComplete ? 'Map' : 'Age' }}
+            initialParams={{ next: onboardingComplete ? 'Map' : 'Age', icon: splashIcon }}
           />
           <Stack.Screen name="Age" component={AgeScreen} />
           <Stack.Screen name="Language" component={LanguageScreen} initialParams={{ onboarding: true }} />

@@ -4,12 +4,15 @@ import { I18nManager } from 'react-native';
 import type { AgeBand } from './features/onboarding/ageBand';
 import { isRTL, pickDeviceLanguage, type Language } from './i18n/languages';
 import { applyLayoutDirection } from './providers/LanguageProvider';
-import { loadPreferences, loadRtlSyncAttempt, saveRtlSyncAttempt } from './services/preferences';
+import { SPLASH_ICON_COUNT } from './features/onboarding/onboardingArt';
+import { loadPreferences, loadRtlSyncAttempt, saveRtlSyncAttempt, takeSplashIconIndex } from './services/preferences';
 import { reloadApp } from './services/reload';
 
 export interface BootState {
   language: Language;
   onboardingComplete: boolean;
+  /** Which guide icon the splash shows this launch (alternates each launch). */
+  splashIcon: number;
   ageBand: AgeBand | null;
 }
 
@@ -34,5 +37,6 @@ export async function bootstrap(): Promise<BootState | null> {
     console.warn(`[bootstrap] Layout direction could not be switched to ${target}.`);
   }
 
-  return { language, onboardingComplete: prefs.onboardingComplete, ageBand: prefs.ageBand };
+  const splashIcon = await takeSplashIconIndex(SPLASH_ICON_COUNT);
+  return { language, onboardingComplete: prefs.onboardingComplete, ageBand: prefs.ageBand, splashIcon };
 }

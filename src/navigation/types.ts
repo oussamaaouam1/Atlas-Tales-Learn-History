@@ -3,7 +3,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { Continent } from '../features/map/geography';
 
 export type RootStackParamList = {
-  Splash: { next: 'Age' | 'Map' };
+  Splash: { next: 'Age' | 'Map'; icon: number };
   Age: undefined;
   Language: { onboarding: boolean };
   Map: undefined;

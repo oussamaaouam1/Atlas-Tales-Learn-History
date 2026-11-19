@@ -20,3 +20,6 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 12 | 2026-11-19 | Map: clouds must float on top of the map, not under it | done | Clouds above continents, below pins; waves and boat stay on the ocean. |
 | 13 | 2026-11-19 | Hide the top Android status bar (battery, notifications) | done | Hidden at runtime (expo-status-bar) and in app config (Android + iOS). |
 | 14 | 2026-11-19 | Map: move Africa, North America and South America a little to the left | done | Shifted 20 units west; boat route moved to stay in the Atlantic. |
+| 15 | 2026-11-19 | App icon: use more than one character and alternate them | done | Map-maker + traveller icon variants; splash shows the next one each launch. Store icon: owner picks at release. |
+| 16 | 2026-11-19 | Guide characters: more detailed, close to realistic drawing | todo | Regenerate guides (and icon variants) in a richer semi-realistic painted style. |
+| 17 | 2026-11-19 | Phone log: "TypeError: Cannot read property 'length' of undefined" | done | Caused by the in-progress splash icon rotation (#15) reloading before splashIcons existed. |

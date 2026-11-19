@@ -2,7 +2,13 @@
  * PLACEHOLDER onboarding artwork, generated with GPT image generation (prompts in assets/_prompts/).
  * Full-size PNG masters live in assets/_masters/ (not bundled).
  */
-export const appIcon = require('../../../assets/brand/placeholder-app-icon.webp');
+
+/** App icon variants, one per guide; the splash alternates them each launch (owner, BACKLOG #15). */
+export const splashIcons = [
+  require('../../../assets/brand/placeholder-app-icon-mapmaker.webp'),
+  require('../../../assets/brand/placeholder-app-icon-traveller.webp'),
+] as const;
+export const SPLASH_ICON_COUNT = splashIcons.length;
 
 /** Andalusian map-maker scholar: waving (Age screen). */
 export const guideMapmaker = {
