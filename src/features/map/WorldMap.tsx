@@ -18,7 +18,8 @@ import { AppText } from '../../components/AppText';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
 import { continentArt } from './continentArt';
-import { continentAt, continents, groupNearby, placements, storyPoint, worldHeight, worldWidth, type Continent } from './geography';
+import { continentAt, continents, groupNearby, worldHeight, worldWidth, type Continent } from './geography';
+import { worldLayout, type WorldLayout } from './worldLayout';
 
 type Story = Doc<'stories'>;
 type Point = { x: number; y: number };
@@ -27,16 +28,8 @@ export const OCEAN = '#79C9E8';
 const NAVY = tokens.color.text;
 const NEW_FOR_MS = 7 * 24 * 60 * 60 * 1000;
 
-/** Where a story sits on the illustrated world: inside its continent's artwork box (approximate). */
-export function worldPoint(lat: number, lng: number): Point {
-  const continent = continentAt(lat, lng);
-  const box = placements[continent];
-  const p = storyPoint(continent, lat, lng);
-  return { x: box.x + p.x * box.width, y: box.y + p.y * box.height };
-}
-
 interface WorldMapProps {
-  /** Canvas size in px; the world is drawn in 1000 × 510 units scaled to it. */
+  /** Screen (stage) size in px; the world is laid out to fill it exactly. */
   width: number;
   height: number;
   stories: readonly Story[];
@@ -47,8 +40,7 @@ interface WorldMapProps {
 /** Illustrated world (owner choice): painted continents, living ocean, story pins. Never mirrored. */
 export function WorldMap({ width, height, stories, onContinent, onStories }: WorldMapProps) {
   const { t, language } = useLanguage();
-  const scale = width / worldWidth;
-  const toScreen = (p: Point): Point => ({ x: p.x * scale, y: p.y * scale });
+  const layout = useMemo(() => worldLayout(width, height), [width, height]);
 
   const counts = useMemo(() => {
     const result = Object.fromEntries(continents.map((c) => [c, 0])) as Record<Continent, number>;
@@ -57,7 +49,7 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
   }, [stories]);
 
   const groups = groupNearby(
-    stories.map((story) => ({ ...toScreen(worldPoint(story.location.lat, story.location.lng)), item: story })),
+    stories.map((story) => ({ ...layout.story(story.location.lat, story.location.lng), item: story })),
     30,
   );
   const now = Date.now();
@@ -65,16 +57,15 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
   return (
     <View style={{ width, height }}>
       {/* Ocean decoration under the land: routes and compass. */}
-      <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width={width} height={height} viewBox={`0 0 ${worldWidth} ${worldHeight}`}>
+      <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width={width} height={height} viewBox={`0 0 ${worldWidth} ${worldHeight}`} preserveAspectRatio="none">
         <Path d="M235 145 Q356 112 444 184 M334 306 Q414 406 533 342 M613 261 Q698 302 798 320" fill="none" stroke="#EAF9FF" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 8" />
-        <Circle cx="103" cy="382" r="24" fill="#C9EFFF" stroke="#316887" strokeWidth="1.5" />
-        <Path d="M103 362 L109 382 L103 402 L97 382 Z M83 382 L123 382" fill="#316887" stroke="#316887" strokeWidth="2" />
       </Svg>
+      <Compass at={layout.ocean({ x: 103, y: 382 })} size={48 * layout.s} />
 
-      <OceanLife scale={scale} />
+      <OceanLife layout={layout} />
 
       {continents.map((key) => {
-        const box = placements[key];
+        const rect = layout.tile(key);
         return (
           <Pressable
             key={key}
@@ -83,7 +74,7 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
             onPress={() => onContinent(key)}
             style={({ pressed }) => [
               styles.tile,
-              { start: box.x * scale, top: box.y * scale, width: box.width * scale, height: box.height * scale },
+              { start: rect.x, top: rect.y, width: rect.width, height: rect.height },
               pressed && styles.raised,
             ]}
           >
@@ -97,7 +88,7 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
         );
       })}
 
-      <CloudLayer scale={scale} width={width} />
+      <CloudLayer layout={layout} width={width} />
 
       {groups.map((group) => {
         const first = group.items[0]!;
@@ -131,6 +122,15 @@ export function WorldMap({ width, height, stories, onContinent, onStories }: Wor
   );
 }
 
+function Compass({ at, size }: { at: Point; size: number }) {
+  return (
+    <Svg pointerEvents="none" style={[styles.abs, { start: at.x - size / 2, top: at.y - size / 2 }]} width={size} height={size} viewBox="0 0 48 48">
+      <Circle cx="24" cy="24" r="23" fill="#C9EFFF" stroke="#316887" strokeWidth="1.5" />
+      <Path d="M24 4 L30 24 L24 44 L18 24 Z M4 24 L44 24" fill="#316887" stroke="#316887" strokeWidth="2" />
+    </Svg>
+  );
+}
+
 function PinGlyph({ isNew }: { isNew: boolean }) {
   return (
     <Svg width={15} height={15} viewBox="0 0 24 24">
@@ -159,9 +159,9 @@ const WAVES: Point[] = [
 const BOAT_ROUTE: [Point, Point] = [{ x: 318, y: 118 }, { x: 366, y: 184 }];
 
 /** Waves and the boat sail on the ocean, under the continents. */
-function OceanLife({ scale }: { scale: number }) {
+function OceanLife({ layout }: { layout: WorldLayout }) {
   const still = useReducedMotion();
-  const at = (p: Point): Point => ({ x: p.x * scale, y: p.y * scale });
+  const at = layout.ocean;
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
       {WAVES.map((p, i) => (
@@ -173,12 +173,12 @@ function OceanLife({ scale }: { scale: number }) {
 }
 
 /** Clouds drift over the whole map: above the continents, below the story pins. Taps pass through. */
-function CloudLayer({ scale, width }: { scale: number; width: number }) {
+function CloudLayer({ layout, width }: { layout: WorldLayout; width: number }) {
   const still = useReducedMotion();
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
       {CLOUDS.map((cloud) => (
-        <Cloud key={cloud.y} y={cloud.y * scale} size={cloud.width * scale} span={width} duration={cloud.duration} offset={cloud.offset} still={still} />
+        <Cloud key={cloud.y} y={cloud.y * layout.sy} size={cloud.width * layout.s} span={width} duration={cloud.duration} offset={cloud.offset} still={still} />
       ))}
     </View>
   );

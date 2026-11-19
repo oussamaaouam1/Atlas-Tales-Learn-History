@@ -37,12 +37,11 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
     ? { width: worldHeight * continentAspect[continent], height: worldHeight }
     : { width: worldWidth, height: worldHeight };
   const contain = Math.min(size.width / frame.width, size.height / frame.height);
-  const cover = Math.max(size.width / frame.width, size.height / frame.height);
-  // World: fill the screen (cover), but never crop more than ~15%; drag to see the edges.
-  // Continent: as large as fits, with a little room for the floating buttons.
-  const zoom = continent ? contain * 0.92 : Math.min(cover, contain * 1.15);
-  const canvasWidth = frame.width * zoom;
-  const canvasHeight = frame.height * zoom;
+  // World: the canvas is exactly the screen and WorldMap spreads the continents to fit it
+  // (no crop, no scrolling). Continent: as large as fits, with room for the floating buttons.
+  const zoom = continent ? contain * 0.92 : contain;
+  const canvasWidth = continent ? frame.width * zoom : size.width;
+  const canvasHeight = continent ? frame.height * zoom : size.height;
   const groups = groupNearby(stories.map(story => {
     const p = storyPoint(continent!, story.location.lat, story.location.lng);
     return { x: p.x * canvasWidth, y: p.y * canvasHeight, item: story };
@@ -61,7 +60,7 @@ export function AtlasMap({ continent, openContinent, openStory, openPassport, op
   // Pan is clamped to the stage, so the map can never be dragged off screen.
   const stageWidth = size.width;
   const stageHeight = size.height;
-  const pan = Gesture.Pan().minDistance(8).onStart(() => {
+  const pan = Gesture.Pan().enabled(!!continent).minDistance(8).onStart(() => {
     startX.value = panX.value;
     startY.value = panY.value;
   }).onUpdate(event => {

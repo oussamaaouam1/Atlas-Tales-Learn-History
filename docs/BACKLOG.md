@@ -23,4 +23,4 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 15 | 2026-11-19 | App icon: use more than one character and alternate them | done | Map-maker + traveller icon variants; splash shows the next one each launch. Store icon: owner picks at release. |
 | 16 | 2026-11-19 | Guide characters: more detailed, close to realistic drawing | done | Both guides redrawn near-realistic (v2), same poses/frames; v1 kept in _masters. Icon variants still v1 style: regenerate if wanted. |
 | 17 | 2026-11-19 | Phone log: "TypeError: Cannot read property 'length' of undefined" | done | Caused by the in-progress splash icon rotation (#15) reloading before splashIcons existed. |
-| 18 | 2026-11-19 | Map scrolls horizontally on Android and vertically on iPad — looks bad | todo | Fit the world to the screen with no scrolling. |
+| 18 | 2026-11-19 | Map scrolls horizontally on Android and vertically on iPad — looks bad | done | World adapts to the screen shape (no crop, no scroll); drag only in the zoomed continent view. |

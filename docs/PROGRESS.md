@@ -117,3 +117,4 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - Placeholder app icon (owl) generated; to be regenerated with the chosen guide (BACKLOG #8).
 - Owner instruction sheet started: docs/BACKLOG.md.
 - Validation: typecheck passed; 70 tests passed (48 app, 22 server); Android export bundles.
+- 2026-11-19: Owner device feedback round (BACKLOG #10–18): Africa lowered and shifted west with the Americas; one story count (pin); clouds above the land; status bar hidden; splash alternates map-maker/traveller icon variants; guides redrawn near-realistic (v2); world map now adapts to the screen shape with no cropping or scrolling (src/features/map/worldLayout.ts, tested for phone/iPad/odd sizes). 77 tests pass (55 app, 22 server).
