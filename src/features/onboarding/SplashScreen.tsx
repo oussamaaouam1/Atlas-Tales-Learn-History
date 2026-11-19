@@ -63,7 +63,7 @@ function VideoSplash({ firstLaunch, icon, onDone }: { firstLaunch: boolean; icon
       <VideoView player={player} style={StyleSheet.absoluteFill} contentFit="cover" nativeControls={false} pointerEvents="none" />
       {showBrand && (
         <SafeAreaView style={styles.center} pointerEvents="none">
-          <Brand icon={icon} />
+          <Brand icon={icon} showIcon={false} />
         </SafeAreaView>
       )}
     </Pressable>
@@ -85,13 +85,16 @@ function StaticSplash({ icon, onDone }: { icon: number; onDone: () => void }) {
   );
 }
 
-function Brand({ icon, withDots = false }: { icon: number; withDots?: boolean }) {
+function Brand({ icon, withDots = false, showIcon = true }: { icon: number; withDots?: boolean; showIcon?: boolean }) {
   const { t } = useLanguage();
   return (
     <Animated.View entering={FadeIn.duration(500)} style={styles.brand}>
-      <View style={styles.icon}>
-        <Image source={splashIcons[icon % splashIcons.length]} style={StyleSheet.absoluteFill} contentFit="cover" accessibilityIgnoresInvertColors />
-      </View>
+      {/* The icon clashes with the video (owner, BACKLOG #29): title only over the video. */}
+      {showIcon && (
+        <View style={styles.icon}>
+          <Image source={splashIcons[icon % splashIcons.length]} style={StyleSheet.absoluteFill} contentFit="cover" accessibilityIgnoresInvertColors />
+        </View>
+      )}
       <AppText variant="display" align="center">
         {t('splash.title')}
       </AppText>

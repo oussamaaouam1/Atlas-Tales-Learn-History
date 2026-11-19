@@ -34,3 +34,4 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 26 | 2026-11-19 | Android: make the language section smaller (no scrolling); order English, Spanish, French, Arabic | done | Compact cards (smaller text, padding, radio); Settings install ID on one line; order en, es, fr, ar. |
 | 27 | 2026-11-19 | App icons: replace with the current guides (explorer + navigator) | done | Near-realistic explorer + navigator icons; splash alternates them. Store/home-screen icon set at release (needs a dev or store build). |
 | 28 | 2026-11-19 | Splash: play the owner's video (splashScreen.mp4) | done | Full on first launch (tap to skip), short on later launches; silent 720p; localized title fades in over the end; borders accepted for the splash (owner). Adds expo-video (approved). |
+| 29 | 2026-11-19 | Splash: the app icon doesn't look good over the video | done | Icon removed from the video splash (title only); static reduce-motion splash keeps it. |
