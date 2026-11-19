@@ -1,6 +1,4 @@
-﻿/** Bright Explorer values transcribed from the supplied Round 2 token sheet.
- * Existing font families remain until the design fonts are bundled.
- */
+/** Bright Explorer values transcribed from the supplied Round 2 token sheet. */
 export const tokens = {
   color: {
     background: '#EEF5FF', surface: '#FFFFFF', surfaceMuted: '#F7FAFF',
@@ -18,10 +16,19 @@ export const tokens = {
   arabicFontSize: { caption: 14, body: 17, bodyLarge: 21, title: 26, display: 36 },
   arabicLineHeight: { caption: 22, body: 28, bodyLarge: 35, title: 36, display: 50 },
   fontWeight: { regular: '400', bold: '700' },
+  // Typography: Baloo 2 (Latin) + Baloo Bhaijaan 2 (Arabic), weights per text style (Round 2 token sheet).
   fontFamily: {
-    arabicRegular: 'Cairo_400Regular', arabicBold: 'Cairo_700Bold',
-    latinRegular: null, latinBold: null,
+    arabicRegular: 'BalooBhaijaan2_500Medium', arabicBold: 'BalooBhaijaan2_700Bold',
+    latinRegular: 'Baloo2_500Medium', latinBold: 'Baloo2_700Bold',
   },
+  fontFace: {
+    latin: { 500: 'Baloo2_500Medium', 600: 'Baloo2_600SemiBold', 700: 'Baloo2_700Bold', 800: 'Baloo2_800ExtraBold' },
+    arabic: {
+      500: 'BalooBhaijaan2_500Medium', 600: 'BalooBhaijaan2_600SemiBold',
+      700: 'BalooBhaijaan2_700Bold', 800: 'BalooBhaijaan2_800ExtraBold',
+    },
+  },
+  variantWeight: { caption: 600, body: 500, bodyLarge: 600, title: 800, display: 800 },
   shadow: {
     card: {
       shadowColor: '#1C5BD9', shadowOpacity: 0.16, shadowRadius: 12,

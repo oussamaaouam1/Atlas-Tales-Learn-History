@@ -23,14 +23,10 @@ export function AppText({
   ...rest
 }: AppTextProps) {
   const { language } = useLanguage();
-  const family =
-    language === 'ar'
-      ? bold
-        ? tokens.fontFamily.arabicBold
-        : tokens.fontFamily.arabicRegular
-      : bold
-        ? tokens.fontFamily.latinBold
-        : tokens.fontFamily.latinRegular;
+  const script = language === 'ar' ? 'arabic' : 'latin';
+  // Each style has its design weight; the bold prop lifts it to at least 700.
+  const weight = bold ? Math.max(700, tokens.variantWeight[variant]) : tokens.variantWeight[variant];
+  const family = tokens.fontFace[script][weight as keyof (typeof tokens.fontFace)['latin']];
 
   const textStyle: TextStyle = {
     fontSize: (language === 'ar' ? tokens.arabicFontSize : tokens.fontSize)[variant],
@@ -38,8 +34,8 @@ export function AppText({
     color: tokens.color[color],
     textAlign: align,
     writingDirection: language === 'ar' ? 'rtl' : 'ltr',
-    // Custom fonts carry their own weight; only set fontWeight on the system font.
-    ...(family ? { fontFamily: family } : { fontWeight: bold ? tokens.fontWeight.bold : tokens.fontWeight.regular }),
+    // Each weight is its own font file, so fontWeight is not set (Android ignores it for custom fonts).
+    fontFamily: family,
   };
 
   return <Text {...rest} style={StyleSheet.compose(textStyle, style)} />;

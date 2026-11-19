@@ -33,18 +33,18 @@ describe('Button', () => {
         <Button label="متابعة" />
       </LanguageProvider>,
     );
-    expect(screen.getByText('متابعة')).toHaveStyle({ fontFamily: 'Cairo_700Bold', writingDirection: 'rtl' });
+    expect(screen.getByText('متابعة')).toHaveStyle({ fontFamily: 'BalooBhaijaan2_700Bold', writingDirection: 'rtl' });
   });
 });
 
 describe('AppText', () => {
-  test('uses the system font for Latin languages', async () => {
+  test('uses Baloo 2 at the body weight for Latin languages', async () => {
     await render(
       <LanguageProvider initialLanguage="fr">
         <AppText>Bonjour</AppText>
       </LanguageProvider>,
     );
-    expect(screen.getByText('Bonjour')).not.toHaveStyle({ fontFamily: 'Cairo_400Regular' });
+    expect(screen.getByText('Bonjour')).toHaveStyle({ fontFamily: 'Baloo2_500Medium' });
     expect(screen.getByText('Bonjour')).toHaveStyle({ writingDirection: 'ltr' });
   });
 });

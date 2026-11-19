@@ -8,7 +8,10 @@ importers:
 
   .:
     dependencies:
-      '@expo-google-fonts/cairo':
+      '@expo-google-fonts/baloo-2':
+        specifier: ^0.4.2
+        version: 0.4.2
+      '@expo-google-fonts/baloo-bhaijaan-2':
         specifier: ^0.4.2
         version: 0.4.2
       '@react-native-async-storage/async-storage':
@@ -1033,8 +1036,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@expo-google-fonts/cairo@0.4.2':
-    resolution: {integrity: sha512-iWXHgE4MH6BfFqs8IxhbjNphAboUsb8NSEVIf1kWVGkiwCkAXDHxotgASabuPhhM1SQQXrgOPdmjT9VyeakM3Q==}
+  '@expo-google-fonts/baloo-2@0.4.2':
+    resolution: {integrity: sha512-uvrw1I+sP72PY8xROJQ6CMiGHu9+WJCdi72Q+OiWpQ3sKsIRyIEXimDfgUnkk2vpWVej0JX9fLc87iDmjKE86A==}
+
+  '@expo-google-fonts/baloo-bhaijaan-2@0.4.2':
+    resolution: {integrity: sha512-joARJUdbUZDBaMxi6aEe8hzfZuWM6o6cPJI7zsdFpdA9hoJDue5H+9q2Az+oKZjMHB4HqK931GANqNMOfk56jw==}
 
   '@expo/cli@58.1.21':
     resolution: {integrity: sha512-E+27FQ1Y26fVb0p1wVHBFkbe5oQubUXLwF/au5Vy8OCqDWrmbekBQamRI4mBhY15FhZQxAkyK0e6hXcEFKVBOw==}
@@ -5772,7 +5778,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@expo-google-fonts/cairo@0.4.2': {}
+  '@expo-google-fonts/baloo-2@0.4.2': {}
+
+  '@expo-google-fonts/baloo-bhaijaan-2@0.4.2': {}
 
   '@expo/cli@58.1.21(40268243db4e9c4e0fa4b6e58eec6ea7)':
     dependencies:
