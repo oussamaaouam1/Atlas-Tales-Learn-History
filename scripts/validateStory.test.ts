@@ -23,9 +23,11 @@ import { STORY_LIMITS, storySchema, testStorySchema } from './storySchema';
 describe('test-story mode', () => {
   function short(id: string) {
     const s = fixtureStory(id);
-    const pages = s.pages.slice(0, 18);
+    // 18 pages in three chapters of six (pages 1, 7, 13).
+    const pages = s.pages.slice(0, 18).map((p) => ({ ...p, chapter: p.page < 7 ? 1 : p.page < 13 ? 2 : 3 }));
+    const chapters = s.chapters.map((c, i) => ({ ...c, firstPage: [1, 7, 13][i]! }));
     const keep = new Set(pages.flatMap((p) => p.images));
-    return { ...s, id, pages, images: s.images.filter((i) => keep.has(i.id)) };
+    return { ...s, id, pages, chapters, images: s.images.filter((i) => keep.has(i.id)) };
   }
 
   test('real stories keep the STORY_SPEC limits', () => {
