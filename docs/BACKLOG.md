@@ -43,4 +43,4 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 35 | 2026-11-20 | Map: story pins are badly placed on the world map (iPad and Android) | done | Africa and Europe paintings calibrated (6–8 control points, affine fit + local correction); world and continent views. Other continents: calibrate when they get stories. |
 | 36 | 2026-11-20 | Story card: must not scroll; rounded corners on all 4 sides | done | Floating card, 4 corners, no scroll; chapters with minutes; "Continue chapter n" from saved progress. |
 | 37 | 2026-11-20 | Player on phones: widest possible transcript with prev/next inside it; tap the picture to hide the controls; page-flip animation between images | done | Full-width card with arrows inside; tap art toggles controls; page-turn flip (direction follows story language, reverse when going back); crossfade within a page; reduce motion keeps crossfade. |
-| 38 | 2026-11-20 | Suggestions / improvement ideas welcome | todo | |
+| 38 | 2026-11-20 | Suggestions / improvement ideas welcome | done | Proposed in chat 2026-11-20 (swipe to turn, word highlight, remember reader settings, guide intro, keep-awake, ambient music). |
