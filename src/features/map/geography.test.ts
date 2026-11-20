@@ -36,3 +36,38 @@ describe('continentAt follows the map', () => {
     expect(continentAt(lat, lng)).toBe(continent);
   });
 });
+
+import { calibratedPoint, calibration, fitAffine } from './geography';
+
+describe('artwork calibration', () => {
+  test.each(Object.entries(calibration))('%s: measured places land exactly where they are painted', (_, points) => {
+    const fit = fitAffine(points!);
+    for (const p of points!) {
+      const at = calibratedPoint(points!, fit, p.lat, p.lng);
+      expect(at.u).toBeCloseTo(p.u, 6);
+      expect(at.v).toBeCloseTo(p.v, 6);
+    }
+  });
+
+  test('the plain affine fit is already close (within 9%)', () => {
+    for (const points of Object.values(calibration)) {
+      const fit = fitAffine(points!);
+      for (const p of points!) {
+        const u = fit.u[0] * p.lng + fit.u[1] * p.lat + fit.u[2];
+        const v = fit.v[0] * p.lng + fit.v[1] * p.lat + fit.v[2];
+        expect(Math.hypot(u - p.u, v - p.v)).toBeLessThan(0.09);
+      }
+    }
+  });
+
+  test('Timbuktu sits in the west Sahel of the Africa painting and Gibraltar at the tip of Iberia', () => {
+    const t = storyPoint('africa', 16.77, -3.0);
+    expect(t.x).toBeGreaterThan(0.15);
+    expect(t.x).toBeLessThan(0.4);
+    expect(t.y).toBeGreaterThan(0.2);
+    expect(t.y).toBeLessThan(0.35);
+    const g = storyPoint('europe', 36.14, -5.35);
+    expect(g.x).toBeLessThan(0.2);
+    expect(g.y).toBeGreaterThan(0.85);
+  });
+});

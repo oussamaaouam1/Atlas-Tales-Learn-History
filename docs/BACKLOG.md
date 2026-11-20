@@ -40,7 +40,7 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 32 | 2026-11-20 | Generate a 15–20 page test story; narration with Gemini TTS; images in a creative style | doing (narration 12/72, free-tier quota) | Paper-cut diorama style; Tariq ibn Ziyad 711; validator --test mode for short test stories. |
 | 33 | 2026-11-20 | Follow-up: Arabic word-by-word text reveal in the player (BUILD_GUIDE §7.2) | todo | |
 | 34 | 2026-11-20 | Narration: use every free TTS model available (3.8 Flash, 3.8 Flash Lite, 3.1 Flash: 10 RPD / 3 RPM each) | doing | Day 1: en 18/18, fr 18/18, es 2/18, ar 0/18 (5 models used, incl. 2.5 Flash/Pro). Rest next day. |
-| 35 | 2026-11-20 | Map: story pins are badly placed on the world map (iPad and Android) | todo | Calibrate each continent artwork with geographic control points. |
+| 35 | 2026-11-20 | Map: story pins are badly placed on the world map (iPad and Android) | done | Africa and Europe paintings calibrated (6–8 control points, affine fit + local correction); world and continent views. Other continents: calibrate when they get stories. |
 | 36 | 2026-11-20 | Story card: must not scroll; rounded corners on all 4 sides | done | Floating card, 4 corners, no scroll; chapters with minutes; "Continue chapter n" from saved progress. |
 | 37 | 2026-11-20 | Player on phones: widest possible transcript with prev/next inside it; tap the picture to hide the controls; page-flip animation between images | done | Full-width card with arrows inside; tap art toggles controls; page-turn flip (direction follows story language, reverse when going back); crossfade within a page; reduce motion keeps crossfade. |
 | 38 | 2026-11-20 | Suggestions / improvement ideas welcome | todo | |

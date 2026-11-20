@@ -59,9 +59,101 @@ function naturalEarthContinentAt(lat: number, lng: number): Continent {
   return best;
 }
 
+/**
+ * Control points measured on each painted continent (owner, BACKLOG #35): where a known place actually
+ * appears in the artwork, as fractions (u, v) of the image width and height. A least-squares affine fit
+ * turns latitude/longitude into artwork position, so pins land on the painted coastline.
+ * Continents without points fall back to their geographic bounding box.
+ */
+type ControlPoint = { lat: number; lng: number; u: number; v: number };
+export const calibration: Partial<Record<Continent, ControlPoint[]>> = {
+  africa: [
+    { lat: 35.8, lng: -5.8, u: 0.17, v: 0.04 }, // Tangier, north-west tip
+    { lat: 14.7, lng: -17.4, u: 0.01, v: 0.29 }, // Dakar, westmost bulge
+    { lat: 4.0, lng: 9.7, u: 0.27, v: 0.43 }, // Gulf of Guinea corner
+    { lat: 30.0, lng: 31.2, u: 0.7, v: 0.11 }, // Cairo / Nile delta
+    { lat: 11.8, lng: 51.3, u: 0.99, v: 0.31 }, // Horn of Africa
+    { lat: -34.4, lng: 18.5, u: 0.43, v: 0.98 }, // Cape of Good Hope
+  ],
+  europe: [
+    { lat: 36.1, lng: -5.35, u: 0.13, v: 0.93 }, // Gibraltar
+    { lat: 38.7, lng: -9.5, u: 0.01, v: 0.82 }, // Cabo da Roca
+    { lat: 48.4, lng: -4.5, u: 0.2, v: 0.61 }, // Brittany
+    { lat: 53.3, lng: -6.3, u: 0.15, v: 0.4 }, // Dublin
+    { lat: 55.7, lng: 12.6, u: 0.43, v: 0.4 }, // Copenhagen
+    { lat: 71.0, lng: 25.8, u: 0.66, v: 0.02 }, // North Cape
+    { lat: 38.0, lng: 15.7, u: 0.57, v: 0.88 }, // Toe of Italy
+    { lat: 41.0, lng: 29.0, u: 0.86, v: 0.73 }, // Istanbul
+  ],
+};
+
+type Affine = { u: [number, number, number]; v: [number, number, number] };
+
+/** Least-squares fit of u = a·lng + b·lat + c (and the same for v). */
+export function fitAffine(points: readonly ControlPoint[]): Affine {
+  // Normal equations for [lng, lat, 1].
+  const m = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  const ru = [0, 0, 0];
+  const rv = [0, 0, 0];
+  for (const p of points) {
+    const row = [p.lng, p.lat, 1];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) m[i]![j]! += row[i]! * row[j]!;
+      ru[i]! += row[i]! * p.u;
+      rv[i]! += row[i]! * p.v;
+    }
+  }
+  return { u: solve3(m, ru), v: solve3(m, rv) };
+}
+
+function solve3(m: number[][], r: number[]): [number, number, number] {
+  const det = (a: number[][]) =>
+    a[0]![0]! * (a[1]![1]! * a[2]![2]! - a[1]![2]! * a[2]![1]!) -
+    a[0]![1]! * (a[1]![0]! * a[2]![2]! - a[1]![2]! * a[2]![0]!) +
+    a[0]![2]! * (a[1]![0]! * a[2]![1]! - a[1]![1]! * a[2]![0]!);
+  const d = det(m);
+  const col = (k: number) => m.map((row, i) => row.map((value, j) => (j === k ? r[i]! : value)));
+  return [det(col(0)) / d, det(col(1)) / d, det(col(2)) / d];
+}
+
+/**
+ * Artwork position for a place: the affine fit plus an inverse-distance-weighted correction from each
+ * control point's residual, so measured places land exactly and positions between them stay smooth.
+ */
+export function calibratedPoint(points: readonly ControlPoint[], fit: Affine, lat: number, lng: number) {
+  const base = (p: { lat: number; lng: number }) => ({
+    u: fit.u[0] * p.lng + fit.u[1] * p.lat + fit.u[2],
+    v: fit.v[0] * p.lng + fit.v[1] * p.lat + fit.v[2],
+  });
+  const at = base({ lat, lng });
+  let wSum = 0;
+  let du = 0;
+  let dv = 0;
+  for (const p of points) {
+    const d2 = (p.lat - lat) ** 2 + (p.lng - lng) ** 2;
+    if (d2 < 1e-9) return { u: p.u, v: p.v };
+    const w = 1 / d2;
+    const b = base(p);
+    wSum += w;
+    du += w * (p.u - b.u);
+    dv += w * (p.v - b.v);
+  }
+  return { u: at.u + du / wSum, v: at.v + dv / wSum };
+}
+
+const fitted: Partial<Record<Continent, Affine>> = Object.fromEntries(
+  Object.entries(calibration).map(([c, points]) => [c, fitAffine(points!)]),
+);
+
 export function storyPoint(continent: Continent, lat: number, lng: number) {
+  const clamp = (n: number) => Math.max(0.03, Math.min(0.97, n));
+  const fit = fitted[continent];
+  const points = calibration[continent];
+  if (fit && points) {
+    const p = calibratedPoint(points, fit, lat, lng);
+    return { x: clamp(p.u), y: clamp(p.v) };
+  }
   const [west, east, south, north] = extents[continent];
-  const clamp = (n: number) => Math.max(0.05, Math.min(0.95, n));
   const longitude = east > 180 && lng < 0 ? lng + 360 : lng;
   return { x: clamp((longitude - west) / (east - west)), y: clamp((north - lat) / (north - south)) };
 }
