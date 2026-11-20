@@ -63,7 +63,8 @@
     "nextChapter": "الفصل التالي",
     "finish": "إنهاء",
     "backToMap": "العودة إلى الخريطة",
-    "goPro": "اكتشف Pro"
+    "goPro": "اكتشف Pro",
+    "continueChapter": "تابع الفصل {{n}}"
   },
   "settings": {
     "language": "اللغة",

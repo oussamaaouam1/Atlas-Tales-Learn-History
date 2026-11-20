@@ -63,7 +63,8 @@
     "nextChapter": "Siguiente capítulo",
     "finish": "Terminar",
     "backToMap": "Volver al mapa",
-    "goPro": "Ver Pro"
+    "goPro": "Ver Pro",
+    "continueChapter": "Continuar el capítulo {{n}}"
   },
   "settings": {
     "language": "Idioma",

@@ -63,7 +63,8 @@
     "nextChapter": "Next chapter",
     "finish": "Finish",
     "backToMap": "Back to the map",
-    "goPro": "See Pro"
+    "goPro": "See Pro",
+    "continueChapter": "Continue chapter {{n}}"
   },
   "settings": {
     "language": "Language",
