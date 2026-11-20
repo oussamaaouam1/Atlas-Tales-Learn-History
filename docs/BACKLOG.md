@@ -13,8 +13,8 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 5 | 2026-11-19 | Log all instructions in a sheet so work is not interrupted | done | This file. |
 | 6 | 2026-11-19 | Test on Android phone and iPad with Expo Go (no emulator: too much RAM) | standing | Dev server in the "Expo dev server" bb terminal. |
 | 7 | 2026-11-19 | Map buttons/pins to match the design (round icons, SVG pins + legend, New this week card) | parked | Offered, not chosen yet. |
-| 8 | 2026-11-19 | App icon shows an owl; regenerate with the new guide character once approved | todo | `assets/brand/placeholder-app-icon.png` is a placeholder. |
-| 9 | 2026-11-19 | Arabic: Expo Go logged "Layout direction could not be switched to rtl" | todo | Owner to retry after a full Expo Go restart. |
+| 8 | 2026-11-19 | App icon shows an owl; regenerate with the new guide character once approved | done (see #27) | `assets/brand/placeholder-app-icon.png` is a placeholder. |
+| 9 | 2026-11-19 | Arabic: Expo Go logged "Layout direction could not be switched to rtl" | done (owner verified RTL on device) | Owner to retry after a full Expo Go restart. |
 | 10 | 2026-11-19 | Map: Africa is badly positioned, move it down a little | done | Lowered 22 units; Mediterranean now visible. Needs device check. |
 | 11 | 2026-11-19 | Map: two story-number indicators (chip badge + pin) — keep one | done | Kept the pin number; chip badge removed (count still read by screen readers). |
 | 12 | 2026-11-19 | Map: clouds must float on top of the map, not under it | done | Clouds above continents, below pins; waves and boat stay on the ocean. |
