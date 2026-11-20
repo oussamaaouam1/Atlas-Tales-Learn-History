@@ -130,3 +130,34 @@ export function spokenTokenIndex(tokens: readonly string[], fraction: number): n
   }
   return words.at(-1)!.i;
 }
+
+/**
+ * Sentences of a page, keeping their punctuation (owner, BACKLOG #46: show the text line by line).
+ * Splits after . ! ? … and the Arabic question mark ؟ when followed by a space.
+ */
+export function splitSentences(text: string): string[] {
+  return text
+    .split(/(?<=[.!?…؟])\s+/u)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+}
+
+/**
+ * Which sentence is being read at `fraction` (0–1) of the page narration, weighted by sentence length,
+ * and how far (0–1) into that sentence the narration is.
+ */
+export function sentenceAt(sentences: readonly string[], fraction: number): { index: number; local: number } {
+  if (sentences.length === 0) return { index: 0, local: 0 };
+  const lengths = sentences.map((s) => s.length + 1);
+  const total = lengths.reduce((a, b) => a + b, 0);
+  const target = Math.max(0, Math.min(1, fraction)) * total;
+  let start = 0;
+  for (let i = 0; i < lengths.length; i++) {
+    const end = start + lengths[i]!;
+    if (target < end || i === lengths.length - 1) {
+      return { index: i, local: Math.max(0, Math.min(1, (target - start) / lengths[i]!)) };
+    }
+    start = end;
+  }
+  return { index: sentences.length - 1, local: 1 };
+}

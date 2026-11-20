@@ -6,7 +6,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { api } from '../../../convex/_generated/api';
 import { AnimatedGuide } from '../../components/AnimatedGuide';
@@ -33,6 +33,8 @@ import {
   imagesForPage,
   secondsBefore,
   sortedChapters,
+  sentenceAt,
+  splitSentences,
   splitWords,
   spokenTokenIndex,
   storyProgress,
@@ -51,6 +53,9 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const { language: uiLanguage, t } = useLanguage();
   const { installToken } = useSession();
   const { height: windowHeight } = useWindowDimensions();
+  // Landscape phones have a camera cutout on one side only: mirror the larger inset so cards stay centred (#45).
+  const insets = useSafeAreaInsets();
+  const sideInset = Math.max(insets.left, insets.right);
   const data = useQuery(api.stories.getStory, { slug });
   const saved = useQuery(api.progress.get, installToken ? { installToken, slug } : 'skip');
   const saveProgress = useMutation(api.progress.save);
@@ -240,11 +245,17 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
 
   // Follow-along text: the word being read is highlighted, words already read stay dark, the rest are
   // softer (owner, BACKLOG #40; Arabic word-by-word reveal, §7.2). Plain text until narration starts.
-  const tokens_ = current ? splitWords(current.text[storyLanguage]) : [];
+  // Line by line (#46): only the sentence being read is shown; it changes as the narration moves on.
+  const sentences = current ? splitSentences(current.text[storyLanguage]) : [];
   const narrating = status.isLoaded && status.currentTime > 0;
-  const spoken = narrating ? spokenTokenIndex(tokens_, status.currentTime / pageDuration) : -1;
+  const line = narrating ? sentenceAt(sentences, status.currentTime / pageDuration) : { index: 0, local: 0 };
+  const sentence = sentences[line.index] ?? '';
+  const tokens_ = splitWords(sentence);
+  const spoken = narrating ? spokenTokenIndex(tokens_, line.local) : -1;
   const pageText = current ? (
-    <Text
+    <Animated.Text
+      key={`${page}-${storyLanguage}-${line.index}`}
+      entering={FadeIn.duration(300)}
       style={[
         styles.pageText,
         loading && styles.textGreyed,
@@ -252,6 +263,9 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
           fontFamily: arabicText ? tokens.fontFace.arabic[600] : tokens.fontFace.latin[600],
           fontSize: 21 * textScale,
           lineHeight: (arabicText ? 35 : 31) * textScale,
+          // Two lines tall so the card does not jump between short and long sentences.
+          minHeight: (arabicText ? 35 : 31) * textScale * 2,
+          textAlignVertical: 'center',
           writingDirection: arabicText ? 'rtl' : 'ltr',
         },
       ]}
@@ -262,8 +276,8 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
               {token}
             </Text>
           ))
-        : current.text[storyLanguage]}
-    </Text>
+        : sentence}
+    </Animated.Text>
   ) : null;
 
   return (
@@ -290,7 +304,7 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
 
       {chrome && !chapterBreak && showIntro && current && (
         <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(200)} style={StyleSheet.absoluteFill} pointerEvents="box-none">
-          <SafeAreaView style={styles.introOverlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
+          <SafeAreaView style={[styles.introOverlay, { paddingHorizontal: sideInset + tokens.spacing.medium }]} edges={['top', 'bottom']} pointerEvents="box-none">
             <View style={styles.side} pointerEvents="box-none">
               <RoundButton accessibilityLabel={t('story.backToMap')} color={tokens.color.accent} onPress={() => navigation.popToTop()}>
                 <Icon name="home" color={tokens.color.text} />
@@ -328,7 +342,7 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
 
       {chrome && !chapterBreak && !showIntro && (
         <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)} style={StyleSheet.absoluteFill} pointerEvents="box-none">
-          <SafeAreaView style={styles.overlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
+          <SafeAreaView style={[styles.overlay, { paddingHorizontal: sideInset + tokens.spacing.medium }]} edges={['top', 'bottom']} pointerEvents="box-none">
             {/* Top: home + page count (start), narration (centre), text, sleep (Pro), chapters (end). */}
             <View style={styles.topRow} pointerEvents="box-none">
               <View style={styles.side} pointerEvents="box-none">
@@ -404,7 +418,7 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
       )}
 
       {chapterBreak && (
-        <SafeAreaView style={styles.overlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
+        <SafeAreaView style={[styles.overlay, { paddingHorizontal: sideInset + tokens.spacing.medium }]} edges={['top', 'bottom']} pointerEvents="box-none">
           <View style={styles.side} pointerEvents="box-none">
             <RoundButton accessibilityLabel={t('story.backToMap')} color={tokens.color.accent} onPress={() => navigation.popToTop()}>
               <Icon name="home" color={tokens.color.text} />

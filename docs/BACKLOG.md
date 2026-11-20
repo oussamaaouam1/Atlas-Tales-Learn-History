@@ -50,3 +50,5 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 42 | 2026-11-20 | Player: guide intro on page 1 (design 7C) + guide face on guide pages | done | |
 | 43 | 2026-11-20 | Player: keep the screen awake while narration plays (expo-keep-awake, approved) | done | |
 | 44 | 2026-11-20 | Player: optional soft background music per story | parked | Needs music tracks (owner to provide or choose a licensed source); button and playback can follow. |
+| 45 | 2026-11-20 | Android: transcript card is not centred (a little to the right) | done | Asymmetric safe-area inset from the camera cutout; use equal side margins. |
+| 46 | 2026-11-20 | Player: show the text line by line (one sentence at a time) so the screen is not saturated | done | Current sentence only, follows the narration, fades in, word highlight inside; steady two-line height. |

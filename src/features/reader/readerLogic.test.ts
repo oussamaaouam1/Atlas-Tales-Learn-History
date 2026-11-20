@@ -131,3 +131,26 @@ describe('word highlighting', () => {
     expect(tokens[spokenTokenIndex(tokens, 0.99)]).toBe('المستكشف');
   });
 });
+
+import { sentenceAt, splitSentences } from './readerLogic';
+
+describe('line by line', () => {
+  test('splits a page into sentences, keeping punctuation', () => {
+    expect(splitSentences('Hello, explorer! It is 711. Ready? Let’s go…')).toEqual(['Hello, explorer!', 'It is 711.', 'Ready?', 'Let’s go…']);
+    expect(splitSentences('مرحبًا أيها المستكشف! كيف وصلنا إلى هنا؟ لنعد قليلًا.')).toEqual([
+      'مرحبًا أيها المستكشف!',
+      'كيف وصلنا إلى هنا؟',
+      'لنعد قليلًا.',
+    ]);
+    expect(splitSentences('No full stop at the end')).toEqual(['No full stop at the end']);
+  });
+
+  test('follows the narration from sentence to sentence', () => {
+    const s = ['aaaa.', 'bbbb.', 'cccc.'];
+    expect(sentenceAt(s, 0)).toEqual({ index: 0, local: 0 });
+    expect(sentenceAt(s, 0.5).index).toBe(1);
+    expect(sentenceAt(s, 0.5).local).toBeCloseTo(0.5);
+    expect(sentenceAt(s, 1).index).toBe(2);
+    expect(sentenceAt([], 0.5)).toEqual({ index: 0, local: 0 });
+  });
+});
