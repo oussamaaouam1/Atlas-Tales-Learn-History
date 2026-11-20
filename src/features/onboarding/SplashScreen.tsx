@@ -1,12 +1,13 @@
 import { useEventListener } from 'expo';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, useAnimatedStyle, useReducedMotion, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/AppText';
+import { DirectionalIcon } from '../../components/DirectionalIcon';
 import type { RootScreenProps } from '../../navigation/types';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { tokens } from '../../theme/tokens';
@@ -15,9 +16,8 @@ import { splashIcons, splashVideo } from './onboardingArt';
 import { splashTiming } from './splashTiming';
 
 /**
- * Splash (owner, BACKLOG #28): the owner's paper-boat video, full on first launch and short
- * afterwards, silent; tap to skip. The localized title fades in over the end as real text.
- * Reduce motion: the calm static splash from the design instead.
+ * Splash (owner, BACKLOG #28, #30): the owner's paper-boat video, played in full on every launch,
+ * silent, with a Skip button; no title over it. Reduce motion: the calm static splash instead.
  */
 export function SplashScreen({ navigation, route }: RootScreenProps<'Splash'>) {
   const { next, icon } = route.params;
@@ -30,14 +30,13 @@ export function SplashScreen({ navigation, route }: RootScreenProps<'Splash'>) {
   }, [navigation, next]);
 
   if (reduceMotion) return <StaticSplash icon={icon} onDone={leave} />;
-  return <VideoSplash firstLaunch={next === 'Age'} icon={icon} onDone={leave} />;
+  return <VideoSplash onDone={leave} />;
 }
 
-function VideoSplash({ firstLaunch, icon, onDone }: { firstLaunch: boolean; icon: number; onDone: () => void }) {
+function VideoSplash({ onDone }: { onDone: () => void }) {
   const { t } = useLanguage();
-  const timing = splashTiming(firstLaunch);
-  const [showBrand, setShowBrand] = useState(false);
-  const player = useVideoPlayer(firstLaunch ? splashVideo.full : splashVideo.short, (p) => {
+  const timing = splashTiming();
+  const player = useVideoPlayer(splashVideo, (p) => {
     p.muted = true;
     p.loop = false;
     p.play();
@@ -48,25 +47,28 @@ function VideoSplash({ firstLaunch, icon, onDone }: { firstLaunch: boolean; icon
   });
 
   useEffect(() => {
-    const brand = setTimeout(() => setShowBrand(true), timing.brandAtMs);
     // Safety net: never get stuck on the splash if the video fails to load or end.
     const safety = setTimeout(onDone, timing.maxMs);
-    return () => {
-      clearTimeout(brand);
-      clearTimeout(safety);
-    };
-  }, [onDone, timing.brandAtMs, timing.maxMs]);
+    return () => clearTimeout(safety);
+  }, [onDone, timing.maxMs]);
 
   return (
-    <Pressable style={styles.root} onPress={onDone} accessibilityRole="button" accessibilityLabel={t('common.skip')}>
+    <View style={styles.root}>
       <MapBackdrop />
       <VideoView player={player} style={StyleSheet.absoluteFill} contentFit="cover" nativeControls={false} pointerEvents="none" />
-      {showBrand && (
-        <SafeAreaView style={styles.center} pointerEvents="none">
-          <Brand icon={icon} showIcon={false} />
-        </SafeAreaView>
-      )}
-    </Pressable>
+      <SafeAreaView style={styles.skipArea} edges={['top', 'left', 'right']} pointerEvents="box-none">
+        <Pressable
+          onPress={onDone}
+          accessibilityRole="button"
+          accessibilityLabel={t('common.skip')}
+          hitSlop={10}
+          style={({ pressed }) => [styles.skip, pressed && styles.skipPressed]}
+        >
+          <AppText bold color="textOnPrimary">{t('common.skip')}</AppText>
+          <DirectionalIcon direction="forward" size={16} color={tokens.color.textOnPrimary} />
+        </Pressable>
+      </SafeAreaView>
+    </View>
   );
 }
 
@@ -149,6 +151,17 @@ const styles = StyleSheet.create({
     ...tokens.shadow.card,
   },
   subtitle: { marginTop: -6 },
+  skipArea: { position: 'absolute', top: 0, start: 0, end: 0, alignItems: 'flex-end', padding: tokens.spacing.md },
+  skip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    minHeight: 40,
+    paddingHorizontal: tokens.spacing.md,
+    borderRadius: tokens.radius.pill,
+    backgroundColor: 'rgba(20, 33, 61, 0.55)',
+  },
+  skipPressed: { opacity: 0.8, transform: [{ scale: 0.96 }] },
   dots: { flexDirection: 'row', gap: 8, marginTop: tokens.spacing.md },
   dot: { width: 9, height: 9, borderRadius: 5 },
 });

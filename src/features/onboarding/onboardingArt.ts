@@ -28,8 +28,5 @@ export const guideNavigator = {
   ],
 } as const;
 
-/** Owner's splash video (BACKLOG #28): silent 720p re-encodes; original in assets/_masters/splashScreen.mp4. */
-export const splashVideo = {
-  full: require('../../../assets/video/splash-full.mp4'),
-  short: require('../../../assets/video/splash-short.mp4'),
-} as const;
+/** Owner's splash video (BACKLOG #28, #30): silent 720p re-encode, full length; original in assets/_masters/splashScreen.mp4. */
+export const splashVideo = require('../../../assets/video/splash-full.mp4');
