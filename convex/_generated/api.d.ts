@@ -13,6 +13,9 @@ import type * as contentValidators from "../contentValidators.js";
 import type * as health from "../health.js";
 import type * as installs from "../installs.js";
 import type * as lib_installAuth from "../lib/installAuth.js";
+import type * as lib_stories from "../lib/stories.js";
+import type * as progress from "../progress.js";
+import type * as quiz from "../quiz.js";
 import type * as stories from "../stories.js";
 
 import type {
@@ -27,6 +30,9 @@ declare const fullApi: ApiFromModules<{
   health: typeof health;
   installs: typeof installs;
   "lib/installAuth": typeof lib_installAuth;
+  "lib/stories": typeof lib_stories;
+  progress: typeof progress;
+  quiz: typeof quiz;
   stories: typeof stories;
 }>;
 
