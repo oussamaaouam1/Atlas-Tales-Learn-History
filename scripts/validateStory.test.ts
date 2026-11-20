@@ -1,7 +1,7 @@
 ﻿import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
-import { expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { fixtureStory } from './fixtureStory';
 import { mediaPaths, validateStory } from './validateStory';
 test('lists missing media, then accepts a complete folder', async () => {
@@ -16,4 +16,29 @@ test('lists missing media, then accepts a complete folder', async () => {
     }
     expect((await validateStory(folder)).id).toBe(story.id);
   } finally { await rm(folder, { recursive: true, force: true }); }
+});
+
+import { STORY_LIMITS, storySchema, testStorySchema } from './storySchema';
+
+describe('test-story mode', () => {
+  function short(id: string) {
+    const s = fixtureStory(id);
+    const pages = s.pages.slice(0, 18);
+    const keep = new Set(pages.flatMap((p) => p.images));
+    return { ...s, id, pages, images: s.images.filter((i) => keep.has(i.id)) };
+  }
+
+  test('real stories keep the STORY_SPEC limits', () => {
+    expect(STORY_LIMITS.pages).toEqual([32, 40]);
+    expect(storySchema.safeParse(short('test-short')).success).toBe(false);
+  });
+
+  test('a short test- story passes in test mode', () => {
+    const result = testStorySchema.safeParse(short('test-short'));
+    expect(result.success).toBe(true);
+  });
+
+  test('test mode refuses stories whose id does not start with test-', () => {
+    expect(testStorySchema.safeParse(short('real-story')).success).toBe(false);
+  });
 });

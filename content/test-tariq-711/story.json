@@ -1,0 +1,802 @@
+{
+  "id": "test-tariq-711",
+  "version": 2,
+  "title": {
+    "ar": "جبل طارق",
+    "fr": "La montagne de Tariq",
+    "es": "La montaña de Tariq",
+    "en": "The Mountain of Tariq"
+  },
+  "hook": {
+    "ar": "أسطول صغير وبحر ضيق وصخرة عملاقة ما زالت تحمل اسم رجل واحد.",
+    "fr": "Une petite flotte, une mer étroite et un rocher géant qui porte encore le nom d’un homme.",
+    "es": "Una pequeña flota, un mar estrecho y una roca gigante que aún lleva el nombre de un hombre.",
+    "en": "A small fleet, a narrow sea and a giant rock that still carries one man’s name."
+  },
+  "keyTakeaway": {
+    "ar": "في عام 711 عبر طارق بن زياد من أفريقيا إلى شبه الجزيرة الإيبيرية، وما زالت الصخرة التي نزل عندها تُسمّى جبل طارق.",
+    "fr": "En 711, Tariq ibn Ziyad passa d’Afrique en Ibérie ; le rocher où il débarqua s’appelle encore Gibraltar, de Jabal Tariq.",
+    "es": "En 711, Tariq ibn Ziyad cruzó de África a Iberia; la roca donde desembarcó aún se llama Gibraltar, de Jabal Tariq.",
+    "en": "In 711 Tariq ibn Ziyad crossed from Africa to Iberia; the rock where he landed is still called Gibraltar, from Jabal Tariq."
+  },
+  "era": {
+    "period": "Early Middle Ages",
+    "yearStart": 710,
+    "yearEnd": 714,
+    "region": "Strait of Gibraltar"
+  },
+  "location": {
+    "name": "Gibraltar",
+    "lat": 36.1408,
+    "lng": -5.3536
+  },
+  "masterLanguage": "en",
+  "accuracyMode": "strict",
+  "names": [
+    {
+      "id": "tariq",
+      "ar": "طارق بن زياد",
+      "fr": "Tariq ibn Ziyad",
+      "es": "Tariq ibn Ziyad",
+      "en": "Tariq ibn Ziyad"
+    },
+    {
+      "id": "musa",
+      "ar": "موسى بن نصير",
+      "fr": "Moussa ibn Noussayr",
+      "es": "Musa ibn Nusayr",
+      "en": "Musa ibn Nusayr"
+    },
+    {
+      "id": "roderic",
+      "ar": "لذريق",
+      "fr": "Rodrigue",
+      "es": "Rodrigo",
+      "en": "Roderic"
+    }
+  ],
+  "characters": {
+    "tariq": {
+      "role": "Amazigh commander",
+      "age": "30s",
+      "isReligiousFigure": false,
+      "depict": true,
+      "appearance": "short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour",
+      "personality": "calm, brave, determined"
+    },
+    "musa": {
+      "role": "governor of North Africa",
+      "age": "60s",
+      "isReligiousFigure": false,
+      "depict": true,
+      "appearance": "grey beard, green robe, white turban",
+      "personality": "experienced, ambitious"
+    },
+    "guide": {
+      "role": "narrator guide",
+      "appearance": "from the style bible",
+      "personality": "curious, funny"
+    }
+  },
+  "settings": [
+    {
+      "id": "strait",
+      "name": "The narrow strait",
+      "description": "Deep teal sea between North Africa and Iberia, the great rock rising."
+    },
+    {
+      "id": "tangier",
+      "name": "Tangier",
+      "description": "Busy medieval harbour with whitewashed houses."
+    },
+    {
+      "id": "hispania",
+      "name": "Hispania",
+      "description": "Green hilly Iberian landscape with stone castles."
+    },
+    {
+      "id": "tarifa",
+      "name": "Tarifa beach",
+      "description": "Sandy southern beach and small bay."
+    },
+    {
+      "id": "rock",
+      "name": "The great rock",
+      "description": "Huge limestone rock with green slopes above the sea."
+    },
+    {
+      "id": "camp",
+      "name": "Night camp",
+      "description": "Tents and small campfires under the stars."
+    },
+    {
+      "id": "river",
+      "name": "River valley",
+      "description": "A winding southern river between low hills."
+    },
+    {
+      "id": "toledo",
+      "name": "Toledo",
+      "description": "Walled hilltop city above a looping river."
+    },
+    {
+      "id": "damascus",
+      "name": "Road to Damascus",
+      "description": "Desert caravan route toward a city of domes."
+    },
+    {
+      "id": "cordoba",
+      "name": "Córdoba",
+      "description": "Arched stone bridge, gardens and libraries."
+    }
+  ],
+  "chapters": [
+    {
+      "number": 1,
+      "firstPage": 1,
+      "title": {
+        "ar": "عبر البحر الضيق",
+        "fr": "De l’autre côté de la mer étroite",
+        "es": "Al otro lado del mar estrecho",
+        "en": "Across the Narrow Sea"
+      }
+    },
+    {
+      "number": 2,
+      "firstPage": 7,
+      "title": {
+        "ar": "الصخرة العظيمة",
+        "fr": "Le grand rocher",
+        "es": "La gran roca",
+        "en": "The Great Rock"
+      }
+    },
+    {
+      "number": 3,
+      "firstPage": 13,
+      "title": {
+        "ar": "اسم على الخريطة",
+        "fr": "Un nom sur la carte",
+        "es": "Un nombre en el mapa",
+        "en": "A Name on the Map"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "chapter": 1,
+      "beat": "cold-open",
+      "year": "711",
+      "settingId": "strait",
+      "tag": "fact",
+      "speaker": "guide",
+      "text": {
+        "ar": "مرحبًا أيها المستكشف! إنها ليلة ربيعية من عام 711. قوارب صغيرة تعبر بحرًا ضيقًا عاصفًا بين أفريقيا وأوروبا. أشرعتها ممتلئة بالريح، وصخرة عملاقة ترتفع أمامها في الظلام. لكن كيف وصلنا إلى هنا؟ لنعد قليلًا إلى الوراء…",
+        "fr": "Bonjour, explorateur ! C'est une nuit de printemps de l'an 711. De petits bateaux traversent une mer étroite et venteuse entre l'Afrique et l'Europe. Leurs voiles sont gonflées, et un rocher géant se dresse dans le noir. Mais comment en est-on arrivé là ? Remontons un peu le temps…",
+        "es": "¡Hola, explorador! Es una noche de primavera del año 711. Unos barcos pequeños cruzan un mar estrecho y ventoso entre África y Europa. Sus velas van llenas, y una roca gigante se alza en la oscuridad. Pero ¿cómo llegamos hasta aquí? Volvamos un poco atrás…",
+        "en": "Hello, explorer! It is a spring night in the year 711. Small boats are crossing a narrow, windy sea between Africa and Europe. Their sails are full, and a giant rock rises ahead in the dark. But how did we get here? Let's go back a little…"
+      },
+      "historicalNote": "Crossing of 711 (Britannica, Tariq ibn Ziyad).",
+      "images": [
+        "img-01"
+      ]
+    },
+    {
+      "page": 2,
+      "chapter": 1,
+      "beat": "rewind",
+      "year": "c. 710",
+      "settingId": "tangier",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "تعرّف إلى طارق بن زياد، القائد الأمازيغي من شمال أفريقيا. كان يخدم موسى بن نصير، والي المنطقة باسم الخليفة في دمشق. وكان طارق يحرس ميناء طنجة المزدحم، حيث يتحدث البحارة عن الأرض الخضراء على الضفة الأخرى.",
+        "fr": "Voici Tariq ibn Ziyad, un chef amazigh (berbère) d'Afrique du Nord. Il servait Moussa ibn Noussayr, le gouverneur de la région pour le calife de Damas. Tariq gardait le port animé de Tanger, où les marins parlaient de la terre verte de l'autre côté de l'eau.",
+        "es": "Te presento a Tariq ibn Ziyad, un comandante amazigh (bereber) del norte de África. Servía a Musa ibn Nusayr, el gobernador de la región en nombre del califa de Damasco. Tariq vigilaba el animado puerto de Tánger, donde los marineros hablaban de la tierra verde al otro lado del agua.",
+        "en": "Meet Tariq ibn Ziyad, an Amazigh (Berber) commander from North Africa. He served Musa ibn Nusayr, the governor who ruled the region for the caliph in Damascus. Tariq guarded the busy port of Tangier, where sailors talked about the green land across the water."
+      },
+      "historicalNote": "Tariq a Berber client of Musa ibn Nusayr, governor of Ifriqiya; governor of Tangier.",
+      "images": [
+        "img-02"
+      ]
+    },
+    {
+      "page": 3,
+      "chapter": 1,
+      "beat": "world",
+      "year": "710",
+      "settingId": "hispania",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "على الضفة الأخرى من البحر امتدت هسبانيا، التي حكمها القوط الغربيون نحو مئتي عام. لكن المملكة كانت منقسمة. فقد اعتلى العرش ملك جديد اسمه لذريق، ولم يقبل به كثير من النبلاء. والبيت المنقسم أسهل دخولًا، والأخبار تعبر البحر الضيق بسرعة.",
+        "fr": "De l'autre côté de la mer s'étendait l'Hispanie, gouvernée par les Wisigoths depuis environ deux cents ans. Mais le royaume se disputait. Un nouveau roi, Rodrigue, était monté sur le trône, et beaucoup de nobles ne l'acceptaient pas. Une maison divisée s'ouvre plus facilement, et les nouvelles traversent vite une mer étroite.",
+        "es": "Al otro lado del mar estaba Hispania, gobernada por los visigodos desde hacía unos doscientos años. Pero el reino estaba dividido. Un nuevo rey, Rodrigo, había subido al trono, y muchos nobles no lo aceptaban. Una casa dividida es más fácil de abrir, y las noticias cruzan rápido un mar estrecho.",
+        "en": "Across the sea lay Hispania, ruled by the Visigoths for about two hundred years. But the kingdom was quarrelling. A new king, Roderic, had taken the throne, and many nobles did not accept him. A house divided is easier to enter, and news travels fast across a narrow sea."
+      },
+      "historicalNote": "Visigothic kingdom; disputed succession of Roderic (710).",
+      "images": [
+        "img-03"
+      ]
+    },
+    {
+      "page": 4,
+      "chapter": 1,
+      "beat": "ambition",
+      "year": "710",
+      "settingId": "tarifa",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "في البداية ذهب مستطلع ليرى. ففي عام 710 نزل قائد يُدعى طريف مع بضع مئات من الرجال عند الطرف الجنوبي لهسبانيا، فتفقّد المكان وعاد بأخبار طيبة. وما زال المكان الذي نزل فيه يُسمّى طريفة نسبةً إليه.",
+        "fr": "D'abord, un éclaireur alla voir. En 710, un capitaine nommé Tarif débarqua avec quelques centaines d'hommes à la pointe sud de l'Hispanie, observa les lieux et revint avec de bonnes nouvelles. L'endroit où il accosta s'appelle encore Tarifa, en son honneur.",
+        "es": "Primero, un explorador fue a mirar. En 710, un capitán llamado Tarif desembarcó con unos cientos de hombres en la punta sur de Hispania, observó el lugar y regresó con buenas noticias. El sitio donde desembarcó todavía se llama Tarifa, por él.",
+        "en": "First, a scout went to look. In 710 a captain named Tarif landed with a few hundred men on the southern tip of Hispania, looked around, and sailed back with good news. The place where he landed is still called Tarifa, after him."
+      },
+      "historicalNote": "Raid of Tarif ibn Malik (710); Tarifa named after him.",
+      "images": [
+        "img-04"
+      ]
+    },
+    {
+      "page": 5,
+      "chapter": 1,
+      "beat": "ambition",
+      "year": "711",
+      "settingId": "tangier",
+      "tag": "fact",
+      "speaker": "guide",
+      "text": {
+        "ar": "تخيّل أن تُسمّى مدينة كاملة باسمك لمجرد أنك زرتها! كان طارق على وشك أن ينال ما هو أعظم. فقد اختاره موسى ليقود العبور الحقيقي: آلاف الجنود والخيول والمؤن، تُنقل على دفعات في سفن مستعارة.",
+        "fr": "Imagine qu'on donne ton nom à toute une ville juste parce que tu es passé ! Tariq allait recevoir quelque chose d'encore plus grand. Moussa le choisit pour mener la vraie traversée : des milliers de soldats, des chevaux et des provisions, transportés par petits groupes sur des navires empruntés.",
+        "es": "¡Imagina que una ciudad entera lleve tu nombre solo por haberla visitado! Tariq estaba a punto de recibir algo aún más grande. Musa lo eligió para dirigir la verdadera travesía: miles de soldados, caballos y provisiones, llevados en barcos prestados, unos pocos cada vez.",
+        "en": "Imagine having a whole town named after you just for visiting! Tariq was about to get something even bigger. Musa chose him to lead the real crossing: thousands of soldiers, horses and supplies, carried over in borrowed ships, a few at a time."
+      },
+      "historicalNote": "Guide aside; Musa appoints Tariq to lead the 711 expedition.",
+      "images": [
+        "img-05"
+      ]
+    },
+    {
+      "page": 6,
+      "chapter": 1,
+      "beat": "cliffhanger",
+      "year": "711",
+      "settingId": "strait",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "في ليلة هادئة، ابتعدت القوارب الأولى عن الشاطئ الأفريقي. وخلفها صغرت أضواء الوطن شيئًا فشيئًا. وأمامها لم يكن هناك سوى الماء المظلم وظلّ صخرة هائلة. لم يكن أحد على متنها يعرف ما الذي ينتظره على الضفة الأخرى.",
+        "fr": "Par une nuit calme, les premiers bateaux quittèrent la côte africaine. Derrière eux, les lumières de chez eux devenaient minuscules. Devant, il n'y avait que l'eau sombre et la silhouette d'un énorme rocher. Personne à bord ne savait ce qui les attendait de l'autre côté.",
+        "es": "Una noche tranquila, los primeros barcos se alejaron de la costa africana. Detrás, las luces de casa se hacían pequeñas. Delante solo había agua oscura y la silueta de una roca enorme. Nadie a bordo sabía qué les esperaba al otro lado.",
+        "en": "On a calm night, the first boats pushed away from the African shore. Behind them, the lights of home grew small. Ahead, there was only dark water and the shape of a huge rock. Nobody on board knew what was waiting on the other side."
+      },
+      "historicalNote": "Night crossing; end of chapter 1.",
+      "images": [
+        "img-06"
+      ]
+    },
+    {
+      "page": 7,
+      "chapter": 2,
+      "beat": "obstacle-1",
+      "year": "711",
+      "settingId": "rock",
+      "tag": "disputed",
+      "speaker": "narrator",
+      "text": {
+        "ar": "نزل طارق عند سفح الصخرة العظيمة. يقول المؤرخون القدامى إنه كان معه نحو سبعة آلاف رجل، لكن المؤرخين لا يعرفون العدد بدقة. أقام جنوده معسكرًا على المنحدرات، ومن القمة كانوا يرون ساحل هسبانيا ممتدًا في البعيد.",
+        "fr": "Tariq débarqua au pied du grand rocher. Les anciens auteurs disent qu'il avait environ sept mille hommes, mais les historiens ne sont pas sûrs du nombre exact. Ses soldats installèrent un camp sur les pentes, et du sommet on voyait la côte de l'Hispanie s'étirer au loin.",
+        "es": "Tariq desembarcó al pie de la gran roca. Los autores antiguos dicen que tenía unos siete mil hombres, pero los historiadores no están seguros del número exacto. Sus soldados levantaron un campamento en las laderas, y desde la cima se veía la costa de Hispania extendiéndose a lo lejos.",
+        "en": "Tariq landed at the foot of the great rock. Old writers say he had about seven thousand men, but historians are not sure of the exact number. His soldiers built a camp on the slopes, and from the top they could see the coast of Hispania stretching away."
+      },
+      "historicalNote": "Landing at Gibraltar; numbers vary by source (disputed).",
+      "images": [
+        "img-07"
+      ]
+    },
+    {
+      "page": 8,
+      "chapter": 2,
+      "beat": "obstacle-1",
+      "year": "711",
+      "settingId": "rock",
+      "tag": "legend",
+      "speaker": "narrator",
+      "text": {
+        "ar": "هناك حكاية شهيرة عن هذه اللحظة. يُروى أن طارقًا أحرق سفنه كي لا يفكر أحد في العودة، وقال لرجاله: البحر من ورائكم ولم يبقَ إلا التقدم. ويرى كثير من المؤرخين أن هذه الأسطورة كُتبت بعد ذلك بزمن طويل. لكن الناس ما زالوا يحبون روايتها.",
+        "fr": "Il existe une histoire célèbre sur ce moment. On raconte que Tariq fit brûler ses navires pour que personne ne pense à repartir, et qu'il dit à ses hommes : la mer est derrière vous, il ne reste que l'avant. Beaucoup d'historiens pensent que cette légende a été écrite bien plus tard. Mais on aime toujours la raconter.",
+        "es": "Hay una historia famosa sobre este momento. Se cuenta que Tariq quemó sus barcos para que nadie pensara en volver, y que dijo a sus hombres: el mar está detrás de vosotros, solo queda avanzar. Muchos historiadores creen que esta leyenda se escribió mucho después. Pero a la gente le sigue encantando contarla.",
+        "en": "There is a famous story about this moment. The story goes that Tariq burned his ships, so that nobody could think of going back, and told his men: the sea is behind you, and only forward is left. Many historians think this legend was written much later. But it is a story people still love to tell."
+      },
+      "historicalNote": "Ship-burning and speech: later tradition, considered legendary.",
+      "images": [
+        "img-08",
+        "detail-08"
+      ]
+    },
+    {
+      "page": 9,
+      "chapter": 2,
+      "beat": "obstacle-2",
+      "year": "711",
+      "settingId": "hispania",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "بعيدًا في الشمال، كان الملك لذريق منشغلًا بقتال آخر حين وصل رسول مسرعًا بالخبر: جيش نزل في الجنوب! فاستدار لذريق بجيشه وأسرع نحو الجنوب عبر المملكة كلها، وهو يجمع مزيدًا من الجنود في طريقه.",
+        "fr": "Loin au nord, le roi Rodrigue était occupé par un autre combat quand un messager arriva au galop : une armée a débarqué dans le sud ! Rodrigue fit faire demi-tour à son armée et descendit en hâte à travers tout le royaume, en rassemblant d'autres soldats en chemin.",
+        "es": "Lejos, en el norte, el rey Rodrigo estaba ocupado con otra lucha cuando llegó un mensajero al galope: ¡un ejército ha desembarcado en el sur! Rodrigo dio media vuelta y bajó a toda prisa atravesando el reino, reuniendo más soldados por el camino.",
+        "en": "Far to the north, King Roderic was busy with another fight when a messenger rode in with the news: an army has landed in the south! Roderic turned his army around and hurried down across the whole kingdom, gathering more soldiers on the way."
+      },
+      "historicalNote": "Roderic campaigning in the north (often said against the Basques) when Tariq landed.",
+      "images": [
+        "img-09"
+      ]
+    },
+    {
+      "page": 10,
+      "chapter": 2,
+      "beat": "darkest",
+      "year": "711",
+      "settingId": "hispania",
+      "tag": "disputed",
+      "speaker": "narrator",
+      "text": {
+        "ar": "عاد مستطلعو طارق قلقين. فقد كان جيش الملك أكبر بكثير من جيشهم. أرسل طارق قاربًا سريعًا إلى موسى يطلب العون، فعبر البحر خمسة آلاف جندي آخرون. ومع ذلك ظل السؤال الكبير معلقًا فوق المعسكر: هل يستطيع جيش صغير أن يصمد أمام مملكة كاملة؟",
+        "fr": "Les éclaireurs de Tariq revinrent inquiets. L'armée du roi était bien plus grande que la leur. Tariq envoya un bateau rapide à Moussa pour demander de l'aide, et cinq mille soldats de plus traversèrent la mer. Malgré tout, la grande question planait sur le camp : une petite armée pouvait-elle tenir face à tout un royaume ?",
+        "es": "Los exploradores de Tariq volvieron preocupados. El ejército del rey era mucho más grande que el suyo. Tariq envió un barco rápido a Musa pidiendo ayuda, y cinco mil soldados más cruzaron el mar. Aun así, la gran pregunta flotaba sobre el campamento: ¿podía un ejército pequeño resistir frente a todo un reino?",
+        "en": "Tariq's scouts came back worried. The king's army was much bigger than theirs. Tariq sent a fast boat to Musa, asking for help, and five thousand more soldiers crossed the sea. Even so, the big question hung over the camp: could a small army stand against a whole kingdom?"
+      },
+      "historicalNote": "Reinforcements of about 5,000 sent by Musa (numbers per traditional sources).",
+      "images": [
+        "img-10"
+      ]
+    },
+    {
+      "page": 11,
+      "chapter": 2,
+      "beat": "darkest",
+      "year": "711",
+      "settingId": "camp",
+      "tag": "fact",
+      "speaker": "guide",
+      "text": {
+        "ar": "لو كنت هناك لعددتُ النجوم فقط كي لا ترتجف ركبتاي! كان الجنود قليلي الكلام. كانوا يتفقدون خيولهم ويصلحون نعالهم وينظرون نحو الشمال، حيث كان يرتفع غبار جيش عظيم.",
+        "fr": "Si j'avais été là, j'aurais compté les étoiles juste pour empêcher mes genoux de trembler ! Les soldats parlaient peu. Ils vérifiaient leurs chevaux, réparaient leurs sandales et regardaient vers le nord, où s'élevait la poussière d'une grande armée.",
+        "es": "¡Si yo hubiera estado allí, habría contado las estrellas solo para que no me temblaran las rodillas! Los soldados hablaban poco. Revisaban sus caballos, arreglaban sus sandalias y miraban al norte, donde se levantaba el polvo de un gran ejército.",
+        "en": "If I were there, I would be counting the stars just to stop my knees from shaking! The soldiers sharpened nothing and said little. They checked their horses, mended their sandals and looked north, where the dust of a great army was rising."
+      },
+      "historicalNote": "Guide aside; tension before the battle, no violence shown.",
+      "images": [
+        "img-11"
+      ]
+    },
+    {
+      "page": 12,
+      "chapter": 2,
+      "beat": "cliffhanger",
+      "year": "711",
+      "settingId": "river",
+      "tag": "disputed",
+      "speaker": "narrator",
+      "text": {
+        "ar": "في يوليو من عام 711 تقابل الجيشان قرب نهر في الجنوب، يُرجَّح أنه وادي لكة. وما زال المؤرخون يختلفون في تحديد المكان بدقة. في تلك الليلة توهجت نيران المعسكرين عبر الوادي. وكان الغد سيغيّر تاريخ أرض بأكملها.",
+        "fr": "En juillet 711, les deux armées se retrouvèrent face à face près d'une rivière du sud, probablement le Guadalete. Les historiens discutent encore du lieu exact. Cette nuit-là, les feux de camp des deux côtés brillaient à travers la vallée. Le lendemain allait changer l'histoire de tout un pays.",
+        "es": "En julio de 711, los dos ejércitos quedaron frente a frente cerca de un río del sur, probablemente el Guadalete. Los historiadores todavía discuten el lugar exacto. Esa noche, las hogueras de ambos lados brillaban en el valle. El día siguiente cambiaría la historia de toda una tierra.",
+        "en": "In July 711, the two armies faced each other near a river in the south, probably the Guadalete. Historians still argue about the exact place. That night, the campfires of both sides glowed across the valley. Tomorrow would change the history of a whole land."
+      },
+      "historicalNote": "Battle of Guadalete, July 711; exact site disputed. End of chapter 2.",
+      "images": [
+        "img-12"
+      ]
+    },
+    {
+      "page": 13,
+      "chapter": 3,
+      "beat": "turning-point",
+      "year": "711",
+      "settingId": "river",
+      "tag": "disputed",
+      "speaker": "narrator",
+      "text": {
+        "ar": "استمرت المعركة أيامًا. ثم حدث أمر مفاجئ: فبعض نبلاء لذريق أنفسهم، ممن لم يحبوا ملكهم قط، سحبوا جنودهم. فتفرقت صفوف الملك. وحين انقشع الغبار كان لذريق قد اختفى. ولا أحد يعرف يقينًا ما الذي حدث له.",
+        "fr": "La bataille dura plusieurs jours. Puis il se passa quelque chose d'étonnant : certains nobles de Rodrigue, qui n'avaient jamais aimé leur roi, retirèrent leurs soldats. Les rangs du roi se défirent. Quand la poussière retomba, Rodrigue avait disparu. Personne ne sait avec certitude ce qu'il est devenu.",
+        "es": "La batalla duró varios días. Entonces pasó algo sorprendente: algunos nobles del propio Rodrigo, que nunca habían querido a su rey, retiraron a sus soldados. Las filas del rey se deshicieron. Cuando el polvo se asentó, Rodrigo había desaparecido. Nadie sabe con certeza qué fue de él.",
+        "en": "The battle lasted for days. Then something surprising happened: some of Roderic's own nobles, who never liked their king, pulled their soldiers back. The king's lines broke apart. When the dust settled, Roderic was gone. Nobody knows for sure what happened to him."
+      },
+      "historicalNote": "Desertion by rival nobles reported by sources (disputed); Roderic's fate unknown.",
+      "images": [
+        "img-13"
+      ]
+    },
+    {
+      "page": 14,
+      "chapter": 3,
+      "beat": "outcome",
+      "year": "711–712",
+      "settingId": "toledo",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "لم يتوقف طارق. بل زحف شمالًا بسرعة كبيرة ووصل إلى طليطلة، عاصمة القوط الغربيين، قبل نهاية العام. وفي الصيف التالي عبر موسى نفسه البحر بجيش جديد. وفي سنوات قليلة صار معظم شبه الجزيرة تحت حكمهما.",
+        "fr": "Tariq ne s'arrêta pas. Il marcha vers le nord à grande vitesse et atteignit Tolède, la capitale wisigothe, avant la fin de l'année. L'été suivant, Moussa lui-même traversa la mer avec une nouvelle armée. En quelques années seulement, la plus grande partie de la péninsule passa sous leur autorité.",
+        "es": "Tariq no se detuvo. Marchó hacia el norte a gran velocidad y llegó a Toledo, la capital visigoda, antes de que terminara el año. El verano siguiente, el propio Musa cruzó el mar con un nuevo ejército. En pocos años, la mayor parte de la península quedó bajo su gobierno.",
+        "en": "Tariq did not stop. He marched north at great speed and reached Toledo, the Visigothic capital, before the year was over. The next summer, Musa himself crossed the sea with a new army. In just a few years, most of the peninsula was under their rule."
+      },
+      "historicalNote": "Capture of Toledo 711; Musa crosses 712.",
+      "images": [
+        "img-14"
+      ]
+    },
+    {
+      "page": 15,
+      "chapter": 3,
+      "beat": "what-next",
+      "year": "714",
+      "settingId": "damascus",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "ثم جاءت نهاية مفاجئة للقائدين. فقد استدعى الخليفة طارقًا وموسى إلى دمشق، على بعد أكثر من أربعة آلاف كيلومتر. فغادرا الأرض الخضراء التي عبرا البحر من أجلها، ولم يعد طارق أبدًا. ويفقد التاريخ أثره بعد تلك الرحلة.",
+        "fr": "Puis vint une fin surprenante pour les deux chefs. Le calife convoqua Tariq et Moussa jusqu'à Damas, à plus de quatre mille kilomètres. Ils quittèrent la terre verte pour laquelle ils avaient traversé la mer, et Tariq ne revint jamais. L'histoire perd sa trace après ce voyage.",
+        "es": "Después llegó un final sorprendente para los dos líderes. El califa llamó a Tariq y a Musa hasta Damasco, a más de cuatro mil kilómetros. Dejaron la tierra verde por la que habían cruzado el mar, y Tariq nunca regresó. La historia le pierde la pista después de aquel viaje.",
+        "en": "Then came a surprise ending for both leaders. The caliph called Tariq and Musa all the way to Damascus, more than four thousand kilometres away. They left the green land they had crossed the sea for, and Tariq never returned. History loses track of him after that journey."
+      },
+      "historicalNote": "Both recalled to Damascus (714); Tariq's later life unknown.",
+      "images": [
+        "img-15"
+      ]
+    },
+    {
+      "page": 16,
+      "chapter": 3,
+      "beat": "what-next",
+      "year": "711–1492",
+      "settingId": "cordoba",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "صارت تلك الأرض الأندلس، ودامت قرابة ثمانمئة عام. واشتهرت مدنها، مثل قرطبة، بحدائقها وجسورها ومكتباتها وعلمائها الذين درسوا النجوم والطب والرياضيات. وكثيرًا ما عاش المسلمون والمسيحيون واليهود جنبًا إلى جنب يتبادلون الأفكار.",
+        "fr": "Ce pays devint al-Andalus, et il dura près de huit cents ans. Ses villes, comme Cordoue, devinrent célèbres pour leurs jardins, leurs ponts, leurs bibliothèques et leurs savants qui étudiaient les étoiles, la médecine et les mathématiques. Musulmans, chrétiens et juifs vivaient souvent côte à côte et partageaient leurs idées.",
+        "es": "La tierra se convirtió en al-Ándalus, y duró casi ochocientos años. Sus ciudades, como Córdoba, se hicieron famosas por sus jardines, puentes, bibliotecas y sabios que estudiaban las estrellas, la medicina y las matemáticas. Musulmanes, cristianos y judíos convivían a menudo, compartiendo ideas.",
+        "en": "The land became al-Andalus, and it lasted for almost eight hundred years. Its cities, like Córdoba, grew famous for gardens, bridges, libraries and scholars who studied stars, medicine and mathematics. Muslims, Christians and Jews often lived side by side, sharing ideas."
+      },
+      "historicalNote": "Al-Andalus 711–1492; Córdoba's learning; convivencia (simplified for children).",
+      "images": [
+        "img-16"
+      ]
+    },
+    {
+      "page": 17,
+      "chapter": 3,
+      "beat": "today",
+      "year": "today",
+      "settingId": "rock",
+      "tag": "fact",
+      "speaker": "narrator",
+      "text": {
+        "ar": "والصخرة العظيمة؟ سمّاها الناس جبل طارق. ردّد الاسم بسرعة مرة بعد مرة، ومع مرور القرون صار في لغات أوروبا… جبرالتار! وكلما نطق أحد هذا الاسم اليوم، فهو يروي قطعة صغيرة من هذه الحكاية.",
+        "fr": "Et le grand rocher ? On l'appela Jabal Tariq, ce qui veut dire « la montagne de Tariq » en arabe. Dis-le vite, encore et encore, et au fil des siècles c'est devenu… Gibraltar ! Chaque fois que quelqu'un prononce ce nom aujourd'hui, il raconte un petit morceau de cette histoire.",
+        "es": "¿Y la gran roca? La llamaron Jabal Tariq, que significa «la montaña de Tariq» en árabe. Dilo rápido, una y otra vez, y con los siglos se convirtió en… ¡Gibraltar! Cada vez que alguien dice ese nombre hoy, cuenta un pedacito de esta historia.",
+        "en": "And the great rock? People called it Jabal Tariq, which means 'Tariq's mountain' in Arabic. Say it fast, again and again, and over the centuries it became… Gibraltar! Every time someone says that name today, they are telling a tiny piece of this story."
+      },
+      "historicalNote": "Gibraltar from Arabic Jabal Tariq.",
+      "images": [
+        "img-17",
+        "map-17"
+      ]
+    },
+    {
+      "page": 18,
+      "chapter": 3,
+      "beat": "closing-echo",
+      "year": "today",
+      "settingId": "strait",
+      "tag": "fact",
+      "speaker": "guide",
+      "text": {
+        "ar": "الليلة ما زالت السفن تعبر البحر الضيق نفسه بين أفريقيا وأوروبا، وما زالت الصخرة العظيمة تراقبها وهي تمر. والآن صرت تعرف اسمها وحكايتها. في المرة القادمة أيها المستكشف سنبحر إلى مكان جديد. وإلى ذلك الحين، أبقِ خريطتك قريبة منك!",
+        "fr": "Ce soir, des navires traversent encore cette même mer étroite entre l'Afrique et l'Europe, et le grand rocher les regarde toujours passer. Maintenant, tu connais son nom et son histoire. La prochaine fois, explorateur, nous partirons ailleurs. D'ici là, garde ta carte près de toi !",
+        "es": "Esta noche, los barcos siguen cruzando ese mismo mar estrecho entre África y Europa, y la gran roca sigue mirándolos pasar. Ahora conoces su nombre y su historia. La próxima vez, explorador, navegaremos a un lugar nuevo. Hasta entonces, ¡guarda tu mapa cerca!",
+        "en": "Tonight, ships still cross that same narrow sea between Africa and Europe, and the great rock still watches them pass. Now you know its name and its story. Next time, explorer, we sail somewhere new. Until then, keep your map close!"
+      },
+      "historicalNote": "Closing echo; guide sign-off.",
+      "images": [
+        "img-18"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "id": "img-01",
+      "page": 1,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): Night sea crossing: three small wooden sailing boats with full cream sails on a deep teal moonlit strait, a giant dark rock silhouette rising ahead, stars, gentle waves.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-02",
+      "page": 2,
+      "order": 1,
+      "type": "scene",
+      "shot": "medium",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (medium shot): Busy medieval harbour of Tangier at golden hour: whitewashed houses climbing a hill, small wooden ships, sailors pointing across the water toward a faint green coastline; TARIQ standing on the quay.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-03",
+      "page": 3,
+      "order": 1,
+      "type": "scene",
+      "shot": "close",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (close shot): A green, hilly medieval Iberian landscape with a stone Visigothic castle on a hill and small villages, seen from across the sea, morning light.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-04",
+      "page": 4,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): A small group of boats landing on a sandy southern beach at dawn, a scout captain stepping ashore and looking around, dunes and a little bay.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-05",
+      "page": 5,
+      "order": 1,
+      "type": "scene",
+      "shot": "medium",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (medium shot): TARIQ in a tent with rolled maps on a low table, an older governor (MUSA) handing him a scroll, lantern light, calm and serious.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-06",
+      "page": 6,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): The first boats pushing away from the African shore at night, tiny warm lights of home behind them, dark water and the huge rock ahead.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-07",
+      "page": 7,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): Soldiers setting up a camp of cream tents on the green slopes at the foot of the great rock, the coast of Iberia visible beyond, bright morning.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-08",
+      "page": 8,
+      "order": 1,
+      "type": "scene",
+      "shot": "medium",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (medium shot): Legendary moment, soft and symbolic: TARIQ standing on a hill at dusk looking forward while distant ships glow orange on the water behind him like paper lanterns, no fire violence, calm.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "detail-08",
+      "page": 8,
+      "order": 2,
+      "type": "detail",
+      "shot": "detail",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nSCENE: Close-up detail: an old open book with a hand-drawn ship illustration, quill and inkpot, representing a legend written long after.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-09",
+      "page": 9,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): A messenger on horseback galloping along a long road through hills toward a distant king and his banners, dust trailing, wide landscape.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-10",
+      "page": 10,
+      "order": 1,
+      "type": "scene",
+      "shot": "medium",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (medium shot): Scouts on a hilltop looking at a vast distant cloud of dust on the plain, worried poses, evening sky.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-11",
+      "page": 11,
+      "order": 1,
+      "type": "scene",
+      "shot": "close",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (close shot): A quiet night camp: soldiers checking horses and mending sandals by small campfires under a sky full of stars, peaceful and tense.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-12",
+      "page": 12,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): Night valley with a winding river and two rows of tiny campfires glowing on opposite hills, deep blue night, fireflies of light.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-13",
+      "page": 13,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): The morning after: banners lowered and dust settling over a quiet river valley, an empty royal standard lying on the grass, birds flying, hopeful light; no fighting shown.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-14",
+      "page": 14,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): An army marching along a road toward Toledo, a walled hilltop city with towers above a looping river, warm afternoon light.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-15",
+      "page": 15,
+      "order": 1,
+      "type": "scene",
+      "shot": "medium",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (medium shot): Two travellers (TARIQ and MUSA) riding camels on a long caravan route toward the domes and towers of distant Damascus, sunset desert.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-16",
+      "page": 16,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): Medieval Córdoba: a stone bridge with many arches over a river, gardens with fountains, a library with scholars reading books and looking at stars through an astrolabe.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-17",
+      "page": 17,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): The great Rock of Gibraltar today seen from the sea, with tiny modern ships passing, bright blue day, seagulls.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "map-17",
+      "page": 17,
+      "order": 2,
+      "type": "map",
+      "shot": "detail",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nSCENE: A storybook map of the narrow strait between North Africa and Iberia with a little paper boat and the rock marked by a small flag, no borders, no labels.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    },
+    {
+      "id": "img-18",
+      "page": 18,
+      "order": 1,
+      "type": "scene",
+      "shot": "wide",
+      "durationSec": 6,
+      "prompt": "STYLE: layered paper-cut diorama illustration — every element cut from matte coloured card and paper with visible clean cut edges and subtle paper texture, many depth layers separated by soft drop shadows, gentle warm cinematic lighting, harmonious limited palette of deep teal, sea blue, sand, terracotta, saffron, cream and navy night. Characters are simple stylised paper-cut figures with friendly rounded shapes and minimal facial detail.\nERA: early 8th century, Umayyad North Africa and Visigothic Iberia; period clothing, wooden sailing boats, stone architecture; no anachronisms.\nCHARACTERS when present: TARIQ — Amazigh (Berber) commander in his thirties, short dark beard, white wrapped headscarf, indigo travelling cloak over simple leather armour, calm and brave. MUSA — older governor with a grey beard, green robe and white turban.\nSCENE (wide shot): Night again over the narrow strait: a modern ferry with warm lights crossing past the great rock, stars, peaceful closing scene.\nCONSTRAINTS: landscape 16:9 composition, main subject centred, keep the bottom third calm (a text card covers it), no text, no letters, no logos, no modern flags or borders, no weapons drawn, no gore or violence."
+    }
+  ],
+  "didYouKnow": {
+    "ar": "اسم جبرالتار في لغات أوروبا مأخوذ من العربية «جبل طارق»، أي الجبل الذي يحمل اسم طارق.",
+    "fr": "Le nom Gibraltar vient de l’arabe Jabal Tariq, qui veut dire « la montagne de Tariq ».",
+    "es": "El nombre Gibraltar viene del árabe Jabal Tariq, que significa «la montaña de Tariq».",
+    "en": "The name Gibraltar comes from the Arabic Jabal Tariq, which means “Tariq’s mountain”."
+  },
+  "quiz": [
+    {
+      "question": {
+        "ar": "من قاد العبور عام 711؟",
+        "fr": "Qui a mené la traversée en 711 ?",
+        "es": "¿Quién dirigió la travesía en 711?",
+        "en": "Who led the crossing in 711?"
+      },
+      "options": [
+        {
+          "ar": "طارق بن زياد",
+          "fr": "Tariq ibn Ziyad",
+          "es": "Tariq ibn Ziyad",
+          "en": "Tariq ibn Ziyad"
+        },
+        {
+          "ar": "الملك لذريق",
+          "fr": "Le roi Rodrigue",
+          "es": "El rey Rodrigo",
+          "en": "King Roderic"
+        },
+        {
+          "ar": "طريف",
+          "fr": "Tarif",
+          "es": "Tarif",
+          "en": "Tarif"
+        }
+      ],
+      "answerIndex": 0
+    },
+    {
+      "question": {
+        "ar": "أي مدينة سُمّيت باسم المستطلع طريف؟",
+        "fr": "Quelle ville porte le nom de l’éclaireur Tarif ?",
+        "es": "¿Qué ciudad lleva el nombre del explorador Tarif?",
+        "en": "Which town is named after the scout Tarif?"
+      },
+      "options": [
+        {
+          "ar": "طليطلة",
+          "fr": "Tolède",
+          "es": "Toledo",
+          "en": "Toledo"
+        },
+        {
+          "ar": "طريفة",
+          "fr": "Tarifa",
+          "es": "Tarifa",
+          "en": "Tarifa"
+        },
+        {
+          "ar": "قرطبة",
+          "fr": "Cordoue",
+          "es": "Córdoba",
+          "en": "Córdoba"
+        }
+      ],
+      "answerIndex": 1
+    },
+    {
+      "question": {
+        "ar": "ما معنى «جبل طارق»؟",
+        "fr": "Que veut dire Jabal Tariq ?",
+        "es": "¿Qué significa Jabal Tariq?",
+        "en": "What does Jabal Tariq mean?"
+      },
+      "options": [
+        {
+          "ar": "سفينة طارق",
+          "fr": "Le navire de Tariq",
+          "es": "El barco de Tariq",
+          "en": "Tariq’s ship"
+        },
+        {
+          "ar": "نهر طارق",
+          "fr": "La rivière de Tariq",
+          "es": "El río de Tariq",
+          "en": "Tariq’s river"
+        },
+        {
+          "ar": "الجبل الذي يحمل اسم طارق",
+          "fr": "La montagne de Tariq",
+          "es": "La montaña de Tariq",
+          "en": "Tariq’s mountain"
+        }
+      ],
+      "answerIndex": 2
+    }
+  ],
+  "sources": [
+    {
+      "title": "Encyclopaedia Britannica — Tariq ibn Ziyad",
+      "url": "https://www.britannica.com/biography/Tariq-ibn-Ziyad"
+    },
+    {
+      "title": "Encyclopaedia Britannica — Gibraltar (history)",
+      "url": "https://www.britannica.com/place/Gibraltar"
+    },
+    {
+      "title": "Encyclopaedia Britannica — al-Andalus",
+      "url": "https://www.britannica.com/place/al-Andalus"
+    }
+  ]
+}

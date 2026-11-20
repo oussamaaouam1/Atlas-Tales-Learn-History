@@ -11,8 +11,8 @@ import { validateStory, mediaPaths } from './validateStory';
 import { languages } from './storySchema';
 setDefaultResultOrder('ipv4first');
 function required(name: string) { const value = process.env[name]?.trim(); if (!value) throw new Error(`Missing ${name}`); return value; }
-export async function uploadStory(folder: string, release?: string) {
-  const story = await validateStory(folder);
+export async function uploadStory(folder: string, release?: string, options: { test?: boolean } = {}) {
+  const story = await validateStory(folder, options);
   const releaseAt = release ? Date.parse(`${release}T00:00:00Z`) : Date.now();
   if (release && (!/^\d{4}-\d{2}-\d{2}$/.test(release) || !Number.isFinite(releaseAt) || new Date(releaseAt).toISOString().slice(0, 10) !== release)) throw new Error('Release must be a valid YYYY-MM-DD');
   const adminKey = required('CONVEX_ADMIN_KEY');
@@ -52,6 +52,8 @@ export async function uploadStory(folder: string, release?: string) {
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const args = process.argv.slice(2);
-  if (!args[0] || (args.length > 1 && (args[1] !== '--release' || !args[2] || args.length !== 3))) throw new Error('Usage: story:upload <folder> [--release YYYY-MM-DD]');
-  uploadStory(resolve(args[0]), args[2]).catch(e => { console.error(e.message); process.exitCode = 1; });
+  const test = args.includes('--test');
+  const rest = args.filter((a) => a !== '--test');
+  if (!rest[0] || (rest.length > 1 && (rest[1] !== '--release' || !rest[2] || rest.length !== 3))) throw new Error('Usage: story:upload <folder> [--release YYYY-MM-DD] [--test]');
+  uploadStory(resolve(rest[0]), rest[2], { test }).catch(e => { console.error(e.message); process.exitCode = 1; });
 }

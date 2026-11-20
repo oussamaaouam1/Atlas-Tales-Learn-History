@@ -37,3 +37,5 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 29 | 2026-11-19 | Splash: the app icon doesn't look good over the video | done | Icon removed from the video splash (title only); static reduce-motion splash keeps it. |
 | 30 | 2026-11-20 | Splash: play the full video on every launch, with a Skip button, and no "Atlas Tales / Learn History" | done | Full 6 s video every launch, Skip pill top corner (mirrors in Arabic), no title; short clip removed. |
 | 31 | 2026-11-20 | Phase 4 (story player) approved | doing | Steps 1–3 built (backend, logic, player + chapter break + end/quiz); owner device test next. |
+| 32 | 2026-11-20 | Generate a 15–20 page test story; narration with Gemini TTS; images in a creative style | doing | Paper-cut diorama style; Tariq ibn Ziyad 711; validator --test mode for short test stories. |
+| 33 | 2026-11-20 | Follow-up: Arabic word-by-word text reveal in the player (BUILD_GUIDE §7.2) | todo | |
