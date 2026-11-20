@@ -39,4 +39,4 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 31 | 2026-11-20 | Phase 4 (story player) approved | doing | Steps 1–3 built (backend, logic, player + chapter break + end/quiz); owner device test next. |
 | 32 | 2026-11-20 | Generate a 15–20 page test story; narration with Gemini TTS; images in a creative style | doing (narration 12/72, free-tier quota) | Paper-cut diorama style; Tariq ibn Ziyad 711; validator --test mode for short test stories. |
 | 33 | 2026-11-20 | Follow-up: Arabic word-by-word text reveal in the player (BUILD_GUIDE §7.2) | todo | |
-| 34 | 2026-11-20 | Narration: use every free TTS model available (3.8 Flash, 3.8 Flash Lite, 3.1 Flash: 10 RPD / 3 RPM each) | doing | |
+| 34 | 2026-11-20 | Narration: use every free TTS model available (3.8 Flash, 3.8 Flash Lite, 3.1 Flash: 10 RPD / 3 RPM each) | doing | Day 1: en 18/18, fr 18/18, es 2/18, ar 0/18 (5 models used, incl. 2.5 Flash/Pro). Rest next day. |
