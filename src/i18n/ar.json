@@ -92,7 +92,9 @@
     "pageOf": "صفحة {{page}} من {{count}}",
     "sleepTimer": "مؤقت النوم",
     "unavailable": "هذه القصة غير متاحة الآن.",
-    "chapterN": "الفصل {{n}}"
+    "chapterN": "الفصل {{n}}",
+    "hideControls": "إخفاء الأزرار",
+    "showControls": "إظهار الأزرار"
   },
   "end": {
     "didYouKnow": "هل تعلم؟",

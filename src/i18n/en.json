@@ -92,7 +92,9 @@
     "pageOf": "Page {{page}} of {{count}}",
     "sleepTimer": "Sleep timer",
     "unavailable": "This story is not available right now.",
-    "chapterN": "Chapter {{n}}"
+    "chapterN": "Chapter {{n}}",
+    "hideControls": "Hide controls",
+    "showControls": "Show controls"
   },
   "end": {
     "didYouKnow": "Did you know?",

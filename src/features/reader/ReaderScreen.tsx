@@ -3,7 +3,7 @@ import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-au
 import { Image } from 'expo-image';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { api } from '../../../convex/_generated/api';
@@ -54,6 +54,7 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const [scale, setScale] = useState<TextScale>('medium');
   const [sheet, setSheet] = useState<'chapters' | 'text' | null>(null);
   const [chapterBreak, setChapterBreak] = useState<ChapterBreak | null>(null);
+  const [chrome, setChrome] = useState(true);
 
   // Resume where the reader stopped (§7.2); a finished story starts again from page 1.
   useEffect(() => {
@@ -170,39 +171,50 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
 
   return (
     <View style={styles.root}>
-      <ImageSequencer url={image?.url} imageKey={`${page}-${image?.order ?? 0}`} dimmed={chapterBreak !== null} />
+      <ImageSequencer
+        url={image?.url}
+        imageKey={`${page}-${image?.order ?? 0}`}
+        page={page}
+        rtl={storyLanguage === 'ar'}
+        dimmed={chapterBreak !== null}
+      />
 
-      <SafeAreaView style={styles.overlay} edges={['top', 'bottom', 'left', 'right']}>
-        {/* Top: home + page count (start), narration (centre), text, sleep (Pro), chapters (end). */}
-        <View style={styles.topRow}>
-          <View style={styles.side}>
-            <RoundButton accessibilityLabel={t('story.backToMap')} color={tokens.color.accent} onPress={() => navigation.popToTop()}>
-              <Icon name="home" color={tokens.color.text} />
-            </RoundButton>
-            {!chapterBreak && (
-              <View style={styles.pagePill} accessible accessibilityLabel={t('reader.pageOf', { page, count: pageCount })}>
-                <AppText variant="caption" bold color="primary" style={styles.ltr}>
-                  {page}/{pageCount}
-                </AppText>
+      {/* Tap the picture to hide or show the controls (owner, BACKLOG #37). */}
+      <Pressable
+        style={StyleSheet.absoluteFill}
+        onPress={() => setChrome((visible) => !visible)}
+        disabled={chapterBreak !== null}
+        accessibilityRole="button"
+        accessibilityLabel={chrome ? t('reader.hideControls') : t('reader.showControls')}
+      />
+
+      {chrome && !chapterBreak && (
+        <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)} style={StyleSheet.absoluteFill} pointerEvents="box-none">
+          <SafeAreaView style={styles.overlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
+            {/* Top: home + page count (start), narration (centre), text, sleep (Pro), chapters (end). */}
+            <View style={styles.topRow} pointerEvents="box-none">
+              <View style={styles.side} pointerEvents="box-none">
+                <RoundButton accessibilityLabel={t('story.backToMap')} color={tokens.color.accent} onPress={() => navigation.popToTop()}>
+                  <Icon name="home" color={tokens.color.text} />
+                </RoundButton>
+                <View style={styles.pagePill} accessible accessibilityLabel={t('reader.pageOf', { page, count: pageCount })}>
+                  <AppText variant="caption" bold color="primary" style={styles.ltr}>
+                    {page}/{pageCount}
+                  </AppText>
+                </View>
               </View>
-            )}
-          </View>
-          {!chapterBreak && (
-            <NarrationCard
-              playing={playing}
-              loading={loading}
-              chapter={chapter}
-              chapterCount={chapters.length}
-              elapsedSec={elapsed}
-              totalSec={total}
-              progress={storyProgress(page, pageCount, status.currentTime / pageDuration)}
-              marks={chapterMarks(chapters, pageCount)}
-              onTogglePlay={() => setPlaying((p) => !p)}
-            />
-          )}
-          <View style={styles.side}>
-            {!chapterBreak && (
-              <>
+              <NarrationCard
+                playing={playing}
+                loading={loading}
+                chapter={chapter}
+                chapterCount={chapters.length}
+                elapsedSec={elapsed}
+                totalSec={total}
+                progress={storyProgress(page, pageCount, status.currentTime / pageDuration)}
+                marks={chapterMarks(chapters, pageCount)}
+                onTogglePlay={() => setPlaying((p) => !p)}
+              />
+              <View style={styles.side} pointerEvents="box-none">
                 <RoundButton accessibilityLabel={t('reader.textAndLanguage')} color={tokens.color.accent} onPress={() => setSheet('text')}>
                   <Icon name="textSize" color={tokens.color.text} />
                 </RoundButton>
@@ -213,50 +225,60 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
                 <RoundButton accessibilityLabel={t('reader.chapters')} color={tokens.color.success} onPress={() => setSheet('chapters')}>
                   <Icon name="chapters" color="#FFFFFF" />
                 </RoundButton>
-              </>
-            )}
-          </View>
-        </View>
+              </View>
+            </View>
 
-        {/* Bottom: previous, the page text card (or "Show text"), next. */}
-        {!chapterBreak && (
-          <View style={styles.bottomRow}>
-            <RoundButton accessibilityLabel={t('reader.previous')} onPress={goPrev} disabled={page <= 1} size={48}>
-              <DirectionalIcon direction="back" size={22} color={tokens.color.primary} />
-            </RoundButton>
-            <View style={styles.textSlot}>
-              {showText && current ? (
-                <Animated.View key={`${page}-${storyLanguage}`} entering={FadeIn.duration(450)} style={[styles.textCard, loading && styles.textGreyed]}>
-                  <Text
-                    style={[
-                      styles.pageText,
-                      {
-                        fontFamily: arabicText ? tokens.fontFace.arabic[600] : tokens.fontFace.latin[600],
-                        fontSize: 21 * textScale,
-                        lineHeight: (arabicText ? 35 : 31) * textScale,
-                        writingDirection: arabicText ? 'rtl' : 'ltr',
-                      },
-                    ]}
-                  >
-                    {current.text[storyLanguage]}
-                  </Text>
-                </Animated.View>
-              ) : (
+            {/* Bottom: one wide text card with previous / next inside it (owner, BACKLOG #37). */}
+            {showText && current ? (
+              <Animated.View key={`${page}-${storyLanguage}`} entering={FadeIn.duration(450)} style={styles.textCard}>
+                <RoundButton accessibilityLabel={t('reader.previous')} onPress={goPrev} disabled={page <= 1} size={42}>
+                  <DirectionalIcon direction="back" size={20} color={tokens.color.primary} />
+                </RoundButton>
+                <Text
+                  style={[
+                    styles.pageText,
+                    loading && styles.textGreyed,
+                    {
+                      fontFamily: arabicText ? tokens.fontFace.arabic[600] : tokens.fontFace.latin[600],
+                      fontSize: 21 * textScale,
+                      lineHeight: (arabicText ? 35 : 31) * textScale,
+                      writingDirection: arabicText ? 'rtl' : 'ltr',
+                    },
+                  ]}
+                >
+                  {current.text[storyLanguage]}
+                </Text>
+                <RoundButton accessibilityLabel={t('reader.next')} onPress={goNext} color={tokens.color.success} size={42}>
+                  <DirectionalIcon direction="forward" size={20} color="#FFFFFF" />
+                </RoundButton>
+              </Animated.View>
+            ) : (
+              <View style={styles.bottomRow} pointerEvents="box-none">
+                <RoundButton accessibilityLabel={t('reader.previous')} onPress={goPrev} disabled={page <= 1} size={48}>
+                  <DirectionalIcon direction="back" size={22} color={tokens.color.primary} />
+                </RoundButton>
                 <Pressable accessibilityRole="button" onPress={() => setShowText(true)} style={styles.showText}>
                   <Icon name="text" size={18} color={tokens.color.text} />
                   <AppText variant="caption" bold>
                     {t('reader.showText')}
                   </AppText>
                 </Pressable>
-              )}
-            </View>
-            <RoundButton accessibilityLabel={t('reader.next')} onPress={goNext} color={tokens.color.success} size={48}>
-              <DirectionalIcon direction="forward" size={22} color="#FFFFFF" />
+                <RoundButton accessibilityLabel={t('reader.next')} onPress={goNext} color={tokens.color.success} size={48}>
+                  <DirectionalIcon direction="forward" size={22} color="#FFFFFF" />
+                </RoundButton>
+              </View>
+            )}
+          </SafeAreaView>
+        </Animated.View>
+      )}
+
+      {chapterBreak && (
+        <SafeAreaView style={styles.overlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
+          <View style={styles.side} pointerEvents="box-none">
+            <RoundButton accessibilityLabel={t('story.backToMap')} color={tokens.color.accent} onPress={() => navigation.popToTop()}>
+              <Icon name="home" color={tokens.color.text} />
             </RoundButton>
           </View>
-        )}
-
-        {chapterBreak && (
           <ChapterBreakCard
             info={chapterBreak}
             chapterCount={chapters.length}
@@ -275,8 +297,8 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
               navigation.popToTop();
             }}
           />
-        )}
-      </SafeAreaView>
+        </SafeAreaView>
+      )}
 
       <ChaptersSheet
         visible={sheet === 'chapters'}
@@ -356,24 +378,27 @@ function ChapterBreakCard({ info, chapterCount, cliffhanger, nextTitle, nextMinu
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#14213D' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: tokens.spacing.md, padding: tokens.spacing.xl, backgroundColor: tokens.color.background },
-  overlay: { flex: 1, justifyContent: 'space-between', paddingHorizontal: tokens.spacing.lg, paddingVertical: tokens.spacing.sm },
+  overlay: { flex: 1, justifyContent: 'space-between', paddingHorizontal: tokens.spacing.medium, paddingVertical: tokens.spacing.sm },
   topRow: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' },
   side: { width: 64, alignItems: 'center', gap: tokens.spacing.medium },
   pagePill: { paddingHorizontal: 10, paddingVertical: 2, borderRadius: tokens.radius.pill, backgroundColor: tokens.color.surface, ...tokens.shadow.card },
   ltr: { writingDirection: 'ltr' },
-  bottomRow: { flexDirection: 'row', alignItems: 'flex-end', gap: tokens.spacing.md },
-  textSlot: { flex: 1, alignItems: 'center' },
+  bottomRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   textCard: {
     width: '100%',
-    maxWidth: 720,
-    paddingHorizontal: tokens.spacing.lg,
-    paddingVertical: tokens.spacing.medium,
+    maxWidth: 1000,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.spacing.sm,
+    paddingHorizontal: tokens.spacing.sm,
+    paddingVertical: tokens.spacing.sm,
     borderRadius: tokens.radius.lg,
     backgroundColor: 'rgba(255, 255, 255, 0.96)',
     ...tokens.shadow.card,
   },
   textGreyed: { opacity: 0.6 },
-  pageText: { color: tokens.color.text, textAlign: 'center' },
+  pageText: { flex: 1, color: tokens.color.text, textAlign: 'center' },
   showText: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -92,7 +92,9 @@
     "pageOf": "Page {{page}} sur {{count}}",
     "sleepTimer": "Minuteur de sommeil",
     "unavailable": "Cette histoire n'est pas disponible pour le moment.",
-    "chapterN": "Chapitre {{n}}"
+    "chapterN": "Chapitre {{n}}",
+    "hideControls": "Masquer les commandes",
+    "showControls": "Afficher les commandes"
   },
   "end": {
     "didYouKnow": "Le savais-tu ?",

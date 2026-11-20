@@ -92,7 +92,9 @@
     "pageOf": "Página {{page}} de {{count}}",
     "sleepTimer": "Temporizador",
     "unavailable": "Esta historia no está disponible ahora.",
-    "chapterN": "Capítulo {{n}}"
+    "chapterN": "Capítulo {{n}}",
+    "hideControls": "Ocultar controles",
+    "showControls": "Mostrar controles"
   },
   "end": {
     "didYouKnow": "¿Sabías que…?",
