@@ -38,7 +38,7 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 30 | 2026-11-20 | Splash: play the full video on every launch, with a Skip button, and no "Atlas Tales / Learn History" | done | Full 6 s video every launch, Skip pill top corner (mirrors in Arabic), no title; short clip removed. |
 | 31 | 2026-11-20 | Phase 4 (story player) approved | doing | Steps 1–3 built (backend, logic, player + chapter break + end/quiz); owner device test next. |
 | 32 | 2026-11-20 | Generate a 15–20 page test story; narration with Gemini TTS; images in a creative style | doing (narration 12/72, free-tier quota) | Paper-cut diorama style; Tariq ibn Ziyad 711; validator --test mode for short test stories. |
-| 33 | 2026-11-20 | Follow-up: Arabic word-by-word text reveal in the player (BUILD_GUIDE §7.2) | todo | |
+| 33 | 2026-11-20 | Follow-up: Arabic word-by-word text reveal in the player (BUILD_GUIDE §7.2) | done | Covered by #40 (word highlight, all languages incl. Arabic). |
 | 34 | 2026-11-20 | Narration: use every free TTS model available (3.8 Flash, 3.8 Flash Lite, 3.1 Flash: 10 RPD / 3 RPM each) | doing | Day 1: en 18/18, fr 18/18, es 2/18, ar 0/18 (5 models used, incl. 2.5 Flash/Pro). Rest next day. |
 | 35 | 2026-11-20 | Map: story pins are badly placed on the world map (iPad and Android) | done | Africa and Europe paintings calibrated (6–8 control points, affine fit + local correction); world and continent views. Other continents: calibrate when they get stories. |
 | 36 | 2026-11-20 | Story card: must not scroll; rounded corners on all 4 sides | done | Floating card, 4 corners, no scroll; chapters with minutes; "Continue chapter n" from saved progress. |
