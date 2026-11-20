@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { audioFromResponse, isDailyQuota, retryDelaySeconds, splitDuration, ttsRequest, VOICES } from './narrateStory';
+import { audioFromResponse, ffmpegInput, isDailyQuota, isWav, rejectsStyle, retryDelaySeconds, splitDuration, ttsRequest, VOICES } from './narrateStory';
 
 describe('Gemini TTS narration helpers', () => {
   test('builds an Interactions request with the speaker voice and a short style note', () => {
@@ -29,6 +29,22 @@ describe('Gemini TTS narration helpers', () => {
     expect(retryDelaySeconds('nothing', null)).toBeNull();
     expect(isDailyQuota('GenerateRequestsPerDayPerProjectPerModel')).toBe(true);
     expect(isDailyQuota('GenerateRequestsPerMinutePerProjectPerModel')).toBe(false);
+  });
+
+  test('falls back to a plain transcript for models that reject style notes', () => {
+    expect(rejectsStyle(400, '{"message":"Speech metadata is not supported for this model."}')).toBe(true);
+    expect(rejectsStyle(400, 'Speech annotations are not supported for model x')).toBe(true);
+    expect(rejectsStyle(429, 'Speech metadata is not supported')).toBe(false);
+    expect(ttsRequest('Hi', 'narrator', 'm', false).input[0]!.content[0]!.annotations).toEqual([]);
+  });
+
+  test('converts WAV or raw 24 kHz PCM', () => {
+    const wav = Buffer.from('RIFF....WAVEfmt ', 'ascii');
+    const raw = Buffer.alloc(16);
+    expect(isWav(wav)).toBe(true);
+    expect(isWav(raw)).toBe(false);
+    expect(ffmpegInput(wav, 'a.wav')).toEqual(['-i', 'a.wav']);
+    expect(ffmpegInput(raw, 'a.wav')).toEqual(['-f', 's16le', '-ar', '24000', '-ac', '1', '-i', 'a.wav']);
   });
 
   test('splits page narration across its images', () => {

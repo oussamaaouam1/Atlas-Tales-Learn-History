@@ -32,10 +32,11 @@ export const STYLES = {
 type Speaker = keyof typeof VOICES;
 type Lang = (typeof languages)[number];
 
-export function ttsRequest(text: string, speaker: Speaker, model = DEFAULT_MODEL) {
+export function ttsRequest(text: string, speaker: Speaker, model = DEFAULT_MODEL, withStyle = true) {
+  const annotations = withStyle ? [{ type: 'speech_metadata', style: STYLES[speaker] }] : [];
   return {
     model,
-    input: [{ type: 'user_input', content: [{ type: 'text', text, annotations: [{ type: 'speech_metadata', style: STYLES[speaker] }] }] }],
+    input: [{ type: 'user_input', content: [{ type: 'text', text, annotations }] }],
     response_format: { type: 'audio' },
     generation_config: { speech_config: [{ voice: VOICES[speaker] }] },
   };
@@ -89,18 +90,38 @@ function parsePages(arg: string | undefined, count: number): number[] {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** WAV (RIFF header) or headerless 24 kHz mono 16-bit PCM, which some models return. */
+export function isWav(audio: Buffer): boolean {
+  return audio.subarray(0, 4).toString('ascii') === 'RIFF';
+}
+
+/** ffmpeg input arguments for the downloaded audio. */
+export function ffmpegInput(audio: Buffer, path: string): string[] {
+  return isWav(audio) ? ['-i', path] : ['-f', 's16le', '-ar', '24000', '-ac', '1', '-i', path];
+}
+
+/** Some models (e.g. 3.1 Flash TTS preview) reject style notes; then we send the plain transcript. */
+export function rejectsStyle(status: number, body: string): boolean {
+  return status === 400 && /speech (metadata|annotations) (is|are) not supported/i.test(body);
+}
+
 async function synthesize(text: string, speaker: Speaker, key: string, model: string): Promise<Buffer | 'daily-quota'> {
+  let withStyle = true;
   for (let attempt = 1; attempt <= 8; attempt++) {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'x-goog-api-key': key, 'Content-Type': 'application/json' },
-      body: JSON.stringify(ttsRequest(text, speaker, model)),
+      body: JSON.stringify(ttsRequest(text, speaker, model, withStyle)),
     });
     const body = await res.text();
     if (res.ok) {
       const data = audioFromResponse(JSON.parse(body) as InteractionResponse);
       if (!data) throw new Error(`No audio in response: ${body.slice(0, 300)}`);
       return Buffer.from(data, 'base64');
+    }
+    if (withStyle && rejectsStyle(res.status, body)) {
+      withStyle = false;
+      continue;
     }
     if (res.status === 429 || res.status >= 500) {
       if (res.status === 429 && isDailyQuota(body)) return 'daily-quota';
@@ -150,15 +171,23 @@ export async function narrateStory(folder: string, opts: { langs: Lang[]; pages?
         skipped++;
         continue;
       }
-      console.log(`${lang} page ${n} (${page.speaker})…`);
-      const wav = await synthesize(page.text[lang], page.speaker, key, model);
-      if (wav === 'daily-quota') {
-        console.log(`Daily quota reached. Made ${made}, skipped ${skipped}. Run again later to continue.`);
-        return;
-      }
       const wavPath = join(folder, '_wav', lang, `${n}.wav`);
-      await writeFile(wavPath, wav);
-      await run(ffmpeg, ['-v', 'error', '-y', '-i', wavPath, '-ac', '1', '-c:a', 'aac', '-b:a', '80k', out]);
+      // Reuse audio already downloaded if a previous conversion failed (saves free-tier quota).
+      let audio: Buffer;
+      if (existsSync(wavPath) && statSync(wavPath).size > PLACEHOLDER_MAX_BYTES) {
+        console.log(`${lang} page ${n}: reusing downloaded audio`);
+        audio = await readFile(wavPath);
+      } else {
+        console.log(`${lang} page ${n} (${page.speaker})…`);
+        const result = await synthesize(page.text[lang], page.speaker, key, model);
+        if (result === 'daily-quota') {
+          console.log(`Daily quota reached. Made ${made}, skipped ${skipped}. Run again later to continue.`);
+          return;
+        }
+        audio = result;
+        await writeFile(wavPath, audio);
+      }
+      await run(ffmpeg, ['-v', 'error', '-y', ...ffmpegInput(audio, wavPath), '-ac', '1', '-c:a', 'aac', '-b:a', '80k', out]);
       await rm(wavPath);
       made++;
       await sleep(opts.delayMs);
