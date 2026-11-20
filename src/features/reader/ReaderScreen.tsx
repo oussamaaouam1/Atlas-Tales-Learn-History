@@ -252,10 +252,10 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const sentence = sentences[line.index] ?? '';
   const tokens_ = splitWords(sentence);
   const spoken = narrating ? spokenTokenIndex(tokens_, line.local) : -1;
+  // The fade-in lives on a wrapper so it never fights the text's own opacity (greyed while loading).
   const pageText = current ? (
-    <Animated.Text
-      key={`${page}-${storyLanguage}-${line.index}`}
-      entering={FadeIn.duration(300)}
+    <Animated.View key={`${page}-${storyLanguage}-${line.index}`} entering={FadeIn.duration(300)} style={styles.lineWrap}>
+    <Text
       style={[
         styles.pageText,
         loading && styles.textGreyed,
@@ -277,7 +277,8 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
             </Text>
           ))
         : sentence}
-    </Animated.Text>
+    </Text>
+    </Animated.View>
   ) : null;
 
   return (
@@ -561,7 +562,8 @@ const styles = StyleSheet.create({
   },
   bubbleText: { flexDirection: 'row' },
   introButtons: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm },
-  pageText: { flex: 1, color: tokens.color.text, textAlign: 'center' },
+  lineWrap: { flex: 1 },
+  pageText: { color: tokens.color.text, textAlign: 'center' },
   showText: {
     flexDirection: 'row',
     alignItems: 'center',
