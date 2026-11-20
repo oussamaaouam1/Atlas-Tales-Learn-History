@@ -68,5 +68,43 @@
   "settings": {
     "language": "اللغة",
     "installId": "معرّف التثبيت"
+  },
+  "reader": {
+    "chapterOf": "الفصل {{n}} من {{total}}",
+    "showText": "إظهار النص",
+    "chapters": "الفصول",
+    "textAndLanguage": "النص واللغة",
+    "textSize": "حجم النص",
+    "showTextLabel": "إظهار النص",
+    "language": "اللغة",
+    "minutes": "{{n}} دقائق",
+    "finished": "مكتمل",
+    "nowPlaying": "قيد التشغيل، صفحة {{page}} من {{count}}",
+    "endOfChapter": "نهاية الفصل {{n}}",
+    "nextChapter": "التالي: الفصل {{n}} · {{title}} · {{min}} دقائق",
+    "continueNow": "تابع الآن",
+    "continueTomorrow": "تابع غدًا",
+    "play": "تشغيل",
+    "pause": "إيقاف مؤقت",
+    "previous": "الصفحة السابقة",
+    "next": "الصفحة التالية",
+    "pageOf": "صفحة {{page}} من {{count}}",
+    "sleepTimer": "مؤقت النوم",
+    "unavailable": "هذه القصة غير متاحة الآن.",
+    "chapterN": "الفصل {{n}}"
+  },
+  "end": {
+    "didYouKnow": "هل تعلم؟",
+    "sources": "مصادر هذه القصة",
+    "quiz": "اختبار سريع · {{n}} من {{total}}",
+    "correct": "أحسنت!",
+    "wrong": "ليس هذا",
+    "nextQuestion": "السؤال التالي",
+    "finishQuiz": "اعرض نتيجتي",
+    "score": "حصلت على {{score}} من {{total}}!",
+    "scoreGreat": "رائع، أنت مستكشف حقيقي!",
+    "scoreGood": "أحسنت! التاريخ مليء بالمفاجآت.",
+    "upNext": "التالي",
+    "backToMap": "العودة إلى الخريطة"
   }
 }

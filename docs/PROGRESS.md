@@ -123,3 +123,10 @@ Phase 0 closed (iOS pending). Note: the phone needed Private DNS (`dns.google`) 
 - Owner confirmed on Android (and iPad): continent zoom/pan/back, story pins at the right places, story sheet with correct data, smooth on a mid-range Android, in English and Arabic.
 - Phase 3 closed. Follow-ups on the owner sheet: #7 (map buttons/pins to the design) parked.
 - 2026-11-19 Splash video (BACKLOG #28, owner-approved expo-video): owner's paper-boat video re-encoded silent 720p (full 6.0 s / 0.95 MB on first launch, last 2.0 s / 0.42 MB afterwards), tap to skip, localized title fades in over the end, safety timeout; reduce motion keeps the static splash. Original in assets/_masters. Borders in the video accepted by the owner for the splash only. 87 tests pass.
+
+## 2026-11-20 - Phase 4 (story player) in progress
+- Step 1: Convex storyProgress (resume, maxPageReached monotonic, idempotent completion) and quizResults (server-scored), owner-keyed with install-token auth.
+- Step 2: tested pure player logic (chapters, after-page decision incl. chapter breaks, image timing, progress marks, clock, chapter minutes).
+- Step 3: player to design 7D–7I/8/9B: full-bleed art with 700 ms crossfade + slow Ken Burns; narration card (play/pause, chapter, clock, chapter dots, guide knob, RTL fill); round controls (home, page count, text & language, sleep timer with PRO badge → Pro screen, chapters); text card with three sizes and hide/show; prev/next arrows; per-page narration with autoplay page turn; resume from saved page; progress saved each page; chapter break card (continue now / continue tomorrow saves the next chapter); chapters sheet; text & language sheet (story language keeps the page); end screen with did-you-know, sources (titles only until the parent gate), 3-question quiz with icon+word feedback saved to Convex, up-next story.
+- Not in Phase 4 by the guide's order: pre-roll ad (7A/B), sleep timer (Pro), stamp award (9A, Phase 6), Arabic word-by-word reveal (follow-up).
+- Validation: typecheck; 109 tests (79 app, 30 server); Android export bundles.

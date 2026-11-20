@@ -68,5 +68,43 @@
   "settings": {
     "language": "Idioma",
     "installId": "ID de instalación"
+  },
+  "reader": {
+    "chapterOf": "Capítulo {{n}} de {{total}}",
+    "showText": "Mostrar texto",
+    "chapters": "Capítulos",
+    "textAndLanguage": "Texto e idioma",
+    "textSize": "Tamaño del texto",
+    "showTextLabel": "Mostrar texto",
+    "language": "Idioma",
+    "minutes": "{{n}} min",
+    "finished": "terminado",
+    "nowPlaying": "en curso, página {{page}} de {{count}}",
+    "endOfChapter": "Fin del capítulo {{n}}",
+    "nextChapter": "Sigue: capítulo {{n}} · {{title}} · {{min}} min",
+    "continueNow": "Continuar ahora",
+    "continueTomorrow": "Continuar mañana",
+    "play": "Reproducir",
+    "pause": "Pausa",
+    "previous": "Página anterior",
+    "next": "Página siguiente",
+    "pageOf": "Página {{page}} de {{count}}",
+    "sleepTimer": "Temporizador",
+    "unavailable": "Esta historia no está disponible ahora.",
+    "chapterN": "Capítulo {{n}}"
+  },
+  "end": {
+    "didYouKnow": "¿Sabías que…?",
+    "sources": "Fuentes de esta historia",
+    "quiz": "Mini quiz · {{n}} de {{total}}",
+    "correct": "¡Correcto!",
+    "wrong": "Esta no",
+    "nextQuestion": "Siguiente pregunta",
+    "finishQuiz": "Ver mi puntuación",
+    "score": "¡Tienes {{score}} de {{total}}!",
+    "scoreGreat": "¡Increíble, todo un explorador!",
+    "scoreGood": "¡Bien hecho! La historia está llena de sorpresas.",
+    "upNext": "A continuación",
+    "backToMap": "Volver al mapa"
   }
 }

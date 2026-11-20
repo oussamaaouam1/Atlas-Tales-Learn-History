@@ -9,7 +9,8 @@ import { LanguageScreen } from '../features/onboarding/LanguageScreen';
 import { SplashScreen } from '../features/onboarding/SplashScreen';
 import { PassportScreen } from '../features/passport/PassportScreen';
 import { PaywallModal } from '../features/paywall/PaywallModal';
-import { ChapterBreakScreen, EndScreen, ReaderScreen } from '../features/reader/ReaderScreens';
+import { EndScreen } from '../features/reader/EndScreen';
+import { ReaderScreen } from '../features/reader/ReaderScreen';
 import { SettingsScreen } from '../features/settings/SettingsScreen';
 import { useLanguage } from '../providers/LanguageProvider';
 import { tokens } from '../theme/tokens';
@@ -59,9 +60,8 @@ export function RootNavigator({ onboardingComplete, splashIcon }: { onboardingCo
           component={StoryCardSheet}
           options={{ headerShown: false, presentation: 'transparentModal', animation: 'slide_from_bottom', contentStyle: { backgroundColor: 'transparent' } }}
         />
-        <Stack.Screen name="Reader" component={ReaderScreen} options={{ title: t('screens.reader') }} />
-        <Stack.Screen name="ChapterBreak" component={ChapterBreakScreen} options={{ title: t('screens.chapterBreak') }} />
-        <Stack.Screen name="End" component={EndScreen} options={{ title: t('screens.end') }} />
+        <Stack.Screen name="Reader" component={ReaderScreen} options={{ title: t('screens.reader'), headerShown: false, animation: 'fade' }} />
+        <Stack.Screen name="End" component={EndScreen} options={{ title: t('screens.end'), headerShown: false, animation: 'fade' }} />
         <Stack.Screen name="Passport" component={PassportScreen} options={{ title: t('screens.passport') }} />
         <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: t('screens.settings') }} />
         <Stack.Screen

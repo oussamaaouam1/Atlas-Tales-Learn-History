@@ -10,7 +10,6 @@ export type RootStackParamList = {
   Continent: { continent: Continent };
   StoryCard: { slug: string };
   Reader: { slug: string };
-  ChapterBreak: { slug: string; chapter: number };
   End: { slug: string };
   Passport: undefined;
   Settings: undefined;

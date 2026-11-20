@@ -36,4 +36,4 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 28 | 2026-11-19 | Splash: play the owner's video (splashScreen.mp4) | done | Full on first launch (tap to skip), short on later launches; silent 720p; localized title fades in over the end; borders accepted for the splash (owner). Adds expo-video (approved). |
 | 29 | 2026-11-19 | Splash: the app icon doesn't look good over the video | done | Icon removed from the video splash (title only); static reduce-motion splash keeps it. |
 | 30 | 2026-11-20 | Splash: play the full video on every launch, with a Skip button, and no "Atlas Tales / Learn History" | done | Full 6 s video every launch, Skip pill top corner (mirrors in Arabic), no title; short clip removed. |
-| 31 | 2026-11-20 | Phase 4 (story player) approved | doing | Step 1 backend done (progress + quiz). |
+| 31 | 2026-11-20 | Phase 4 (story player) approved | doing | Steps 1–3 built (backend, logic, player + chapter break + end/quiz); owner device test next. |

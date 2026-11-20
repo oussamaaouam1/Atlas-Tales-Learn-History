@@ -68,5 +68,43 @@
   "settings": {
     "language": "Langue",
     "installId": "Identifiant d'installation"
+  },
+  "reader": {
+    "chapterOf": "Chapitre {{n}} sur {{total}}",
+    "showText": "Afficher le texte",
+    "chapters": "Chapitres",
+    "textAndLanguage": "Texte et langue",
+    "textSize": "Taille du texte",
+    "showTextLabel": "Afficher le texte",
+    "language": "Langue",
+    "minutes": "{{n}} min",
+    "finished": "terminé",
+    "nowPlaying": "en cours, page {{page}} sur {{count}}",
+    "endOfChapter": "Fin du chapitre {{n}}",
+    "nextChapter": "Suite : chapitre {{n}} · {{title}} · {{min}} min",
+    "continueNow": "Continuer maintenant",
+    "continueTomorrow": "Continuer demain",
+    "play": "Lecture",
+    "pause": "Pause",
+    "previous": "Page précédente",
+    "next": "Page suivante",
+    "pageOf": "Page {{page}} sur {{count}}",
+    "sleepTimer": "Minuteur de sommeil",
+    "unavailable": "Cette histoire n'est pas disponible pour le moment.",
+    "chapterN": "Chapitre {{n}}"
+  },
+  "end": {
+    "didYouKnow": "Le savais-tu ?",
+    "sources": "Sources de cette histoire",
+    "quiz": "Petit quiz · {{n}} sur {{total}}",
+    "correct": "Bravo !",
+    "wrong": "Pas celle-ci",
+    "nextQuestion": "Question suivante",
+    "finishQuiz": "Voir mon score",
+    "score": "Tu as {{score}} sur {{total}} !",
+    "scoreGreat": "Incroyable, vrai explorateur !",
+    "scoreGood": "Bien joué ! L'histoire est pleine de surprises.",
+    "upNext": "À suivre",
+    "backToMap": "Retour à la carte"
   }
 }

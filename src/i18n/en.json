@@ -68,5 +68,43 @@
   "settings": {
     "language": "Language",
     "installId": "Install ID"
+  },
+  "reader": {
+    "chapterOf": "Chapter {{n}} of {{total}}",
+    "showText": "Show text",
+    "chapters": "Chapters",
+    "textAndLanguage": "Text and language",
+    "textSize": "Text size",
+    "showTextLabel": "Show text",
+    "language": "Language",
+    "minutes": "{{n}} min",
+    "finished": "finished",
+    "nowPlaying": "now playing, page {{page}} of {{count}}",
+    "endOfChapter": "End of chapter {{n}}",
+    "nextChapter": "Next: Chapter {{n}} · {{title}} · {{min}} min",
+    "continueNow": "Continue now",
+    "continueTomorrow": "Continue tomorrow",
+    "play": "Play",
+    "pause": "Pause",
+    "previous": "Previous page",
+    "next": "Next page",
+    "pageOf": "Page {{page}} of {{count}}",
+    "sleepTimer": "Sleep timer",
+    "unavailable": "This story is not available right now.",
+    "chapterN": "Chapter {{n}}"
+  },
+  "end": {
+    "didYouKnow": "Did you know?",
+    "sources": "Sources for this story",
+    "quiz": "Quick quiz · {{n}} of {{total}}",
+    "correct": "Correct!",
+    "wrong": "Not this one",
+    "nextQuestion": "Next question",
+    "finishQuiz": "See my score",
+    "score": "You got {{score}} of {{total}}!",
+    "scoreGreat": "Amazing, true explorer!",
+    "scoreGood": "Well done! History is full of surprises.",
+    "upNext": "Up next",
+    "backToMap": "Back to the map"
   }
 }

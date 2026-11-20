@@ -14,6 +14,8 @@ type SessionStatus = 'starting' | 'registering' | 'ready' | 'offline';
 export interface SessionContextValue {
   status: SessionStatus;
   ownerKey: string | null;
+  /** Secret install token for owner-keyed Convex calls (progress, quiz). Null until loaded. */
+  installToken: string | null;
   ageBand: AgeBand | null;
   setAgeBand: (ageBand: AgeBand) => Promise<void>;
 }
@@ -117,7 +119,7 @@ export function SessionProvider({ initialAgeBand, children }: SessionProviderPro
   }, []);
 
   const value = useMemo<SessionContextValue>(
-    () => ({ status, ownerKey: identity?.ownerKey ?? null, ageBand, setAgeBand }),
+    () => ({ status, ownerKey: identity?.ownerKey ?? null, installToken: identity?.installToken ?? null, ageBand, setAgeBand }),
     [status, identity, ageBand, setAgeBand],
   );
 
