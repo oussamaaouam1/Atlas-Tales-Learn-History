@@ -8,7 +8,7 @@
  * Env (.env.local): GEMINI_API_KEY; optional GEMINI_TTS_MODEL, FFMPEG (path to ffmpeg).
  */
 import { execFile } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -66,6 +66,12 @@ export function isDailyQuota(body: string): boolean {
   return /PerDay|per day|daily/i.test(body);
 }
 
+/** Silent test placeholders (~1.5 KB) count as missing, so a later run replaces them with narration. */
+export const PLACEHOLDER_MAX_BYTES = 5000;
+export function hasNarration(file: string): boolean {
+  return existsSync(file) && statSync(file).size > PLACEHOLDER_MAX_BYTES;
+}
+
 /** Splits a page's narration evenly across its images (image durationSec, STORY_SPEC §8). */
 export function splitDuration(totalSec: number, imageCount: number): number[] {
   if (imageCount <= 0) return [];
@@ -111,7 +117,7 @@ async function synthesize(text: string, speaker: Speaker, key: string, model: st
 async function updateTimings(folder: string, story: Story) {
   for (const page of story.pages) {
     const file = join(folder, 'audio', 'en', `${page.page}.m4a`);
-    if (!existsSync(file)) continue;
+    if (!hasNarration(file)) continue;
     const duration = (await parseFile(file)).format.duration ?? 0;
     const parts = splitDuration(duration, page.images.length);
     page.images.forEach((id, i) => {
@@ -140,7 +146,7 @@ export async function narrateStory(folder: string, opts: { langs: Lang[]; pages?
     for (const n of pages) {
       const page = story.pages[n - 1]!;
       const out = join(folder, 'audio', lang, `${n}.m4a`);
-      if (existsSync(out)) {
+      if (hasNarration(out)) {
         skipped++;
         continue;
       }

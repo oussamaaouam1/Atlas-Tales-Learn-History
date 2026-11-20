@@ -9,7 +9,10 @@ export const upsertStory = mutation({
   handler: async (ctx, args) => {
     if (!env.CONVEX_ADMIN_KEY || args.adminKey !== env.CONVEX_ADMIN_KEY) throw new ConvexError('Unauthorized admin');
     const { story, pages, images } = args;
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(story.slug) || pages.length < 32 || pages.length > 40 || images.length < 40 || images.length > 60 || story.pageCount !== pages.length) throw new ConvexError('Invalid story counts or slug');
+    // STORY_SPEC counts for real stories; test- stories may be shorter (owner, BACKLOG #32).
+    const isTest = story.slug.startsWith('test-');
+    const [minPages, minImages] = isTest ? [12, 12] : [32, 40];
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(story.slug) || pages.length < minPages || pages.length > 40 || images.length < minImages || images.length > 60 || story.pageCount !== pages.length) throw new ConvexError('Invalid story counts or slug');
     if (!Number.isFinite(story.releaseAt) || !Number.isFinite(story.proEarlyAccessAt) || story.proEarlyAccessAt > story.releaseAt || story.durationSec <= 0) throw new ConvexError('Invalid release or duration');
     if (story.chapters.length !== 3 || story.quiz.length !== 3) throw new ConvexError('Expected three chapters and questions');
     story.quiz.forEach(q => { if (q.options.length < 3 || q.options.length > 4 || !Number.isInteger(q.answerIndex) || q.answerIndex < 0 || q.answerIndex >= q.options.length) throw new ConvexError('Invalid quiz'); });
