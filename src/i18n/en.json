@@ -94,7 +94,10 @@
     "unavailable": "This story is not available right now.",
     "chapterN": "Chapter {{n}}",
     "hideControls": "Hide controls",
-    "showControls": "Show controls"
+    "showControls": "Show controls",
+    "yourGuide": "Your guide",
+    "letsGo": "Let's go",
+    "skipIntro": "Skip intro"
   },
   "end": {
     "didYouKnow": "Did you know?",

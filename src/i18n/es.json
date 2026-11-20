@@ -94,7 +94,10 @@
     "unavailable": "Esta historia no está disponible ahora.",
     "chapterN": "Capítulo {{n}}",
     "hideControls": "Ocultar controles",
-    "showControls": "Mostrar controles"
+    "showControls": "Mostrar controles",
+    "yourGuide": "Tu guía",
+    "letsGo": "¡Vamos!",
+    "skipIntro": "Saltar intro"
   },
   "end": {
     "didYouKnow": "¿Sabías que…?",

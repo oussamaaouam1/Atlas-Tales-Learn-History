@@ -90,3 +90,44 @@ describe('progress bar and clock', () => {
     expect(chapterMinutes(chapters, durations, 3)).toBe(5); // 10 pages × 30 s
   });
 });
+
+import { splitWords, spokenTokenIndex, swipeAction } from './readerLogic';
+
+describe('swipe to turn pages', () => {
+  test('right-to-left swipe is next in a left-to-right story, previous the other way', () => {
+    expect(swipeAction(-120, 0, false)).toBe('next');
+    expect(swipeAction(120, 0, false)).toBe('prev');
+  });
+
+  test('Arabic stories turn the other way, like a real book', () => {
+    expect(swipeAction(120, 0, true)).toBe('next');
+    expect(swipeAction(-120, 0, true)).toBe('prev');
+  });
+
+  test('a quick flick counts; a small drag does not', () => {
+    expect(swipeAction(-30, -900, false)).toBe('next');
+    expect(swipeAction(-30, -100, false)).toBeNull();
+    expect(swipeAction(10, 2000, false)).toBeNull();
+  });
+});
+
+describe('word highlighting', () => {
+  test('splitting keeps the exact text', () => {
+    const text = 'In the spring  of 711.';
+    expect(splitWords(text).join('')).toBe(text);
+  });
+
+  test('follows the narration from the first to the last word', () => {
+    const tokens = splitWords('Hi there wonderful explorer');
+    expect(spokenTokenIndex(tokens, 0)).toBe(-1);
+    expect(tokens[spokenTokenIndex(tokens, 0.01)]).toBe('Hi');
+    expect(tokens[spokenTokenIndex(tokens, 0.5)]).toBe('wonderful');
+    expect(tokens[spokenTokenIndex(tokens, 1)]).toBe('explorer');
+    expect(tokens[spokenTokenIndex(tokens, 5)]).toBe('explorer');
+  });
+
+  test('works for Arabic words', () => {
+    const tokens = splitWords('مرحبًا أيها المستكشف');
+    expect(tokens[spokenTokenIndex(tokens, 0.99)]).toBe('المستكشف');
+  });
+});

@@ -1,12 +1,15 @@
 import { useMutation, useQuery } from 'convex/react';
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import { Image } from 'expo-image';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { api } from '../../../convex/_generated/api';
+import { AnimatedGuide } from '../../components/AnimatedGuide';
 import { AppText } from '../../components/AppText';
 import { Button } from '../../components/Button';
 import { DirectionalIcon } from '../../components/DirectionalIcon';
@@ -16,7 +19,9 @@ import type { Language } from '../../i18n/languages';
 import type { RootScreenProps } from '../../navigation/types';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { useSession } from '../../providers/SessionProvider';
+import { loadReaderPrefs, saveReaderPrefs } from '../../services/preferences';
 import { tokens } from '../../theme/tokens';
+import { guideExplorer } from '../onboarding/onboardingArt';
 import { ImageSequencer } from './ImageSequencer';
 import { NarrationCard } from './NarrationCard';
 import {
@@ -28,7 +33,10 @@ import {
   imagesForPage,
   secondsBefore,
   sortedChapters,
+  splitWords,
+  spokenTokenIndex,
   storyProgress,
+  swipeAction,
   TEXT_SCALES,
   type AfterPage,
   type TextScale,
@@ -42,6 +50,7 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const { slug } = route.params;
   const { language: uiLanguage, t } = useLanguage();
   const { installToken } = useSession();
+  const { height: windowHeight } = useWindowDimensions();
   const data = useQuery(api.stories.getStory, { slug });
   const saved = useQuery(api.progress.get, installToken ? { installToken, slug } : 'skip');
   const saveProgress = useMutation(api.progress.save);
@@ -55,6 +64,29 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const [sheet, setSheet] = useState<'chapters' | 'text' | null>(null);
   const [chapterBreak, setChapterBreak] = useState<ChapterBreak | null>(null);
   const [chrome, setChrome] = useState(true);
+  // Guide intro on page 1 (design 7C, owner BACKLOG #42); dismissed by Let's go / Skip intro or leaving page 1.
+  const [intro, setIntro] = useState(true);
+
+  // Remember reader settings between stories (owner, BACKLOG #41).
+  useEffect(() => {
+    void loadReaderPrefs().then((prefs) => {
+      if (prefs.textScale) setScale(prefs.textScale);
+      if (prefs.showText !== undefined) setShowText(prefs.showText);
+      if (prefs.storyLanguage) setStoryLanguage(prefs.storyLanguage);
+    });
+  }, []);
+  const chooseScale = (value: TextScale) => {
+    setScale(value);
+    void saveReaderPrefs({ textScale: value });
+  };
+  const chooseShowText = (value: boolean) => {
+    setShowText(value);
+    void saveReaderPrefs({ showText: value });
+  };
+  const chooseStoryLanguage = (value: Language) => {
+    setStoryLanguage(value);
+    void saveReaderPrefs({ storyLanguage: value });
+  };
 
   // Resume where the reader stopped (§7.2); a finished story starts again from page 1.
   useEffect(() => {
@@ -72,7 +104,8 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const durations = useMemo(() => pages.map((p) => p.audio[storyLanguage].durationSec), [pages, storyLanguage]);
 
   // Narration: one file per page per language (§7.2).
-  const player = useAudioPlayer(null);
+  // 200 ms updates keep the word highlight in step with the narration.
+  const player = useAudioPlayer(null, { updateInterval: 200 });
   const status = useAudioPlayerStatus(player);
   const audioUrl = current?.audio[storyLanguage].url;
   useEffect(() => {
@@ -88,6 +121,19 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
     if (playing && !chapterBreak) player.play();
     else player.pause();
   }, [playing, chapterBreak, player]);
+
+  // Keep the screen awake while the narration plays (owner, BACKLOG #43).
+  useEffect(() => {
+    if (!playing || chapterBreak) return;
+    void activateKeepAwakeAsync('reader');
+    return () => {
+      void deactivateKeepAwake('reader');
+    };
+  }, [playing, chapterBreak]);
+
+  useEffect(() => {
+    if (page !== null && page > 1) setIntro(false);
+  }, [page]);
 
   // Save progress at each page (§7.2).
   useEffect(() => {
@@ -169,6 +215,57 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
   const arabicText = storyLanguage === 'ar';
   const textScale = TEXT_SCALES[scale];
 
+  // Art gestures: a sideways swipe turns the page in the story's reading direction; a tap shows or hides
+  // the controls. Exclusive, so a swipe never also counts as a tap.
+  const storyRtl = storyLanguage === 'ar';
+  const artGesture = Gesture.Exclusive(
+    Gesture.Pan()
+      .runOnJS(true)
+      .enabled(chapterBreak === null)
+      .activeOffsetX([-20, 20])
+      .failOffsetY([-25, 25])
+      .onEnd((e) => {
+        const action = swipeAction(e.translationX, e.velocityX, storyRtl);
+        if (action === 'next') goNext();
+        else if (action === 'prev') goPrev();
+      }),
+    Gesture.Tap()
+      .runOnJS(true)
+      .enabled(chapterBreak === null)
+      .onEnd(() => setChrome((visible) => !visible)),
+  );
+
+  const showIntro = intro && page === 1 && current?.speaker === 'guide';
+  const introGuideHeight = Math.min(windowHeight * 0.78, 420);
+
+  // Follow-along text: the word being read is highlighted, words already read stay dark, the rest are
+  // softer (owner, BACKLOG #40; Arabic word-by-word reveal, §7.2). Plain text until narration starts.
+  const tokens_ = current ? splitWords(current.text[storyLanguage]) : [];
+  const narrating = status.isLoaded && status.currentTime > 0;
+  const spoken = narrating ? spokenTokenIndex(tokens_, status.currentTime / pageDuration) : -1;
+  const pageText = current ? (
+    <Text
+      style={[
+        styles.pageText,
+        loading && styles.textGreyed,
+        {
+          fontFamily: arabicText ? tokens.fontFace.arabic[600] : tokens.fontFace.latin[600],
+          fontSize: 21 * textScale,
+          lineHeight: (arabicText ? 35 : 31) * textScale,
+          writingDirection: arabicText ? 'rtl' : 'ltr',
+        },
+      ]}
+    >
+      {narrating
+        ? tokens_.map((token, i) => (
+            <Text key={i} style={i === spoken ? styles.wordNow : i > spoken ? styles.wordLater : undefined}>
+              {token}
+            </Text>
+          ))
+        : current.text[storyLanguage]}
+    </Text>
+  ) : null;
+
   return (
     <View style={styles.root}>
       <ImageSequencer
@@ -179,16 +276,57 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
         dimmed={chapterBreak !== null}
       />
 
-      {/* Tap the picture to hide or show the controls (owner, BACKLOG #37). */}
-      <Pressable
-        style={StyleSheet.absoluteFill}
-        onPress={() => setChrome((visible) => !visible)}
-        disabled={chapterBreak !== null}
-        accessibilityRole="button"
-        accessibilityLabel={chrome ? t('reader.hideControls') : t('reader.showControls')}
-      />
+      {/* Tap the picture to hide or show the controls (#37); swipe it sideways to turn the page (#39). */}
+      <GestureDetector gesture={artGesture}>
+        <View
+          style={StyleSheet.absoluteFill}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel={chrome ? t('reader.hideControls') : t('reader.showControls')}
+          accessibilityActions={[{ name: 'activate' }]}
+          onAccessibilityAction={() => setChrome((visible) => !visible)}
+        />
+      </GestureDetector>
 
-      {chrome && !chapterBreak && (
+      {chrome && !chapterBreak && showIntro && current && (
+        <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(200)} style={StyleSheet.absoluteFill} pointerEvents="box-none">
+          <SafeAreaView style={styles.introOverlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
+            <View style={styles.side} pointerEvents="box-none">
+              <RoundButton accessibilityLabel={t('story.backToMap')} color={tokens.color.accent} onPress={() => navigation.popToTop()}>
+                <Icon name="home" color={tokens.color.text} />
+              </RoundButton>
+            </View>
+            <View style={styles.introRow} pointerEvents="box-none">
+              <Animated.View entering={FadeInDown.springify().damping(12)}>
+                <AnimatedGuide frames={guideExplorer.wave} width={introGuideHeight * (1024 / 1180)} height={introGuideHeight} />
+              </Animated.View>
+              <View style={styles.bubble}>
+                <AppText variant="caption" bold color="primary">
+                  {t('reader.yourGuide')}
+                </AppText>
+                <View style={styles.bubbleText}>{pageText}</View>
+                <View style={styles.introButtons}>
+                  <Button
+                    label={t('reader.letsGo')}
+                    onPress={() => setIntro(false)}
+                    endIcon={<DirectionalIcon direction="forward" size={16} color={tokens.color.textOnPrimary} />}
+                  />
+                  <Button
+                    label={t('reader.skipIntro')}
+                    variant="ghost"
+                    onPress={() => {
+                      setIntro(false);
+                      goNext();
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Animated.View>
+      )}
+
+      {chrome && !chapterBreak && !showIntro && (
         <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)} style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <SafeAreaView style={styles.overlay} edges={['top', 'bottom', 'left', 'right']} pointerEvents="box-none">
             {/* Top: home + page count (start), narration (centre), text, sleep (Pro), chapters (end). */}
@@ -234,20 +372,13 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
                 <RoundButton accessibilityLabel={t('reader.previous')} onPress={goPrev} disabled={page <= 1} size={42}>
                   <DirectionalIcon direction="back" size={20} color={tokens.color.primary} />
                 </RoundButton>
-                <Text
-                  style={[
-                    styles.pageText,
-                    loading && styles.textGreyed,
-                    {
-                      fontFamily: arabicText ? tokens.fontFace.arabic[600] : tokens.fontFace.latin[600],
-                      fontSize: 21 * textScale,
-                      lineHeight: (arabicText ? 35 : 31) * textScale,
-                      writingDirection: arabicText ? 'rtl' : 'ltr',
-                    },
-                  ]}
-                >
-                  {current.text[storyLanguage]}
-                </Text>
+                {current.speaker === 'guide' && (
+                  // The guide is speaking on this page: show the guide's face (#42).
+                  <View style={styles.guideFace} accessibilityLabel={t('reader.yourGuide')}>
+                    <Image source={guideExplorer.wave[1]} style={styles.guideFaceImage} contentFit="cover" contentPosition="top" accessibilityIgnoresInvertColors />
+                  </View>
+                )}
+                {pageText}
                 <RoundButton accessibilityLabel={t('reader.next')} onPress={goNext} color={tokens.color.success} size={42}>
                   <DirectionalIcon direction="forward" size={20} color="#FFFFFF" />
                 </RoundButton>
@@ -257,7 +388,7 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
                 <RoundButton accessibilityLabel={t('reader.previous')} onPress={goPrev} disabled={page <= 1} size={48}>
                   <DirectionalIcon direction="back" size={22} color={tokens.color.primary} />
                 </RoundButton>
-                <Pressable accessibilityRole="button" onPress={() => setShowText(true)} style={styles.showText}>
+                <Pressable accessibilityRole="button" onPress={() => chooseShowText(true)} style={styles.showText}>
                   <Icon name="text" size={18} color={tokens.color.text} />
                   <AppText variant="caption" bold>
                     {t('reader.showText')}
@@ -316,9 +447,9 @@ export function ReaderScreen({ navigation, route }: RootScreenProps<'Reader'>) {
         scale={scale}
         showText={showText}
         storyLanguage={storyLanguage}
-        onScale={setScale}
-        onShowText={setShowText}
-        onLanguage={setStoryLanguage}
+        onScale={chooseScale}
+        onShowText={chooseShowText}
+        onLanguage={chooseStoryLanguage}
         onClose={() => setSheet(null)}
       />
     </View>
@@ -398,6 +529,24 @@ const styles = StyleSheet.create({
     ...tokens.shadow.card,
   },
   textGreyed: { opacity: 0.6 },
+  wordNow: { color: tokens.color.primary },
+  wordLater: { color: tokens.color.textMuted },
+  guideFace: { width: 40, height: 40, borderRadius: 20, overflow: 'hidden', borderWidth: 2, borderColor: tokens.color.accent, backgroundColor: '#FFE9A8' },
+  guideFaceImage: { width: 64, height: 74, marginStart: -12, marginTop: -2 },
+  introOverlay: { flex: 1, paddingHorizontal: tokens.spacing.medium, paddingVertical: tokens.spacing.sm },
+  introRow: { flex: 1, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center', gap: tokens.spacing.md },
+  bubble: {
+    flexShrink: 1,
+    maxWidth: 560,
+    marginBottom: tokens.spacing.xl,
+    gap: tokens.spacing.sm,
+    padding: tokens.spacing.lg,
+    borderRadius: tokens.radius.lg,
+    backgroundColor: tokens.color.surface,
+    ...tokens.shadow.card,
+  },
+  bubbleText: { flexDirection: 'row' },
+  introButtons: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm },
   pageText: { flex: 1, color: tokens.color.text, textAlign: 'center' },
   showText: {
     flexDirection: 'row',

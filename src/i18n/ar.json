@@ -94,7 +94,10 @@
     "unavailable": "هذه القصة غير متاحة الآن.",
     "chapterN": "الفصل {{n}}",
     "hideControls": "إخفاء الأزرار",
-    "showControls": "إظهار الأزرار"
+    "showControls": "إظهار الأزرار",
+    "yourGuide": "مرشدك",
+    "letsGo": "هيا بنا",
+    "skipIntro": "تخطَّ المقدمة"
   },
   "end": {
     "didYouKnow": "هل تعلم؟",

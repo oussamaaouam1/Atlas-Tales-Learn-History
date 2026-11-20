@@ -94,7 +94,10 @@
     "unavailable": "Cette histoire n'est pas disponible pour le moment.",
     "chapterN": "Chapitre {{n}}",
     "hideControls": "Masquer les commandes",
-    "showControls": "Afficher les commandes"
+    "showControls": "Afficher les commandes",
+    "yourGuide": "Ton guide",
+    "letsGo": "C'est parti",
+    "skipIntro": "Passer l'intro"
   },
   "end": {
     "didYouKnow": "Le savais-tu ?",

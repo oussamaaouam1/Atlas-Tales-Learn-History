@@ -57,6 +57,7 @@ Use the latest stable **Expo SDK** at project start (Pillow Tales runs SDK 54; d
 | Validation | `zod` | Story JSON schema in the upload script |
 | Updates | EAS Update (over-the-air) | JS-only fixes without store review |
 | Video | `expo-video` (owner-approved 2026-11-19) | Splash intro video |
+| Keep awake | `expo-keep-awake` (owner-approved 2026-11-20) | Screen stays on while narration plays |
 
 ---
 

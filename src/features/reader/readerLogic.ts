@@ -96,3 +96,37 @@ export function chapterMinutes(chapters: readonly ChapterInfo[], pageDurationsSe
   const seconds = pageDurationsSec.slice(start - 1, end - 1).reduce((sum, d) => sum + d, 0);
   return Math.max(1, Math.round(seconds / 60));
 }
+
+/**
+ * A sideways swipe on the art (owner, BACKLOG #39): right-to-left = next page in a left-to-right
+ * story; reversed for Arabic, like a real book. Needs a clear distance or a quick flick.
+ */
+export function swipeAction(translationX: number, velocityX: number, rtl: boolean): 'next' | 'prev' | null {
+  const far = Math.abs(translationX) > 60;
+  const quick = Math.abs(velocityX) > 600 && Math.abs(translationX) > 20;
+  if (!far && !quick) return null;
+  const towardStart = translationX < 0; // finger moved left
+  return towardStart !== rtl ? 'next' : 'prev';
+}
+
+/** Words and the spaces between them, so the text can be rebuilt exactly. */
+export function splitWords(text: string): string[] {
+  return text.split(/(\s+)/).filter((part) => part.length > 0);
+}
+
+/**
+ * Index (in the splitWords array) of the word being spoken at `fraction` (0–1) of the page narration,
+ * weighting each word by its length so long words take longer (owner, BACKLOG #40). -1 before the start.
+ */
+export function spokenTokenIndex(tokens: readonly string[], fraction: number): number {
+  const words = tokens.map((t, i) => ({ i, len: /\S/.test(t) ? t.length + 1 : 0 })).filter((w) => w.len > 0);
+  const total = words.reduce((s, w) => s + w.len, 0);
+  if (total === 0 || fraction <= 0) return -1;
+  const target = Math.min(1, fraction) * total;
+  let acc = 0;
+  for (const w of words) {
+    acc += w.len;
+    if (target <= acc) return w.i;
+  }
+  return words.at(-1)!.i;
+}

@@ -44,3 +44,9 @@ Status: `todo` · `doing` · `done` · `parked` (waiting on something).
 | 36 | 2026-11-20 | Story card: must not scroll; rounded corners on all 4 sides | done | Floating card, 4 corners, no scroll; chapters with minutes; "Continue chapter n" from saved progress. |
 | 37 | 2026-11-20 | Player on phones: widest possible transcript with prev/next inside it; tap the picture to hide the controls; page-flip animation between images | done | Full-width card with arrows inside; tap art toggles controls; page-turn flip (direction follows story language, reverse when going back); crossfade within a page; reduce motion keeps crossfade. |
 | 38 | 2026-11-20 | Suggestions / improvement ideas welcome | done | Proposed in chat 2026-11-20 (swipe to turn, word highlight, remember reader settings, guide intro, keep-awake, ambient music). |
+| 39 | 2026-11-20 | Player: swipe the picture to turn pages (direction follows the story language) | done | |
+| 40 | 2026-11-20 | Player: highlight words as they are read (karaoke follow-along) | done | |
+| 41 | 2026-11-20 | Player: remember text size, show-text and story language | done | |
+| 42 | 2026-11-20 | Player: guide intro on page 1 (design 7C) + guide face on guide pages | done | |
+| 43 | 2026-11-20 | Player: keep the screen awake while narration plays (expo-keep-awake, approved) | done | |
+| 44 | 2026-11-20 | Player: optional soft background music per story | parked | Needs music tracks (owner to provide or choose a licensed source); button and playback can follow. |

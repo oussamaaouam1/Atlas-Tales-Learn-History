@@ -13,3 +13,13 @@ describe('splash icon rotation', () => {
     expect(nextRotation('5', 2)).toBe(0);
   });
 });
+
+import { loadReaderPrefs, saveReaderPrefs } from './preferences';
+
+describe('reader settings', () => {
+  test('are remembered and merged; bad values are ignored', async () => {
+    await saveReaderPrefs({ textScale: 'large' });
+    await saveReaderPrefs({ showText: false, storyLanguage: 'fr' });
+    expect(await loadReaderPrefs()).toEqual({ textScale: 'large', showText: false, storyLanguage: 'fr' });
+  });
+});

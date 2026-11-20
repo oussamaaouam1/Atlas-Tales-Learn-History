@@ -51,3 +51,31 @@ export async function takeSplashIconIndex(count: number): Promise<number> {
   await AsyncStorage.setItem(KEYS.splashIcon, String(index));
   return index;
 }
+
+/** Player settings remembered between stories (owner, BACKLOG #41). */
+export interface ReaderPrefs {
+  textScale?: 'small' | 'medium' | 'large';
+  showText?: boolean;
+  storyLanguage?: Language;
+}
+const READER_KEY = 'atlas.readerPrefs';
+
+export async function loadReaderPrefs(): Promise<ReaderPrefs> {
+  try {
+    const raw = await AsyncStorage.getItem(READER_KEY);
+    const parsed = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
+    const scale = parsed.textScale;
+    return {
+      textScale: scale === 'small' || scale === 'medium' || scale === 'large' ? scale : undefined,
+      showText: typeof parsed.showText === 'boolean' ? parsed.showText : undefined,
+      storyLanguage: isLanguage(parsed.storyLanguage) ? parsed.storyLanguage : undefined,
+    };
+  } catch {
+    return {};
+  }
+}
+
+export async function saveReaderPrefs(prefs: ReaderPrefs): Promise<void> {
+  const current = await loadReaderPrefs();
+  await AsyncStorage.setItem(READER_KEY, JSON.stringify({ ...current, ...prefs }));
+}
